@@ -1,0 +1,264 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.button.collectionsheet' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <form name="inputscoreform" novalidate class="form-horizontal"
+              ng-controller="InputScoreController">
+            <api-validate></api-validate>
+            <h2><strong ng-show="noData" style="padding-top: 400px !important;">{{'label.norepaymentsanddisbursalareavailableforclient'| translate}}</strong></h2>
+            <h2><strong ng-show="val" class="display-save-message">{{'label.savecollectionsheetsuccessfully' |
+            translate}}</strong></h2>
+            <fieldset ng-hide="val || noData">
+            <div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.stydey.year' | translate}}</label>
+                    <div class="col-sm-3">
+                       <select id="studyyearId" ng-model="formData.studyyearId" class="form-control"
+                          ng-options="studyyear.id as studyyear.name for studyyear in studyyearotions"
+                          value="{{studyyear.id}}">
+                          <option value="">--{{'label.stydey.year' | translate}}--</option>
+                       </select>
+                    </div>
+                    <label class="control-label col-sm-2">{{'label.class' | translate}}</label>
+                    <div class="col-sm-3">
+                       <select id="classoption" ng-model="formData.classoption"
+                          class="form-control"
+                          ng-options="classoption.id as classoption.name for classoption in classoptions"
+                          value="{{classoption.id}}">
+                          <option value="">--{{'label.class' | translate}}--</option>
+                       </select>
+                    </div>
+                 </div>
+
+
+                <div class="form-group">
+                    
+                    <label class="control-label col-sm-2">{{'label.subject' | translate}}</label>
+                    <div class="col-sm-3">
+                       <select disabled  id="subjects" ng-model="formData.subject"
+                          class="form-control"
+                          ng-options="subject.id as subject.name for subject in subjects"
+                          value="{{subject.id}}">
+                          <option value="">--{{'label.subject' | translate}}--</option>
+                       </select>
+                    </div>
+                    <label class="control-label col-sm-2">{{'label.scoretype' | translate}}</label>
+                    <div class="col-sm-3">
+                       <select id="scoretype" ng-model="formData.scoretype"
+                          class="form-control"
+                          ng-change="checksocretype(formData.scoretype)"
+                          ng-options="scoretype.id as scoretype.name for scoretype in scoretypeoptions"
+                          value="{{scoretype.id}}">
+                          <option value="">--{{'label.scoretype' | translate}}--</option>
+                       </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label ng-show="showmonth" class="control-label col-sm-2">{{'label.month' | translate}}</label>
+                    <div ng-show="showmonth" class="col-sm-3">
+                       <select id="monthly" ng-model="formData.monthly"
+                          class="form-control"
+                          ng-options="monthly.id as monthly.name for monthly in monthlyoptions"
+                          value="{{monthly.id}}">
+                          <option value="">--{{'label.month' | translate}}--</option>
+                       </select>
+                    </div>
+                   
+                    <label class="control-label col-sm-2">{{ 'label.input.transactiondate' |  translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="transactionDate" name="transactiondate"  datepicker-pop="dd MMMM yyyy"
+                           ng-model="date.transactionDate" is-open="opened" min="minDate" class=" form-control"/>
+                </div>
+                </div>
+
+              
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" ng-click="previewCollectionSheet()">
+                            {{'label.button.collectionsheet' |
+                            translate}}
+                            <i class="fa fa-arrow-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="paddedbottom"></div>
+            <div class="span">
+            <div class="col-sm-12 col-lg-12 col-md-12">
+                <div ng-show="collectionsheetdata"
+                     style="overflow-x:auto!important; white-space:nowrap;">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="highlightcol" scope="colgroup"
+                                colspan="6">{{'label.heading.duecollections' |
+                                translate}}
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>{{'label.heading.loanaccountnum' | translate}}</th>
+                            <th>{{'label.heading.productname' | translate}}</th>
+                            <th>{{'label.heading.clientname' | translate}}</th>
+                            <th>{{'label.heading.totaldue' | translate}}</th>
+                            <th>{{'label.heading.charges' | translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="client in collectionsheetdata.clients">
+                        <tr ng-repeat-start="loan in client.loans">
+                            <td>{{loan.accountId}}</td>
+                            <td>{{loan.productShortName}}({{loan.productId}})</td>
+                            <td>{{client.clientName}}({{client.clientId}})</td>
+                            <td>
+                                <input id="loantotal" type="text" class="input-sm form-control"
+                                       ng-model="loan.totalDue">
+                            </td>
+                            <td>
+                                {{loan.feeDue}}
+                            </td>
+                            <td>
+                                <button class="btn btn-default" ng-show="!loan.showPaymentDetails"
+                                        data-ng-click="showLoanPaymentDetails($parent.$index,$index)"
+                                        >{{'label.button.addpaymentdetail'| translate}}
+                                </button>
+                            </td>
+                        </tr>
+                        <tr ng-show="loan.showPaymentDetails" ng-repeat-end>
+                            <td colspan="6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <td>{{ 'label.input.paymenttype' | translate}}</td>
+                                        <td>{{ 'label.input.accnum' | translate}}</td>
+                                        <td>{{ 'label.input.checknumber' | translate}}</td>
+                                        <td>{{ 'label.input.routingcode' | translate}}</td>
+                                        <td>{{ 'label.input.receiptnumber' | translate}}</td>
+                                        <td>{{ 'label.input.banknumber' | translate}}</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><select ng-model="loan.paymentTypeId"
+                                                    class="form-control"
+                                                    ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
+                                                    value="{{paymentType.id}}"></select></td>
+                                        <td><input type="text" class="form-control"
+                                                   ng-model="loan.accountNumber"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="loan.checkNumber"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="loan.routingCode"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="loan.receiptNumber"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="loan.bankNumber"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="highlightcol" scope="colgroup"
+                                colspan="5">{{'label.heading.due.savings.collections' |
+                                translate}}
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>{{'label.heading.depositaccounttype' | translate }}</th>
+                            <th>{{'label.heading.savingsaccountno' | translate}}</th>
+                            <th>{{'label.heading.productname' | translate}}</th>
+                            <th>{{'label.heading.clientname' | translate}}</th>
+                            <th>{{'label.heading.totaldue' | translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="client in collectionsheetdata.clients">
+                        <tr ng-repeat-start="saving in client.savings">
+                            <td>{{saving.depositAccountType}}</td>
+                            <td>{{saving.accountId}}</td>
+                            <td>{{saving.productName}}({{saving.productId}})</td>
+                            <td>{{client.clientName}}({{client.clientId}})</td>
+                            <td>
+                                <input id="total" type="text" class="input-sm form-control"
+                                       ng-model="saving.dueAmount">
+                            </td>
+                            <td>
+                                <button class="btn btn-default" ng-show="!saving.showPaymentDetails"
+                                        data-ng-click="showSavingsPaymentDetails($parent.$index,$index)"
+                                        >{{'label.button.addpaymentdetail'| translate}}
+                                </button>
+                            </td>
+                        </tr>
+                        <tr ng-show="saving.showPaymentDetails" ng-repeat-end>
+                            <td colspan="6">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <td>{{ 'label.input.paymenttype' | translate}}</td>
+                                        <td>{{ 'label.input.accnum' | translate}}</td>
+                                        <td>{{ 'label.input.checknumber' | translate}}</td>
+                                        <td>{{ 'label.input.routingcode' | translate}}</td>
+                                        <td>{{ 'label.input.receiptnumber' | translate}}</td>
+                                        <td>{{ 'label.input.banknumber' | translate}}</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><select ng-model="saving.paymentTypeId"
+                                                    class="form-control"
+                                                    ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
+                                                    value="{{paymentType.id}}"></select></td>
+                                        <td><input type="text" class="form-control"
+                                                   ng-model="saving.accountNumber"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="saving.checkNumber"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="saving.routingCode"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="saving.receiptNumber"></td>
+                                        <td><input class="form-control" type="text"
+                                                   ng-model="saving.bankNumber"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <br>
+            <br>
+            </div>
+
+            <div class="col-sm-12 col-md-12 paddedtop10">
+            <div class="col-md-offset-3 paddedtop">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel'
+                    |
+                    translate}}
+                </button>
+                <button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
+                        ng-click="submit()">{{'label.button.save' | translate}}
+                </button>
+            </div>
+            </div>
+            </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -181,22 +181,22 @@
 			<uib-tabset class="scrollable" tabset-name="clientTabset" scrollable persistent-tab>
 				<uib-tab heading="{{'label.heading.general' | translate}}">
 						<div class="col-md-11 col-sm-11 btn-group row pull-right">
-								  <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary btn-offset"
+								  <!-- <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary btn-offset"
 									 has-permission='{{button.taskPermissionName}}' ng-repeat="button in buttonsArray.singlebuttons" >
-									  <i class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a>
-							<button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
+									  <i class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a> -->
+							<!-- <button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
 									data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
 									class="fa fa-trash-o "></i>{{"label.button.delete"
 								| translate}}
-							</button>
+							</button> -->
 							<a href="#/client/{{client.id}}/updatedefaultaccount" class="btn btn-primary btn-offset"
 							   data-ng-show="updateDefaultSavings" has-permission='UPDATESAVINGSACCOUNT_CLIENT'><i
 									class="fa fa-edit "></i>{{"label.button.updatedefaultsavings" | translate}}
 							</a>
-							<button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()"
+							<!-- <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()"
 									data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="fa fa-user "></i>{{"label.button.unassignstaff" | translate}}
-							</button>
-							<span uib-dropdown ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
+							</button> -->
+							<!-- <span uib-dropdown ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
 									<a uib-dropdown-toggle class="btn btn-primary">
 										{{ 'label.button.more' | translate}}
 										<span class="caret"></span>
@@ -247,7 +247,7 @@
 											<a href="#/selfservice/createuser/{{client.id}}">{{'label.createselfserviceuser' | translate}}</a>
 										</li>
 									</ul>
-								</span>
+								</span> -->
 						</div>
                     <br>
                     <br>
@@ -765,6 +765,16 @@
                         <br>
 						<div class="col-sm-3 col-md-3">
 							<div class="thumbnail row">
+
+								<a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary btn-offset"
+								has-permission='{{button.taskPermissionName}}' ng-repeat="button in buttonsArray.singlebuttons" >
+								 <i class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a>
+								 <span style="margin-left: 10px;"></span>
+					   <button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
+							   data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
+							   class="fa fa-trash-o "></i>{{"label.button.delete"
+						   | translate}}
+					   </button>
 								<h4><strong>{{client.displayName}}</strong></h4>
 								<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
 								<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
@@ -782,8 +792,8 @@
 										<i class="fa fa-trash-o"></i>
 									</button>
 								</div>
-                                <div ng-show="signature_url" class="show-large-picture center" data-ng-click="showSignature()"><a>{{'label.showClientSignature' | translate}}</a></div>
-                                <div ng-hide="signature_url" class="show-large-picture center" data-ng-click="showWithoutSignature()"><a>{{'label.showClientSignature' | translate}}</a></div>
+                                <!-- <div ng-show="signature_url" class="show-large-picture center" data-ng-click="showSignature()"><a>{{'label.showClientSignature' | translate}}</a></div>
+                                <div ng-hide="signature_url" class="show-large-picture center" data-ng-click="showWithoutSignature()"><a>{{'label.showClientSignature' | translate}}</a></div> -->
 								<table class="table-minified">
 									<tr>
 										<th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
@@ -791,7 +801,7 @@
 												data-ng-hide="client.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span></span>
 										</td>
 									</tr>
-									<tr>
+									<!-- <tr>
 										<th class="table-bold">{{ 'label.heading.memberof' | translate }}</th>
 										<td>
 											<span class="padded-td" data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span>
@@ -801,12 +811,12 @@
 													ng-show="!$last">|</span>
 										</span>
 										</td>
-									</tr>
-                                    <tr>
+									</tr> -->
+                                    <!-- <tr>
                                         <th class="table-bold">{{ 'label.input.isStaff' | translate }}</th>
                                         <td><span class="padded-td">{{client.isStaff}}</span>
                                         </td>
-                                    </tr>
+                                    </tr> -->
 									<tr data-ng-show="client.mobileNo">
 										<th class="table-bold">{{ 'label.input.mobilenumber' | translate }}</th>
 										<td><span class="padded-td">{{client.mobileNo}}</span>
@@ -837,28 +847,28 @@
 										<th class="table-bold">{{ 'label.heading.closedate' | translate }}</th>
 										<td><span class="padded-td">{{client.timeline.closedOnDate | DateFormat}}</span></td>
 									</tr>
-									<tr>
+									<!-- <tr>
 										<th class="whitebg" colspan="2">{{ 'label.heading.performancehistory' | translate }}</th>
-									</tr>
-									<tr>
+									</tr> -->
+									<!-- <tr>
 										<th>{{ 'label.heading.numofloancycle' | translate }}</th>
 										<td><span class="padded-td">{{client.ClientSummary.loanCycle}}</span></td>
-									</tr>
-									<tr>
+									</tr> -->
+									<!-- <tr>
 										<th>{{ 'label.lastloanamount' | translate }}</th>
 										<td><span class="padded-td">{{client.ClientSummary.lastLoanAmount|number}}</span></td>
-									</tr>
-									<tr>
+									</tr> -->
+									<!-- <tr>
 										<th>{{ 'label.numofactiveloans' | translate }}</th>
 										<td><span class="padded-td">{{client.ClientSummary.activeLoans}}</span></td>
-									</tr>
-									<tr ng-repeat="t in totalAllSavingsAccountsBalanceBasedOnCurrency">
+									</tr> -->
+									<!-- <tr ng-repeat="t in totalAllSavingsAccountsBalanceBasedOnCurrency">
 										<th>{{ 'label.totalsavings' | translate }}({{t.code}})</th>
 										<td><span class="padded-td">{{t.totalSavings|number}}</span></td>
 									<tr>
 										<th>{{ 'label.numofactivesavings' | translate }}</th>
 										<td><span class="padded-td">{{client.ClientSummary.activeSavings}}</span></td>
-									</tr>
+									</tr> -->
 								</table>
 							</div>
 						</div>
@@ -1004,7 +1014,7 @@
 
 				<!--family tab-->
 
-				<uib-tab ng-show="families" heading="{{'label.heading.familymembers' | translate}}" >
+				<!-- <uib-tab ng-show="families" heading="{{'label.heading.familymembers' | translate}}" >
 					<div ng-show="families">
 						<button class="btn btn-primary pull-right" ng-click="routeToaddFamilyMember()"><i class="icon-plus icon-white"></i>{{'label.button.addfamilymember' | translate}}</button>
 						<br>
@@ -1141,12 +1151,12 @@
 						</table>
 
 					</div>
-				</uib-tab>
+				</uib-tab> -->
 
 
 				<!--end of family tab-->
 
-				<uib-tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
+				<!-- <uib-tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
 						 has-permission='READ_CLIENTIDENTIFIER'>
 					<div class="pull-right btn-group">
 						<a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
@@ -1191,7 +1201,7 @@
 						</tr>
 						</tbody>
 					</table>
-				</uib-tab>
+				</uib-tab> -->
 				<uib-tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
 					<div class="pull-right">
 						<a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
@@ -1295,7 +1305,7 @@
 						</blockquote>
 					</div>
 				</uib-tab>
-				<uib-tab heading="{{ 'label.heading.creditreportcheck' | translate }}" has-permission='READ_CLIENTNOTE'>
+				<!-- <uib-tab heading="{{ 'label.heading.creditreportcheck' | translate }}" has-permission='READ_CLIENTNOTE'>
 					<form class="form">
 						<div class="form-group">
 							<tr>
@@ -1320,7 +1330,7 @@
                             </div>
                         </form>
 
-                    </uib-tab>
+                    </uib-tab> -->
                 </uib-tabset>
             </div>
         </div>

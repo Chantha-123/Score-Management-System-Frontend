@@ -258,7 +258,7 @@
 
                     }
                     else {
-                        scope.buttons.push(clientStatus.getStatus("Assign Staff"));
+                        // scope.buttons.push(clientStatus.getStatus("Assign Staff"));
                     }
                 }
 

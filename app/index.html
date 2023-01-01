@@ -195,7 +195,7 @@
                 <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.hideCommunityDetails">
                 <hr/>
                 
-                <div class="row" >
+                <!-- <div class="row" >
                     <div class="col-xs-4 text-center">
 
                         <ul class="list-unstyled">
@@ -244,11 +244,11 @@
                         </ul>
 
                     </div>
-                </div>
+                </div> -->
 
                 <hr/>
             
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 text-center">
                         <br>
 
@@ -258,14 +258,14 @@
                         </p>
 
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
+            <!-- <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
                 <p class="text-center text-muted small">
                     <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
                     <br/> <span>{{response.uiDisplayConfigurations.whiteLabel.loginPage.companyName}}{{ 'label.heading.uptodate' | translate }}</span>
                 </p>
-            </div>
+            </div> -->
             </div>
         </div>
     </div>
@@ -286,7 +286,7 @@
 
             <div id="mifos-reskin-body-container" style="background-color: #ebeff1">
                 <nav id="mifos-reskin-side-nav"  ng-scrollbar>
-                    <div class="left-nav">
+                    <!-- <div class="left-nav">
                         <ul>
                             <li>
                                 <a class="black" href="#/help">
@@ -382,7 +382,7 @@
                             </li>
 
                         </ul>
-                    </div>
+                    </div> -->
                 </nav>
             </div>
             <div id="mifos-reskin-body-view">
@@ -390,10 +390,18 @@
                 <!-- Footer -->
                 <br><br>
                 <footer>
-                    <p align="center"><a
+                    <p align="center">
+                        <!-- <a
                             href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel"
                             target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
-                        translate}} {{releasedate}} </a></p>
+                        translate}} {{releasedate}}  -->
+
+                        <a href="">  {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
+                            translate}} {{releasedate}} </a>
+
+                      
+                    </a>
+                    </p>
                 </footer>
                 <hr>
             </div>

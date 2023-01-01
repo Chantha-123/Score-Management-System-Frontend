@@ -1,0 +1,23 @@
+<form name="scoreform" novalidate="" class="content-container form-horizontal" ng-controller="SubjectController"
+      rc-submit="submit()">
+<div class="content-container">
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>Subjects</h4>
+            </div>
+            <br>
+            <div class="row">
+                <div ng-repeat="subject in subjects" class="col-sm-6 col-md-6">
+                    <div  class="list-group">
+
+                        <a href="#inputscore/{{subject.id}}"  class="btn btn-primary btn-offset list-group-item ">
+								 <i class="{{button.icon}} icon-white"></i>{{subject.name | translate}}</a>		
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+</div>
+</form>

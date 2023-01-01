@@ -28,15 +28,15 @@
                            <p class="form-control-static">{{forceOffice.name}}</p>
                         </div>
                      </div>
-                     <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
-                     <div class="col-sm-3">
+                     <!-- <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label> -->
+                     <!-- <div class="col-sm-3">
                         <select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control"
                            ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                            <option value="">--{{'label.menu.selectloanofficer' | translate}}--</option>
                         </select>
-                     </div>
+                     </div> -->
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <label class="control-label col-sm-2">{{'label.input.legalForm' | translate}}<span class="required">*</span></label>
                      <div class="col-sm-3">
                         <select id="legalFormId" ng-model="formData.legalFormId" class="form-control"
@@ -45,7 +45,7 @@
                            <option value="">--{{'label.menu.legalForm' | translate}}--</option>
                         </select>
                      </div>
-                  </div>
+                  </div> -->
                   <div data-ng-switch on="showNonPersonOptions">
                      <div data-ng-switch-when="false">
                         <div class="form-group">
@@ -53,7 +53,7 @@
                               }}<span class="required">*</span></label>
                            <div class="col-sm-3">
                               <input type="text" id="firstname" name="firstname" ng-model="formData.firstname"
-                                 class="form-control" required ng-pattern="/(^[A-z])[A-z.'-]*/" late-Validate />
+                                 class="form-control" required  late-Validate />
                            </div>
                            <div class="col-sm-2">
                               <span ng-show="createclientform.firstname.$invalid && createclientform.firstname.$dirty">
@@ -69,12 +69,12 @@
                   <div data-ng-switch on="showNonPersonOptions">
                      <div data-ng-switch-when="false">
                         <div class="form-group">
-                           <label class="control-label col-sm-2" for="middlename">{{'label.input.middlename' |
-                              translate}}</label>
-                           <div class="col-sm-3">
+                           <!-- <label class="control-label col-sm-2" for="middlename">{{'label.input.middlename' |
+                              translate}}</label> -->
+                           <!-- <div class="col-sm-3">
                               <input type="text" id="middlename" name="middlename" ng-model="formData.middlename"
                                  class="form-control" ng-pattern="/(^[A-z])[A-z.'-]*/" />
-                           </div>
+                           </div> -->
                            <div class="col-sm-2">
                               <span
                                  ng-show="createclientform.middlename.$invalid && createclientform.middlename.$dirty">
@@ -83,14 +83,14 @@
                                  </small>
                               </span>
                            </div>
-                           <label data-ng-switch on="showNonPersonOptions" class="control-label col-sm-2"
-                              for="isStaff">{{ 'label.input.isStaff' | translate }}</label>
+                           <!-- <label data-ng-switch on="showNonPersonOptions" class="control-label col-sm-2"
+                              for="isStaff">{{ 'label.input.isStaff' | translate }}</label> -->
 
-                           <div data-ng-switch on="showNonPersonOptions" class="col-sm-3">
+                           <!-- <div data-ng-switch on="showNonPersonOptions" class="col-sm-3">
                               <label class="checkbox">
                                  <input type="checkbox" id="isStaff" ng-model="formData.isStaff">
                               </label>
-                           </div>
+                           </div> -->
                         </div>
                      </div>
                   </div>
@@ -102,7 +102,7 @@
                            </label>
                            <div class="col-sm-3">
                               <input type="text" id="lastname" name="lastname" ng-model="formData.lastname"
-                                 class="form-control" ng-pattern="/(^[A-z])[A-z.'-]*/" required late-Validate />
+                                 class="form-control"  required late-Validate />
                            </div>
                            <div class="col-sm-2">
                               <span ng-show="createclientform.lastname.$invalid && createclientform.lastname.$dirty">
@@ -135,7 +135,7 @@
                         translate}}</label>
                      <div class="col-sm-3">
                         <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
-                           ng-pattern="/^[0-9]+$/" class="form-control" />
+                           class="form-control" />
                      </div>
                      <div class="col-sm-2">
                         <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
@@ -180,21 +180,21 @@
                      </div>
                   </div>
                   <div class="form-group">
-                     <label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
+                     <label class="control-label col-sm-2">{{'label.stydey.year' | translate}}</label>
                      <div class="col-sm-3">
-                        <select id="clienttypeId" ng-model="formData.clientTypeId" class="form-control"
-                           ng-options="clienttype.id as clienttype.name for clienttype in clienttypeOptions"
-                           value="{{clienttype.id}}">
-                           <option value="">--{{'label.menu.clienttype' | translate}}--</option>
+                        <select id="studyyearId" ng-model="formData.studyyearId" class="form-control"
+                           ng-options="studyyear.id as studyyear.name for studyyear in studyyearotions"
+                           value="{{studyyear.id}}">
+                           <option value="">--{{'label.stydey.year' | translate}}--</option>
                         </select>
                      </div>
-                     <label class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
+                     <label class="control-label col-sm-2">{{'label.class' | translate}}</label>
                      <div class="col-sm-3">
-                        <select id="clientClassificationId" ng-model="formData.clientClassificationId"
+                        <select id="classoption" ng-model="formData.classoption"
                            class="form-control"
-                           ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions"
-                           value="{{clientClassification.id}}">
-                           <option value="">--{{'label.menu.clientclassification' | translate}}--</option>
+                           ng-options="classoption.id as classoption.name for classoption in classoptions"
+                           value="{{classoption.id}}">
+                           <option value="">--{{'label.class' | translate}}--</option>
                         </select>
                      </div>
                   </div>
@@ -249,14 +249,14 @@
                         </div>
                      </div>
                   </div>
-                  <div class="form-group">
-                     <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' |
-                        translate}}</label>
+                  <!-- <div class="form-group">
+                     <!-- <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' |
+                        translate}}</label> 
                      <div class="col-sm-3">
                         <input type="text" id="externalId" name="externalId" ng-model="formData.externalId"
                            class="form-control" />
-                     </div>
-                  </div>
+                     </div> -->
+                  <!-- </div> -->
                   <div class="form-group" has-permission="ACTIVATE_CLIENT">
                      <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
                      <div class="col-sm-3">
@@ -301,7 +301,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <div class="form-group">
                         <div class="control-label col-sm-3">
                            <h3><strong>{{ 'label.heading.familymembers' | translate }}</strong>&nbsp;<a
@@ -466,9 +466,9 @@
 
                      </div>
 
-                  </div>
+                  </div> -->
 
-                  <div ng-show="enableAddress" class="form-group">
+                  <!-- <div ng-show="enableAddress" class="form-group">
                      <div class="form-group">
                         <div class="control-label col-sm-2">
                            <h3><strong>{{ 'label.input.address' | translate }}</strong>&nbsp;<a
@@ -601,7 +601,7 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   <div class="pull-right">
                      <button id="save1" class="btn btn-primary" ng-if="datatables" wz-next>
                         {{'label.button.proceed' | translate}}

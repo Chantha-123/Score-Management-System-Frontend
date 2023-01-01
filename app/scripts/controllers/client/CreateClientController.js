@@ -44,6 +44,18 @@
             if (routeParams.officeId) {
                 requestParams.officeId = routeParams.officeId;
             }
+
+
+            resourceFactory.codeValueResource.getAllCodeValues({codeId: 40}, function (data) {
+                scope.studyyearotions = data;
+    
+            });
+
+            resourceFactory.codeValueResource.getAllCodeValues({codeId: 41}, function (data) {
+                scope.classoptions = data;
+                
+            });
+
             resourceFactory.clientTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;

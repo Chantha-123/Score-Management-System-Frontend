@@ -536,6 +536,12 @@
             .when('/reports/:type', {
                 templateUrl: 'views/reports/view_reports.html'
             })
+            .when('/scores',{
+                templateUrl : 'views/studentscores/subject.html' 
+            })
+            .when('/inputscore/:id',{
+                templateUrl : 'views/studentscores/inputscore.html' 
+            })
             .when('/run_report/:name', {
                 templateUrl: 'views/reports/run_reports.html'
             })

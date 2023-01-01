@@ -10,6 +10,15 @@
             scope.opensavingsproduct = 'false';
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
+            resourceFactory.codeValueResource.getAllCodeValues({codeId: 40}, function (data) {
+                scope.studyyearotions = data;
+    
+            });
+
+            resourceFactory.codeValueResource.getAllCodeValues({codeId: 41}, function (data) {
+                scope.classoptions = data;
+                
+            });
             resourceFactory.clientResource.get({clientId: routeParams.id, template:'true', staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
@@ -34,6 +43,8 @@
                     savingsProductId: data.savingsProductId,
                     genderId: data.gender.id,
                     fullname: data.fullname,
+                    studyyearId :data.study_id,
+                    classoption : data.class_id,
                     clientNonPersonDetails : {
                         incorpNumber: data.clientNonPersonDetails.incorpNumber,
                         remarks: data.clientNonPersonDetails.remarks

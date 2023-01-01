@@ -25,18 +25,40 @@
                     <ul class="" uib-dropdown-menu id="swatch-menu">
                         <li><a href="#/clients" has-permission='READ_CLIENT'>{{ 'label.anchor.clients' | translate
                             }}</a></li>
-                        <li><a href="#/groups" has-permission='READ_GROUP'>{{ 'label.anchor.groups' | translate
+                        <!-- <li><a href="#/groups" has-permission='READ_GROUP'>{{ 'label.anchor.groups' | translate
                             }}</a></li>
                         <li><a href="#/centers" has-permission='READ_CENTER'>{{ 'label.anchor.centers' | translate
-                            }}</a></li>
+                            }}</a></li> -->
                     </ul>
                 </li>
-                <li uib-dropdown is-open="li.accounting.status.isopen"
+                <!-- <li uib-dropdown is-open="li.accounting.status.isopen"
                 ng-mouseenter="li.accounting.status.isopen = true" ng-mouseleave="li.accounting.status.isopen = false">
                     <a ng-class="{ activate: isActive('acc') }" href="#/accounting">
                         <i class="fa fa-money"></i> {{ 'label.anchor.accounting' | translate }}
                     </a>
-                </li>
+                </li> -->
+<!-- score Manangement -->
+<li class="" uib-dropdown id="reports-menu" is-open="li.scores.status.isopen"
+ng-mouseenter="li.scores.status.isopen = true" ng-mouseleave="li.scores.status.isopen = false">
+    <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
+       ng-class="{ activate: isActive('rep') }" href>
+       <i class="fa fa-large fa fa-file-excel-o" aria-hidden="true"></i>{{
+        'label.anchor.score' | translate }}<b class="caret"></b></a>
+    <ul class="" uib-dropdown-menu>
+        <li><a href="#/scores" has-permission='READ_REPORT'>{{ 'label.anchor.monthlyscore' | translate
+            }}</a></li>
+        <li><a href="#/reports/clients" has-permission='READ_REPORT'>{{ 'label.anchor.semesterscore' |
+            translate }}</a></li>
+        <li><a href="#/reports/loans" has-permission='READ_REPORT'>{{ 'label.anchor.finalyear' |
+            translate }}</a></li>
+    </ul>
+</li>
+
+
+<!-- end  score management -->
+
+
+
                 <li class="" uib-dropdown id="reports-menu" is-open="li.reports.status.isopen"
                 ng-mouseenter="li.reports.status.isopen = true" ng-mouseleave="li.reports.status.isopen = false">
                     <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
@@ -78,7 +100,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="main-menu-right">
-                <li class="" uib-dropdown id="notification-icon" ng-controller="NotificationsController" is-open="li.notif.status.isopen"
+                <!-- <li class="" uib-dropdown id="notification-icon" ng-controller="NotificationsController" is-open="li.notif.status.isopen"
                 ng-mouseenter="li.notif.status.isopen = true" ng-mouseleave="li.notif.status.isopen = false">
                     <a href class="" uib-dropdown-toggle data-toggle="uib-dropdown"
                        ng-click="fetchItemsInNotificationTray()">
@@ -96,7 +118,7 @@
                             <a href="#/notifications">Show all notifications</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="" uib-dropdown id="user-menu" is-open="li.user.status.isopen"
                 ng-mouseenter="li.user.status.isopen = true" ng-mouseleave="li.user.status.isopen = false">
                     <a id="user-dropdown" class="" uib-dropdown-toggle data-toggle="uib-dropdown" href>
@@ -114,7 +136,7 @@
                 </li>
 
             </ul>
-            <form ng-submit="search()" class="navbar-form navbar-right">
+            <!-- <form ng-submit="search()" class="navbar-form navbar-right">
                 <div class="input-group pull-left" >
                     <input id="search" type="text" class="form-control input-sm unstyled" style="width:250px;" data-ng-model="search.query"
                            placeholder="{{'label.searchorpress'|translate}}">
@@ -129,7 +151,7 @@
                         </ul>
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
     </div>
 </nav>

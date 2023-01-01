@@ -21,17 +21,17 @@
 	                </select>
 	            </div>
 
-				<label class="control-label col-sm-2">{{ 'label.heading.staff' | translate }}:</label>
+				<!-- <label class="control-label col-sm-2">{{ 'label.heading.staff' | translate }}:</label>
 
 				<div class="col-sm-3">
 					<select chosen="staffs" id="staffId" ng-model="formData.staffId"  class="form-control"
 							ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
 						<option value="">{{'label.menu.selectloanofficer' | translate}}</option>
 					</select>
-				</div>
+				</div> -->
 	        </div>
 
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label class="control-label col-sm-2">{{'label.input.legalForm' | translate}}</label>
 
 				<div class="col-sm-3">
@@ -41,7 +41,7 @@
 						<option value="">--{{'label.menu.legalForm' | translate}}--</option>
 					</select>
 				</div>
-			</div>
+			</div> -->
 
 			<div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="false">
@@ -60,7 +60,7 @@
 				</div>
 	        </div>
 
-			<div data-ng-switch on="showNonPersonOptions">
+			<!-- <div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="false">
 					<div class="form-group">
 						<label class="control-label col-sm-2">{{ 'label.input.middlename' | translate }}:</label>
@@ -76,7 +76,7 @@
 						</div>
 					</div>
 				</div>
-	        </div>
+	        </div> -->
 
 			<div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="false">
@@ -117,13 +117,13 @@
 	                <input id="accountNo" type="text" ng-model="formData.accountNo" class="form-control" disabled="disabled">
 	            </div>
 	        </div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 			    <label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:</label>
 			
 			    <div class="col-sm-3">
 			        <input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
 			    </div>
-			</div>
+			</div> -->
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
 	
@@ -173,23 +173,24 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
-
+				<label class="control-label col-sm-2">{{'label.stydey.year' | translate}}</label>
 				<div class="col-sm-3">
-					<select id="clientTypeId" ng-model="formData.clientTypeId"  class="form-control"
-							ng-options="clienttype.id as clienttype.name for clienttype in clienttypeOptions" value="{{clienttype.id}}">
-						<option value="">--{{'label.menu.clienttype' | translate}}--</option>
-					</select>
+				   <select id="studyyearId" ng-model="formData.studyyearId" class="form-control"
+					  ng-options="studyyear.id as studyyear.name for studyyear in studyyearotions"
+					  value="{{studyyear.id}}">
+					  <option value="">--{{'label.stydey.year' | translate}}--</option>
+				   </select>
 				</div>
-				<label class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
-
+				<label class="control-label col-sm-2">{{'label.class' | translate}}</label>
 				<div class="col-sm-3">
-					<select id="clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
-							ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">
-						<option value="">--{{'label.menu.clientclassification' | translate}}--</option>
-					</select>
+				   <select id="classoption" ng-model="formData.classoption"
+					  class="form-control"
+					  ng-options="classoption.id as classoption.name for classoption in classoptions"
+					  value="{{classoption.id}}">
+					  <option value="">--{{'label.class' | translate}}--</option>
+				   </select>
 				</div>
-			</div>
+			 </div>
 
 			<div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="true">
