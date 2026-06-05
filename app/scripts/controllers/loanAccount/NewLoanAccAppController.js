@@ -29,6 +29,8 @@
             scope.addedCollateral = {};
 
             scope.date.first = new Date();
+           
+           
 
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
@@ -86,11 +88,14 @@
                     scope.datatables = data.datatables;
                     scope.handleDatatables(scope.datatables);
                     scope.disabled = false;
+                    scope.formData.isEqualAmortization = false;
+                    scope.formData.amortizationType = 0;
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
+                
             }
 
             scope.goNext = function(form){
@@ -139,6 +144,7 @@
             scope.resetPreviewFlag = function() {
                 scope.previewRepayment =  !scope.previewRepayment;
             };
+           
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
@@ -250,6 +256,24 @@
             },true);
 
             scope.formValue = function(array,model,findattr,retAttr){
+                    if(model == 5)
+                    {
+                        scope.formData.isEqualAmortization = true;
+                        scope.formData.amortizationType = 1;
+                        scope.formData.graceOnPrincipalPayment = null;
+                    }else if(model == 0)
+                    {
+                        scope.formData.isEqualAmortization = false;
+                        scope.formData.amortizationType = 0;
+                        scope.formData.graceOnPrincipalPayment = null;
+                    }else if(model == 3)
+                    {
+                        scope.formData.graceOnPrincipalPayment = scope.formData.loanTermFrequency-1;
+                    }
+                    else if(model == 4)
+                    {
+                        scope.formData.graceOnPrincipalPayment = null;
+                    }
                 findattr = findattr ? findattr : 'id';
                 retAttr = retAttr ? retAttr : 'value';
                 console.log(findattr,retAttr,model);
@@ -403,6 +427,7 @@
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);
                 var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
                 var reqFifthDate = dateFilter(scope.date.fifth, scope.df);
+                // scope.formData.interestType = 0;
 
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];

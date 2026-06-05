@@ -11,6 +11,29 @@
             scope.date = {};
             scope.rateFlag = false;
 
+
+            scope.formValue = function (model) {
+                console.log(model);
+                if(model == 5)
+                    {
+                        scope.formData.isEqualAmortization = true;
+                        scope.formData.amortizationType = 1;
+                        scope.formData.graceOnPrincipalPayment = null;
+                    }else if(model == 0)
+                    {
+                        scope.formData.isEqualAmortization = false;
+                        scope.formData.amortizationType = 0;
+                        scope.formData.graceOnPrincipalPayment = null;
+                    }else if(model == 3)
+                    {
+                        scope.formData.graceOnPrincipalPayment = scope.formData.loanTermFrequency-1;
+                    }
+                    else if(model == 4)
+                    {
+                        scope.formData.graceOnPrincipalPayment = null;
+                    }
+            }
+
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
 
@@ -158,6 +181,7 @@
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.fixedPrincipalPercentagePerInstallment = scope.loanaccountinfo.fixedPrincipalPercentagePerInstallment;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
+                scope.formData.balloonPayment = scope.loanaccountinfo.simiprincipalGrace;
                 scope.formData.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
                 scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;

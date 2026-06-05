@@ -202,10 +202,13 @@
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
-                     <select id="interestType" ng-model="formData.interestType" class="form-control width170px"
+                     <select ng-change="formValue(formData.interestType)" id="interestType" ng-model="formData.interestType" class="form-control width170px"
                             ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions"
                             value="{{interestType.id}}" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestType"/>
+
+                             <input data-ng-show="formData.interestType == 4" placeholder="Pay perinstallment" id="balloonpayment" class="form-control" type="text" name="balloonpayment" ng-model="formData.balloonPayment"/>
                 </td>
+                
             </tr>
             <tr ng-show="loanaccountinfo.isLoanProductLinkedToFloatingRate">
                 <td><label>{{ 'label.heading.floatinginterestratedifferential' | translate }}&nbsp;<span

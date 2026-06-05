@@ -284,7 +284,10 @@
                                     <label class="col-sm-offset-1">{{ 'label.input.isequalamortization' | translate }}</label>
                                     <input type="checkbox" ng-model="formData.isEqualAmortization" ng-true-value="true" ng-false-value="false">
                                 </div>
+
+                                 <input data-ng-show="formData.interestType == 4" placeholder="Pay perinstallment" id="balloonpayment" class="form-control" type="text" name="balloonpayment" ng-model="formData.balloonPayment"/>
                             </td>
+                           
                         </tr>
 
                         <tr ng-show="loanaccountinfo.isLoanProductLinkedToFloatingRate">
