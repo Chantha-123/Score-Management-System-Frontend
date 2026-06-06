@@ -3334,6 +3334,7 @@
   "chargeTimeType.tranchedisbursement": "Tranche Disbursement",
   "chargeCalculationType.percent.of.amount": "% Approved Amount",
   "chargeCalculationType.percent.of.amount.and.interest": "% Loan Amount + Interest",
+  "chargeCalculationType.percent.of.oustanding.amount": "% Outstanding Amount",
   "chargeCalculationType.percent.of.interest": "% Interest",
   "chargeCalculationType.percent.of.disbursement.amount": "% Disbursement Amount",
   "chargepaymentmode.regular": "Regular Mode",
