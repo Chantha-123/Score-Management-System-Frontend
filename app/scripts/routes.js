@@ -422,6 +422,18 @@
             .when('/viewprovisioningjournalentry/:entryId',{
                 templateUrl: 'views/accounting/provisioning/ViewProvisioningJournalEntries.html'
             })
+            .when('/spotrates', {
+                templateUrl: 'views/accounting/spotrates.html'
+            })
+            .when('/createspotrate', {
+                templateUrl: 'views/accounting/createspotrate.html'
+            })
+            .when('/viewspotrate/:id', {
+                templateUrl: 'views/accounting/viewspotrate.html'
+            })
+            .when('/editspotrate/:id', {
+                templateUrl: 'views/accounting/editspotrate.html'
+            })
             .when('/viewcode/:id', {
                 templateUrl: 'views/system/viewcode.html'
             })

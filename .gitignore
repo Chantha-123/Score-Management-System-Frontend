@@ -38,3 +38,7 @@ gems.locked
 .grunt/
 bin/
 *.cache
+
+# Claude Code
+CLAUDE.md
+app/CLAUDE.md

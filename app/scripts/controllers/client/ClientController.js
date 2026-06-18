@@ -37,6 +37,16 @@
             }
             scope.initPage();
 
+            scope.countByStatus = function (code) {
+                var count = 0;
+                for (var i = 0; i < scope.clients.length; i++) {
+                    if (scope.clients[i].status && scope.clients[i].status.code === code) {
+                        count++;
+                    }
+                }
+                return count;
+            };
+
             scope.search = function () {
                 scope.actualClients = [];
                 scope.searchResults = [];

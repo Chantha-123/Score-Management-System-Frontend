@@ -1,168 +1,401 @@
 <div class="content-container">
-	<div id="expertsearch" class="card well" data-ng-controller="RichDashboard">
-    <h3 class="paddedleft"><strong>{{'label.heading.dashboard' | translate}}</strong>
-    	<div class="btn-group pull-right">
-	        <label class="btn btn-primary" ng-click="switch()" ng-model="dashModel" btn-radio="'dashboard'"><i class="fa fa-home"></i>&nbsp;&nbsp;{{'label.heading.home' | translate}}</label>
-	        <label class="btn btn-primary" ng-model="dashModel" btn-radio="'rich-dashboard'"><i class="fa fa-tachometer"></i>&nbsp;&nbsp;{{'label.heading.dashboard' | translate}}</label>
-	    </div>
-    </h3>
-    <hr/>
-    <div id="home" class="row">
-    	<div class="col-md-4">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-bolt"></i>&nbsp;{{'label.heading.recentactivities' | translate}}</h3>
-				</div>
-				<div class="panel-body">
-					<div class="list-group">
-					  <a href="#{{recent}}" data-ng-repeat="recent in recents" class="list-group-item">
-					  	{{recent | UrlToString | translate}}</a>
-					</div>
-				</div>
-		    </div>
-	    </div>
-	    <div class="col-md-4">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-laptop"></i>&nbsp;{{'label.heading.frequentactivities' | translate}}</h3>
-				</div>
-				<div class="panel-body">
-					<div class="list-group">
-					  <a href="#{{freq}}" data-ng-repeat="freq in frequent" class="list-group-item">
-					  	{{freq | UrlToString | translate}}</a>
-					</div>
-				</div>
-		    </div>
-	    </div>
-	    <div class="col-sm-4 col-md-4">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-				    <div class="row paddedbottom10">
-				        <div class="col-sm-12 col-md-12">
-				            <h3 class="panel-title">{{'label.heading.amountdisbursedfortoday' | translate}}</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                        	<select class="form-control input-small-tooltip"
-                                data-ng-options="office.id as office.name for office in offices" name="office2"
-                                data-ng-change="getDisbursementOffice()" value="{{office.id}}" id="office2"
-                                ng-model="officeIdDisbursed">
-                                <option disabled value="">--{{'label.menu.office' | translate}}--</option>
-                            </select>
-                        </div>
-                    </div>
-				</div>
-				<div class="panel-body">
-					<h3 class="required panel-error" data-ng-show="showDisbursementerror">{{'label.nodata' | translate}}</h3>
-					<div data-ng-show="!showDisbursementerror" style="margin:-42px 0 0;height: 242px;">
-	                    <nvd3-pie-chart
-	                            data="disbursedData"
-	                            id="piechart2"
-	                            width="425"
-	                            height="375"
-	                            x="xFunction()"
-	                            y="yFunction()"
-	                            showLabels="true"
-	                            tooltips="true"
-	                            donut="true"
-	                            donutRatio=".015"
-	                            color="colorFunctionPie()">
-	                        <svg height="300"></svg>
-	                    </nvd3-pie-chart>
-	                </div>
-				</div>
-		    </div>
-        </div>
-    </div>
-   	<div class="row">
-		<div class="col-sm-8 col-md-8">
-			<div class="panel panel-default">
-			    <div class="panel-heading">
-                    <div class="row paddedbottom10">
-                        <div class="col-sm-12 col-md-12">
-                            <h3 class="panel-title">{{'label.heading.clienttrendsfor' | translate}} {{bOfficeName}} ({{chartType}})</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <select class="form-control input-small-tooltip" name="office1" ng-change="getDailyData()"
-                                id="office1" ng-model="officeId"
-                                data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                                <option disabled value="">--{{'label.menu.office' | translate}}--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-				<div class="panel-body">
-					<div>
-			             <button type="button" class="btn btn-default" data-ng-click="getWeeklyData()"><i
-			                     class="fa fa-table"></i>&nbsp;{{'label.button.week' | translate}}
-			             </button>
-			             <button type="button" class="btn btn-default" data-ng-click="getMonthlyData()"><i
-			                     class="fa fa-table"></i>&nbsp;{{'label.button.month' | translate}}
-			             </button>
-			             <button type="button" class="btn btn-default" data-ng-click="getDailyData()"><i
-			                     class="fa fa-table"></i>&nbsp;{{'label.button.day' | translate}}
-			             </button>
-			        </div>
-					<div style="height:300px;">
-			            <nvd3-multi-bar-chart
-			                     data="BarData"
-			                     id="barchart"
-			                     width="800"
-			                     height="380"
-			                     showXAxis="true"
-                                 showYAxis="true"
-			                     interactive="true"
-			                     tooltips="true"
-			                     color="colorFunction()"
-			                     showLegend="true">
-			                 <svg></svg>
-			             </nvd3-multi-bar-chart>
-			        </div>
-				</div>
-		    </div>
+	<div data-ng-controller="RichDashboard">
+
+		<style>
+			/* ─── Minimal Dashboard ─── */
+			.rd-header {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: baseline;
+				-ms-flex-align: baseline;
+				align-items: baseline;
+				gap: 12px;
+				padding: 24px 0 20px;
+				border-bottom: 1px solid #f1f5f9;
+				margin-bottom: 24px;
+			}
+			.rd-title {
+				font-size: 20px;
+				font-weight: 700;
+				color: #0f172a;
+				margin: 0;
+				letter-spacing: -0.3px;
+			}
+
+			/* ─── Cards ─── */
+			.rd-card {
+				background: #ffffff;
+				border: 1px solid #f1f5f9;
+				border-radius: 10px;
+				-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+				box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+				margin-bottom: 20px;
+				overflow: hidden;
+			}
+			.rd-card-head {
+				padding: 16px 20px 14px;
+				border-bottom: 1px solid #f8fafc;
+			}
+			.rd-card-label {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				gap: 7px;
+				font-size: 11px;
+				font-weight: 700;
+				color: #64748b;
+				text-transform: uppercase;
+				letter-spacing: 0.6px;
+				margin-bottom: 10px;
+			}
+			.rd-card-label i { font-size: 11px; color: #94a3b8; }
+
+			/* ─── Select ─── */
+			.rd-select {
+				width: 100%;
+				padding: 7px 10px;
+				border: 1px solid #e2e8f0;
+				border-radius: 6px;
+				font-size: 12.5px;
+				color: #374151;
+				background: #ffffff;
+				outline: none;
+				cursor: pointer;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.rd-select:focus { border-color: #93c5fd; -webkit-box-shadow: 0 0 0 3px rgba(59,130,246,0.1); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+
+			/* ─── Search bar ─── */
+			.rd-act-head {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				-webkit-box-pack: justify;
+				-ms-flex-pack: justify;
+				justify-content: space-between;
+			}
+			.rd-search-wrap {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				gap: 7px;
+				border: 1px solid #e2e8f0;
+				border-radius: 6px;
+				padding: 5px 10px;
+				background: #f8fafc;
+				-webkit-transition: border-color 0.12s, background 0.12s;
+				transition: border-color 0.12s, background 0.12s;
+			}
+			.rd-search-wrap:focus-within {
+				border-color: #93c5fd;
+				background: #ffffff;
+				-webkit-box-shadow: 0 0 0 3px rgba(59,130,246,0.08);
+				box-shadow: 0 0 0 3px rgba(59,130,246,0.08);
+			}
+			.rd-search-wrap i { font-size: 11px; color: #94a3b8; }
+			.rd-search-input {
+				border: none;
+				background: transparent;
+				font-size: 12.5px;
+				color: #374151;
+				outline: none;
+				width: 180px;
+			}
+			.rd-search-input::-webkit-input-placeholder { color: #94a3b8; }
+			.rd-search-input::-moz-placeholder { color: #94a3b8; }
+			.rd-search-input:-ms-input-placeholder { color: #94a3b8; }
+
+			/* ─── Sort toggle (segmented control) ─── */
+			.rd-sort-toggle {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
+				display: inline-flex;
+				background: #f1f5f9;
+				border-radius: 8px;
+				padding: 3px;
+				gap: 2px;
+			}
+			.rd-sort-btn {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
+				display: inline-flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				gap: 5px;
+				padding: 5px 13px;
+				border-radius: 6px;
+				border: none;
+				background: transparent;
+				color: #64748b;
+				font-size: 12px;
+				font-weight: 500;
+				cursor: pointer;
+				white-space: nowrap;
+				line-height: 1.4;
+				-webkit-transition: all 0.15s;
+				transition: all 0.15s;
+			}
+			.rd-sort-btn i { font-size: 11px; }
+			.rd-sort-btn:hover { color: #374151; }
+			.rd-sort-active {
+				background: #ffffff;
+				color: #0f172a;
+				font-weight: 700;
+				-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+			}
+
+			/* ─── Activity List ─── */
+			.rd-activity-item {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				gap: 10px;
+				padding: 10px 20px;
+				font-size: 13px;
+				color: #374151;
+				text-decoration: none;
+				border-bottom: 1px solid #f8fafc;
+				-webkit-transition: background 0.12s, color 0.12s;
+				transition: background 0.12s, color 0.12s;
+			}
+			.rd-activity-item:last-child { border-bottom: none; }
+			.rd-activity-item:hover { background: #f8fafc; color: #1d4ed8; text-decoration: none; }
+			.rd-activity-item:hover .rd-chevron { color: #3b82f6; }
+			.rd-chevron { font-size: 10px; color: #d1d5db; -ms-flex-negative: 0; flex-shrink: 0; }
+
+			/* ─── Period Toggle ─── */
+			.rd-period-bar {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				gap: 4px;
+				padding: 12px 20px 10px;
+				border-bottom: 1px solid #f8fafc;
+			}
+			.rd-period-btn {
+				padding: 5px 14px;
+				border-radius: 20px;
+				border: 1px solid #e2e8f0;
+				background: transparent;
+				color: #64748b;
+				font-size: 12px;
+				font-weight: 500;
+				cursor: pointer;
+				-webkit-transition: all 0.12s;
+				transition: all 0.12s;
+				line-height: 1.4;
+			}
+			.rd-period-btn:hover { background: #eff6ff; border-color: #93c5fd; color: #1d4ed8; }
+
+			/* ─── Chart / No-data ─── */
+			.rd-chart { padding: 0 4px 4px; }
+			.rd-no-data {
+				padding: 36px 20px;
+				text-align: center;
+				font-size: 13px;
+				color: #94a3b8;
+			}
+			.rd-no-data i { display: block; margin-bottom: 8px; }
+		</style>
+
+		<!-- Page header -->
+		<div class="rd-header">
+			<h2 class="rd-title">{{'label.heading.dashboard' | translate}}</h2>
 		</div>
-		<div class="col-sm-4 col-md-4">
-	    	<div class="panel panel-default">
-	    	    <div class="panel-heading">
-                    <div class="row paddedbottom10">
-                        <div class="col-sm-12 col-md-12">
-                            <h3 class="panel-title">{{'label.heading.amontcollectedfortoday' | translate}}</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <select class="form-control input-small-tooltip pull-right" name="office1" ng-change="getCollectionOffice()"
-                                id="office1" ng-model="officeIdCollection"
-                                data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                                <option disabled value="">--{{'label.menu.office' | translate}}--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-				<div class="panel-body" style="min-height:310px;">
-		        	<h3 class="required panel-error" data-ng-show="showCollectionerror">{{'label.nodata' | translate}}</h3>
-					<div data-ng-show="!showCollectionerror" style="margin:-30px 40px 0;height: 310px;">
-			            <nvd3-pie-chart
-			                    data="collectedData"
-			                    id="piechart1"
-			                    width="380"
-			                    height="420"
-			                    x="xFunction()"
-			                    y="yFunction()"
-			                    showLabels="true"
-			                    tooltips="true"
-			                    donut="true"
-			                    donutRatio=".015"
-			                    color="colorFunctionPie()">
-			                <svg height="300"></svg>
-			            </nvd3-pie-chart>
-			        </div>
+
+		<!-- Row 1: Merged Activities · Disbursed Today -->
+		<div class="row">
+
+			<!-- Activities (unified list, toggle-sorted) -->
+			<div class="col-md-8">
+				<div class="rd-card" ng-init="actSort='recent'; activitySearch=''">
+					<div class="rd-card-head">
+						<div class="rd-act-head">
+							<div class="rd-sort-toggle">
+								<button class="rd-sort-btn"
+									ng-class="{'rd-sort-active': actSort === 'recent'}"
+									ng-click="actSort='recent'">
+									<i class="fa fa-clock-o"></i> Last Activity
+								</button>
+								<button class="rd-sort-btn"
+									ng-class="{'rd-sort-active': actSort === 'most'}"
+									ng-click="actSort='most'">
+									<i class="fa fa-fire"></i> Most Used
+								</button>
+							</div>
+							<div class="rd-search-wrap">
+								<i class="fa fa-search"></i>
+								<input type="text" class="rd-search-input"
+									ng-model="activitySearch"
+									placeholder="Search activities…">
+							</div>
+						</div>
+					</div>
+
+					<!-- Unified list — source swaps based on actSort -->
+					<a href="#{{item}}"
+						data-ng-repeat="item in (actSort === 'recent' ? recents : frequent) | filter:activitySearch"
+						class="rd-activity-item">
+						<i class="fa fa-chevron-right rd-chevron"></i>
+						{{item | UrlToString | translate}}
+					</a>
+
+					<!-- Empty state -->
+					<div class="rd-no-data"
+						ng-show="actSort === 'recent' && !(recents  | filter:activitySearch).length">
+						<i class="fa fa-search" style="font-size:20px;"></i>
+						<span ng-show="activitySearch.length">No recent activities match "{{activitySearch}}"</span>
+						<span ng-hide="activitySearch.length">No recent activities yet</span>
+					</div>
+					<div class="rd-no-data"
+						ng-show="actSort === 'most'   && !(frequent | filter:activitySearch).length">
+						<i class="fa fa-search" style="font-size:20px;"></i>
+						<span ng-show="activitySearch.length">No frequent activities match "{{activitySearch}}"</span>
+						<span ng-hide="activitySearch.length">No frequent activities yet</span>
+					</div>
 				</div>
-		    </div>
-        </div>
-	</div>
+			</div>
+
+			<!-- Amount Disbursed Today -->
+			<div class="col-md-4">
+				<div class="rd-card">
+					<div class="rd-card-head">
+						<div class="rd-card-label">
+							<i class="fa fa-arrow-circle-up"></i>
+							{{'label.heading.amountdisbursedfortoday' | translate}}
+						</div>
+						<select class="rd-select"
+							data-ng-options="office.id as office.name for office in offices"
+							name="office2"
+							data-ng-change="getDisbursementOffice()"
+							value="{{office.id}}"
+							id="office2"
+							ng-model="officeIdDisbursed">
+							<option disabled value="">-- {{'label.menu.office' | translate}} --</option>
+						</select>
+					</div>
+					<div class="rd-no-data" data-ng-show="showDisbursementerror">
+						<i class="fa fa-inbox" style="font-size:22px;"></i>
+						{{'label.nodata' | translate}}
+					</div>
+					<div data-ng-show="!showDisbursementerror" style="margin:-42px 0 0; height:242px;">
+						<nvd3-pie-chart
+							data="disbursedData"
+							id="piechart2"
+							width="425"
+							height="375"
+							x="xFunction()"
+							y="yFunction()"
+							showLabels="true"
+							tooltips="true"
+							donut="true"
+							donutRatio=".015"
+							color="colorFunctionPie()">
+							<svg height="300"></svg>
+						</nvd3-pie-chart>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Row 2: Client Trends · Collection Today -->
+		<div class="row">
+
+			<!-- Client Trends Bar Chart -->
+			<div class="col-md-8">
+				<div class="rd-card">
+					<div class="rd-card-head">
+						<div class="rd-card-label">
+							<i class="fa fa-bar-chart"></i>
+							{{'label.heading.clienttrendsfor' | translate}} {{bOfficeName}}
+							<span style="font-weight:400; color:#94a3b8; text-transform:none; letter-spacing:0;">({{chartType}})</span>
+						</div>
+						<select class="rd-select" name="office1" ng-change="getDailyData()"
+							id="office1" ng-model="officeId"
+							data-ng-options="office.id as office.name for office in offices"
+							value="{{office.id}}">
+							<option disabled value="">-- {{'label.menu.office' | translate}} --</option>
+						</select>
+					</div>
+					<div class="rd-period-bar">
+						<button type="button" class="rd-period-btn" data-ng-click="getWeeklyData()">{{'label.button.week' | translate}}</button>
+						<button type="button" class="rd-period-btn" data-ng-click="getMonthlyData()">{{'label.button.month' | translate}}</button>
+						<button type="button" class="rd-period-btn" data-ng-click="getDailyData()">{{'label.button.day' | translate}}</button>
+					</div>
+					<div class="rd-chart" style="height:300px;">
+						<nvd3-multi-bar-chart
+							data="BarData"
+							id="barchart"
+							width="800"
+							height="380"
+							showXAxis="true"
+							showYAxis="true"
+							interactive="true"
+							tooltips="true"
+							color="colorFunction()"
+							showLegend="true">
+							<svg></svg>
+						</nvd3-multi-bar-chart>
+					</div>
+				</div>
+			</div>
+
+			<!-- Amount Collected Today -->
+			<div class="col-md-4">
+				<div class="rd-card">
+					<div class="rd-card-head">
+						<div class="rd-card-label">
+							<i class="fa fa-arrow-circle-down"></i>
+							{{'label.heading.amontcollectedfortoday' | translate}}
+						</div>
+						<select class="rd-select" name="office1" ng-change="getCollectionOffice()"
+							id="office1" ng-model="officeIdCollection"
+							data-ng-options="office.id as office.name for office in offices"
+							value="{{office.id}}">
+							<option disabled value="">-- {{'label.menu.office' | translate}} --</option>
+						</select>
+					</div>
+					<div class="rd-no-data" data-ng-show="showCollectionerror">
+						<i class="fa fa-inbox" style="font-size:22px;"></i>
+						{{'label.nodata' | translate}}
+					</div>
+					<div data-ng-show="!showCollectionerror" style="margin:-30px 40px 0; height:310px;">
+						<nvd3-pie-chart
+							data="collectedData"
+							id="piechart1"
+							width="380"
+							height="420"
+							x="xFunction()"
+							y="yFunction()"
+							showLabels="true"
+							tooltips="true"
+							donut="true"
+							donutRatio=".015"
+							color="colorFunctionPie()">
+							<svg height="300"></svg>
+						</nvd3-pie-chart>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
 	</div>
 </div>

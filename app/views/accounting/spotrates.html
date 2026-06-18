@@ -1,0 +1,43 @@
+<div id="viewlptop"></div>
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">Daily Spot Rates</li>
+    </ul>
+    <div class="card well" ng-controller="SpotRateController">
+        <div class="pull-right">
+            <a href="#/createspotrate" class="btn btn-primary">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;Create Spot Rate
+            </a>
+        </div>
+        <br>
+        <table class="table" style="table-layout: fixed;">
+            <thead>
+            <tr class="graybg">
+                <th>Office</th>
+                <th>Currency</th>
+                <th>Rate Date</th>
+                <th>Spot Rate</th>
+                <th>Buying Rate</th>
+                <th>Selling Rate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="rate in spotRates">
+                <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.officeName || rate.officeId}}</td>
+                <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.currencyCode}}</td>
+                <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.rateDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.spotRate}}</td>
+                <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.buyingRate}}</td>
+                <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.sellingRate}}</td>
+            </tr>
+            </tbody>
+            <tr>
+                <td colspan="5"></td>
+                <td class="pull-right">
+                    <a ng-click="scrollto('viewlptop')"><i class="fa fa-upload"></i> Top</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

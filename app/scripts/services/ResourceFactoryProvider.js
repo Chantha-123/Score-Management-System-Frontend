@@ -822,6 +822,12 @@
                         getRate: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}},
                         save: {method: 'POST', params: {}}
+                    }),
+                    spotRateResource: defineResource(apiVer + "/spotrates/:spotRateId", {spotRateId: '@spotRateId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {spotRateId: '@spotRateId'}},
+                        update: {method: 'PUT', params: {spotRateId: '@spotRateId'}},
+                        save: {method: 'POST', params: {}}
                     })
                 };
             }];

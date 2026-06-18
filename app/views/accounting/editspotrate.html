@@ -1,0 +1,71 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/spotrates">Daily Spot Rates</a></li>
+        <li class="active">Edit Spot Rate</li>
+    </ul>
+    <form name="editSpotRateForm" novalidate="" class="card form-horizontal well"
+          ng-controller="EditSpotRateController" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>Edit Spot Rate</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Office <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
+                            ng-options="office.id as office.name for office in offices"
+                            name="officeId" required>
+                        <option class="displaynone" value="">Select Office</option>
+                    </select>
+                    <form-validate valattributeform="editSpotRateForm" valattribute="officeId"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Currency Code <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input type="text" id="currencyCode" name="currencyCode"
+                           ng-model="formData.currencyCode" class="form-control"
+                           placeholder="e.g. USD" required late-Validate/>
+                    <form-validate valattributeform="editSpotRateForm" valattribute="currencyCode"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Rate Date <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="rateDate" name="rateDate" type="text"
+                           datepicker-pop="dd MMMM yyyy" ng-model="first.rateDate"
+                           is-open="opened" required/>
+                    <form-validate valattributeform="editSpotRateForm" valattribute="rateDate"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Spot Rate <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input type="number" id="spotRate" name="spotRate" step="0.0001"
+                           ng-model="formData.spotRate" class="form-control" required late-Validate/>
+                    <form-validate valattributeform="editSpotRateForm" valattribute="spotRate"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Buying Rate <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input type="number" id="buyingRate" name="buyingRate" step="0.0001"
+                           ng-model="formData.buyingRate" class="form-control" required late-Validate/>
+                    <form-validate valattributeform="editSpotRateForm" valattribute="buyingRate"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Selling Rate <span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input type="number" id="sellingRate" name="sellingRate" step="0.0001"
+                           ng-model="formData.sellingRate" class="form-control" required late-Validate/>
+                    <form-validate valattributeform="editSpotRateForm" valattribute="sellingRate"/>
+                </div>
+            </div>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/viewspotrate/{{spotRateId}}" class="btn btn-default">Cancel</a>
+                <button id="save" type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
