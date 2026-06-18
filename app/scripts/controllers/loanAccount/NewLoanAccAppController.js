@@ -273,7 +273,13 @@
                     else if(model == 4)
                     {
                         scope.formData.graceOnPrincipalPayment = null;
+                    }else if(model == 6)     
+                    {
+                        scope.formData.isEqualAmortization = true;
+                        scope.formData.amortizationType = 1;
+                        scope.formData.graceOnPrincipalPayment = null;
                     }
+                    
                 findattr = findattr ? findattr : 'id';
                 retAttr = retAttr ? retAttr : 'value';
                 console.log(findattr,retAttr,model);
