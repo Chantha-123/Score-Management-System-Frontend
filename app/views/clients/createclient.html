@@ -753,11 +753,11 @@
 							<i class="fa fa-times"></i> {{'label.button.cancel' | translate}}
 						</a>
 						<div class="ca-actions-right">
-							<button ng-if="datatables" id="save1" class="btn btn-primary btn-sm" wz-next>
+							<button ng-if="noOfTabs > 1" id="save1" class="btn btn-primary btn-sm" wz-next>
 								{{'label.button.proceed' | translate}} <i class="fa fa-arrow-right"></i>
 							</button>
-							<div ng-if="!datatables">
-								<button id="save" type="submit" class="btn btn-primary btn-sm" ng-hide="blockUI" has-permission='CREATE_CLIENT'>
+							<div ng-if="noOfTabs <= 1">
+								<button id="save" type="submit" ng-click="submit()" class="btn btn-primary btn-sm" ng-hide="blockUI" has-permission='CREATE_CLIENT'>
 									<i class="fa fa-check"></i> {{'label.button.save' | translate}}
 								</button>
 								<button class="btn btn-info btn-sm" ng-show="blockUI">
