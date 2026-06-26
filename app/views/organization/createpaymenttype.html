@@ -1,60 +1,58 @@
 <div class="content-container" ng-controller="CreatePaymentTypeController">
-        <ul class="breadcrumb">
-            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> </li>
-            <li><a href="#/viewpaymenttype">{{'label.anchor.paymentTypes' | translate}}</a></li>
-            <li class="active">{{'label.anchor.createpaymenttype' | translate}} </li>
-        </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{'label.anchor.createpaymenttype' | translate}}</h4>
-            </div>
-            <br>
-            <form name="createpaymenttype" novalidate="" class="form-horizontal"
-                rc-submit="submit()">
-                        <api-validate></api-validate>
-                    <fieldset>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">{{'label.anchor.paymentTypes' | translate}}<span
-                                    class="required">*</span></label>
 
-                            <div class="col-sm-3">
-                                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
-                                       late-validate/>
-                            </div>
-                            <div class="col-sm-3">
-                                <form-validate valattributeform="createpaymenttype" valattribute="name"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" >{{'label.input.description' | translate}}</label>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createpaymenttype' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-credit-card"></i>
+				<a href="#/viewpaymenttype">{{'label.anchor.paymentTypes' | translate}}</a>
+			</span>
+		</div>
+	</div>
 
-                            <div class="col-sm-3">
-                                <textarea name="description" ng-model="formData.description"
-                                          type="text" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">{{'label.input.iscashpayment' | translate}}</label>
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus-circle"></i> {{'label.anchor.createpaymenttype' | translate}}
+		</div>
+		<form name="createpaymenttype" novalidate="" class="form-horizontal" rc-submit="submit()">
+			<api-validate></api-validate>
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-3" for="name">{{'label.anchor.paymentTypes' | translate}}<span class="required">*</span></label>
+					<div class="col-sm-4">
+						<input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-validate/>
+					</div>
+					<div class="col-sm-3">
+						<form-validate valattributeform="createpaymenttype" valattribute="name"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.input.description' | translate}}</label>
+					<div class="col-sm-4">
+						<textarea name="description" ng-model="formData.description" type="text" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.input.iscashpayment' | translate}}</label>
+					<div class="col-sm-4">
+						<input type="checkbox" id="iscashpayment" ng-model="formData.isCashPayment">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.input.position' | translate}}</label>
+					<div class="col-sm-4">
+						<input name="position" ng-model="formData.position" type="text" class="form-control"/>
+					</div>
+				</div>
+				<div class="ca-form-actions">
+					<a id="cancel" href="#/viewpaymenttype" class="btn btn-default btn-sm">{{'label.button.cancel' | translate}}</a>
+					<button id="save" type="submit" class="btn btn-primary btn-sm" has-permission='CREATE_PAYMENTTYPE'>{{'label.button.save' | translate}}</button>
+				</div>
+			</fieldset>
+		</form>
+	</div><!-- /.ca-card -->
 
-                            <div class="col-sm-3">
-                                <input type="checkbox" id="iscashpayment"  ng-model="formData.isCashPayment">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" >{{'label.input.position' | translate}}</label>
-
-                            <div class="col-sm-3">
-                                <input name="position" ng-model="formData.position"
-                                          type="text" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="col-md-offset-2 paddedleft">
-                            <a id="cancel" href="#/viewpaymenttype" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_PAYMENTTYPE'>{{'label.button.save' | translate}}</button>
-                        </div>
-                    </fieldset>
-                </form>
-        </div>
-    </div>
 </div>

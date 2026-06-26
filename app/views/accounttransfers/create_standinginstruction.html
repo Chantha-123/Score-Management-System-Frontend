@@ -1,14 +1,22 @@
 <div class="content-container" ng-controller="CreateStandingInstructionController">
-        <ul class="breadcrumb">
-            <li><a href="#/viewclient/{{standinginstruction.fromClient.id}}">{{standinginstruction.fromClient.displayName}}</a></li>
-            <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
-        </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.standinginstruction' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{standinginstruction.fromClient.id}}">{{standinginstruction.fromClient.displayName}}</a>
+			</span>
+		</div>
+	</div>
+
     <api-validate></api-validate>
-    <div class="card">
-        <div class="content">
-                <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
-                    <fieldset>
-                        <legend>{{ 'label.heading.createstandinginstruction' | translate }}</legend>
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus-circle"></i> {{ 'label.heading.createstandinginstruction' | translate }}
+		</div>
+        <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
+            <fieldset>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="name" >{{'label.heading.name' | translate}}<span
                                     class="required">*</span>
@@ -308,6 +316,6 @@
                         </div>
                     </fieldset>
                 </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

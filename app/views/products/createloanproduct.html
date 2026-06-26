@@ -1,10 +1,20 @@
-<div class="content-container" ng-controller = "CreateLoanProductController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createloanproduct' | translate}}</li>
-    </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+<div class="content-container" ng-controller="CreateLoanProductController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createloanproduct' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+    <wizard current-step="step" on-finish="submit()" class="wizard-unstyled">
         <wz-step wz-title="{{'label.heading.details'|translate}}">
             <form name="Details" novalidate="" class=" form-horizontal " ng-submit="goNext(Details)">
                 <fieldset>
@@ -2207,4 +2217,6 @@
             </form>
         </wz-step>
     </wizard>
+	</div><!-- /.ca-card -->
+
 </div>

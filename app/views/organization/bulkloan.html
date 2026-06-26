@@ -1,15 +1,20 @@
-<div class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li class="active">{{'label.anchor.bulkloanreassignment' | translate}}</li>
-    </ul>
-    <div class="card">
-    	<div class="content">
-    	<div class="toolbar">
-    		<h4>{{'label.heading.bulkloanreassignment' | translate}}</h4>
-    	</div>
-        <br>
-    	<form class="form-horizontal" ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
+<div class="content-container" ng-controller="BulkLoanReassignmentController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.bulkloanreassignment' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-refresh"></i> {{'label.heading.bulkloanreassignment' | translate}}
+		</div>
+    	<form class="form-horizontal" ng-submit="submit()">
     	    <api-validate></api-validate>
     	    <fieldset>
     	        <div class="form-group">
@@ -112,6 +117,6 @@
     	        </div>
     	    </fieldset>
     	</form>
-    	</div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

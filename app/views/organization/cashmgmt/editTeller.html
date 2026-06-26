@@ -1,13 +1,23 @@
-<div class="col-md-12">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-        <li class="active">{{'label.anchor.editteller' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <form name="edittellerform" novalidate="" class="form-horizontal"
-                ng-controller="EditTellerController" rc-submit="submit()">
+<div class="content-container" ng-controller="EditTellerController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editteller' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-pencil"></i> {{'label.anchor.editteller' | translate}}
+		</div>
+        <form name="edittellerform" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <api-validate></api-validate>
                 <fieldset>
                     <div class="form-group">
@@ -80,7 +90,7 @@
                         <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_TELLER'>{{'label.button.save' | translate}}</button>
                     </div>
                 </fieldset>
-            </form>
-        </div>
-    </div>
+        </form>
+	</div><!-- /.ca-card -->
+
 </div>

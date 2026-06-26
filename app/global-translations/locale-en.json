@@ -4416,5 +4416,12 @@
   "label.input.change.fixed.principal.percentage.per.installment" : "Change Fixed Principal % per instalment",
   "label.input.new.fixed.principal.percentage.per.installment" : "New Fixed Principal % per instalment",
 
-  "----End---": "--End of file--- "
-}
+  "----End---": "--End of file--- ",
+  "label.heading.assignment" : "Assignment",
+  "label.heading.identity" : "Identity",
+  "label.heading.personaldetails" : "Personal Details",
+  "label.heading.personalinfo" : "Personal Info",
+  "label.heading.classification" : "Classification",
+  "label.button.actions" : "Actions",
+  "label.heading.dates" : "Dates"
+ } 

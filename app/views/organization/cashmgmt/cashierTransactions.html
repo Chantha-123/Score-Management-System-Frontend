@@ -1,11 +1,22 @@
 <div class="content-container" ng-controller="CashierTransactionsController">
-        <ul class="breadcrumb">
-            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-            <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-            <li class="active">{{'label.anchor.cashiertransactions' | translate}}</li>
-        </ul>
-    <div class="card">
-        <div class="content">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.cashiertransactions' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-exchange"></i> {{'label.anchor.cashiertransactions' | translate}}
+		</div>
         <div class="">
             <table class="table table-striped table-condensed">
                 <tr class="col-xs-14">
@@ -79,8 +90,8 @@
                 </tr>
                 </tbody>
             </table>
-        </div>   
         </div>
-    </div>
-    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+	</div><!-- /.ca-card -->
+	<dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+
 </div>

@@ -1,15 +1,25 @@
 <div class="content-container" ng-controller="EditStandingInstructionController">
-        <ul class="breadcrumb">
-            <li><a href="#/viewstandinginstruction/{{standinginstruction.id}}" ng-hide="fromlist">{{'label.heading.viewstandinginstruction' | translate}}</a><a href="#/liststandinginstructions/{{standinginstruction.fromOffice.id}}/{{standinginstruction.fromClient.id}}" ng-show="fromlist">{{'label.heading.liststandinginstruction'| translate}}</a></li>
-            <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
-        </ul>
 
-    <div class="card">
-        <div class="content">
-            <api-validate></api-validate>
-            <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
-                <fieldset>
-                    <legend>{{ 'label.heading.editstandinginstruction' | translate }}</legend>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{ 'label.heading.editstandinginstruction' | translate }}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-hide="fromlist"><i class="fa fa-eye"></i>
+				<a href="#/viewstandinginstruction/{{standinginstruction.id}}">{{'label.heading.viewstandinginstruction' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="fromlist"><i class="fa fa-list"></i>
+				<a href="#/liststandinginstructions/{{standinginstruction.fromOffice.id}}/{{standinginstruction.fromClient.id}}">{{'label.heading.liststandinginstruction' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-pencil"></i> {{ 'label.heading.editstandinginstruction' | translate }}
+		</div>
+        <api-validate></api-validate>
+        <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
+            <fieldset>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="name">{{'label.heading.name' | translate}}</label>
 
@@ -176,8 +186,8 @@
                         <a id="cancel" class="btn btn-default" data-ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
                         <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_STANDINGINSTRUCTION'>{{ 'label.button.save' | translate }}</button>
                     </div>
-                </fieldset>
-            </form>  
-        </div>
-    </div>
+            </fieldset>
+        </form>
+	</div><!-- /.ca-card -->
+
 </div>

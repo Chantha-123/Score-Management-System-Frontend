@@ -1,13 +1,25 @@
 <div class="content-container" ng-controller="EditChargeController">
     <api-validate></api-validate>
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
-        <li class="active">{{'label.anchor.editcharge' | translate}}</li>
-    </ul>
-    <form name="editchargeform" novalidate class="card form-horizontal well" rc-submit="submit()">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editcharge' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-tag"></i>
+				<a href="#/charges">{{'label.anchor.charges' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-pencil"></i> {{'label.heading.editcharge' | translate}}
+		</div>
+    <form name="editchargeform" novalidate class="form-horizontal" rc-submit="submit()">
         <fieldset>
-            <legend>{{'label.heading.editcharge' | translate}}</legend>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.chargesappliesto' | translate}}<span
                         class="required">*</span></label>
@@ -245,10 +257,12 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-offset-3">
-                <a id="cancel" href="#/viewcharge/{{template.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_CHARGE'>{{'label.button.save' | translate}}</button>
+            <div class="ca-form-actions">
+                <a href="#/viewcharge/{{template.id}}" class="btn btn-default btn-sm">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary btn-sm" has-permission='UPDATE_CHARGE'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>
     </form>
+	</div><!-- /.ca-card -->
+
 </div>

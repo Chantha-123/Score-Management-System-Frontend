@@ -1,32 +1,39 @@
 <div class="content-container" ng-controller="LoanScreenReportController">
-        <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-            <li class="active">{{'label.anchor.loanscreenreport' | translate}}</li>
-        </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{'label.heading.loanscreenreport' | translate}}</h4>
-            </div>
-            <br/>
-            <div class="span"></div>
-            <div class="span2">
-                <table class="table">
-                    <tr ng-repeat="templateData in loanTemplateData" ng-class="{graybg: templateData.id == selectedTemplate}">
-                        <td>
-                            <a ng-click="getLoanTemplate(templateData.id)">{{templateData.name}}</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="span8" ng-show="template">
-                <span ng-bind-html="template"></span>
-            <span class="col-md-offset-3 paddedtop10">
-              <button type="button" data-ng-click="print(template)" class="btn btn-primary"><i class="fa fa-print"></i>&nbsp;&nbsp;{{'label.button.print'|
-                  translate}}
-              </button>
-            </span>
-            </div>
-        </div>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.heading.loanscreenreport' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-print"></i> {{'label.heading.loanscreenreport' | translate}}
+		</div>
+
+		<div class="row">
+			<div class="col-sm-3">
+				<table class="table">
+					<tr ng-repeat="templateData in loanTemplateData" ng-class="{graybg: templateData.id == selectedTemplate}">
+						<td>
+							<a ng-click="getLoanTemplate(templateData.id)">{{templateData.name}}</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-sm-9" ng-show="template">
+				<span ng-bind-html="template"></span>
+				<div class="ca-form-actions">
+					<button type="button" data-ng-click="print(template)" class="btn btn-primary btn-sm"><i class="fa fa-print"></i>&nbsp;&nbsp;{{'label.button.print' | translate}}</button>
+				</div>
+			</div>
+		</div>
+
+	</div><!-- /.ca-card -->
+
 </div>

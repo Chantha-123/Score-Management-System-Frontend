@@ -1,12 +1,20 @@
 <div class="content-container" ng-controller="ViewSavingDetailsController">
-    <div>
-        <ul class="breadcrumb">
-            <li ng-show="groupLevel == 1"><a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li ng-show="groupLevel == 2"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
-            <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
-        </ul>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{savingaccountdetails.savingsProductName}} ({{savingaccountdetails.accountNo}})</h2>
+		<div>
+			<span class="ca-hero-chip" ng-show="groupLevel == 1"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="groupLevel == 2"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="savingaccountdetails.clientName"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
+			</span>
+		</div>
+	</div>
     <script type="text/ng-template" id="savingsunassignstaff.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
@@ -37,8 +45,7 @@
             <br>
         </div>
     </script>
-    <div class="card">
-        <br>
+    <div class="ca-card">
         <div class="form-horizontal" ng-show="report">
             <div class="form-group" ng-show="viewSavingReport">
                 <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
@@ -768,6 +775,8 @@
             </div>
         </div>
     </div>
+	</div><!-- /.ca-card -->
+
 </div>
 <script type="text/ng-template" id="delInstruction.html">
     <div class="modal-header silver">

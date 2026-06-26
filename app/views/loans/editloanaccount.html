@@ -1,16 +1,26 @@
-<div class="col-md-12" ng-controller="EditLoanAccAppController">
-<div>
-    <ul class="breadcrumb">
-        <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
-        <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
-        <li><a href="#/viewloanaccount/{{loanaccountinfo.id}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-        <li class="active">{{'label.anchor.modifyloanapplication' | translate}}</li>
-    </ul>
-</div>
-<form name="editloanaccountform" novalidate="" class="well form-inline card" rc-submit="submit()">
+<div class="content-container" ng-controller="EditLoanAccAppController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.modifyloanapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-show="groupName"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="clientName"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{clientId}}">{{clientName}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewloanaccount/{{loanaccountinfo.id}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+<form name="editloanaccountform" novalidate="" class="form-inline" rc-submit="submit()">
 <api-validate></api-validate>
 <fieldset>
-        <legend>{{ 'label.heading.editloanapplication' | translate }}</legend>
 <table class="width100">
     <tr>
         <td class="width14">
@@ -661,4 +671,7 @@
 </div>
 </fieldset>
 </form>
+
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,15 +1,20 @@
 <div class="content-container" ng-controller="MakeAccountTransferController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewsavingaccount/{{transfer.fromAccount.id }}">
-        {{'label.anchor.viewsavingaccount' | translate}}</a></li>
-        <li class="active">{{'label.anchor.accounttransfers' | translate}}</li>
-    </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.accounttransfers' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-bank"></i>
+				<a href="#/viewsavingaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewsavingaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
     <api-validate></api-validate>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{ 'label.heading.accounttransfers' | translate }}</h4>
-            </div>
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-exchange"></i> {{ 'label.heading.accounttransfers' | translate }}
+		</div>
             <form class="form-horizontal" name="accounttransferform" novalidate="" rc-submit="submit()">
                 <fieldset>
                     <div class="table-responsive">
@@ -125,6 +130,6 @@
                     </div>
                 </fieldset>
             </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

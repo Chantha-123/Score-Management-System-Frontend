@@ -1,18 +1,23 @@
 <div ng-controller="ViewSmsCampaignController" class="content-container">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-            <li><a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a></li>
-            <li class="active">{{campaignData.campaignName}}</li>
-        </ul>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{campaignData.campaignName}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-envelope"></i>
+				<a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
     <api-validate></api-validate>
-    <div class="card">
-        <div class="content" >
-            <div class="toolbar">
-                <h3>{{'label.heading.viewsmscampaign' | translate}}</h3>
-            </div>
-            <br/>
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-envelope"></i> {{'label.heading.viewsmscampaign' | translate}}
+		</div>
             <uib-tabset tabset-name="smsCampaignTabset">
                 <uib-tab heading="{{'label.heading.campaign' | translate}}">
                     <div class="container">
@@ -135,8 +140,7 @@
                     </div>
                 </uib-tab>
             </uib-tabset>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
 
     <script type="text/ng-template" id="activatesmscampaign.html">
         <form name="activatesmsform" novalidate="">

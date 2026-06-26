@@ -1,12 +1,20 @@
-<div class="col-md-12" ng-controller="GSIMAccountActionsController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
-        <li class="active">{{action}}</li>
-    </ul>
-    <form name="savingccountactionform" novalidate="" class="form-horizontal well card" ng-submit="submit()">
+<div class="content-container" ng-controller="GSIMAccountActionsController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{title | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-piggy-bank"></i>
+				<a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+    <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
         <fieldset>
             <api-validate></api-validate>
-            <legend>{{ title | translate}}</legend>
 
             <div class="form-group" ng-show="showDateField">
                 <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
@@ -241,4 +249,7 @@
 
         </fieldset>
     </form>
+
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,15 +1,22 @@
 <div class="content-container" ng-controller="ViewProvisioningJournalEntriesController" xmlns="http://www.w3.org/1999/html">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li><a href="#/viewprovisioningentries">{{'label.anchor.viewprovisioningeentries' | translate}}</a></li>
-        <li class="active">{{'label.anchor.journalentries' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4></h4>
-            </div>
-            <br/>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.journalentries' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/viewprovisioningentries">{{'label.anchor.viewprovisioningeentries' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-file-text-o"></i> {{'label.anchor.journalentries' | translate}}
+		</div>
             <div  ng-show="displayResults">
                 <div class="table-responsive">
                     <table class="table ">
@@ -64,6 +71,6 @@
                     <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} </a></li>
                 </ul>
             </div>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

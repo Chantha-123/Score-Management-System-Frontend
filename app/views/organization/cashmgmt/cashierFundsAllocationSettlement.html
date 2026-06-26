@@ -1,13 +1,28 @@
-<div class="content-container"  ng-controller="CashierFundsAllocationSettlementController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-		<li><a href="#/tellers/{{tellersId}}/cashiers">{{cashierTxnTemplate.tellerName}}</a></li>
-        <li ng-show="ifAllocate()"class="active">{{'label.anchor.cashier.allocatefunds' | translate}}</li>
-		<li ng-show="ifSettle()"class="active">{{'label.anchor.cashier.settlefunds' | translate}}</li>
-    </ul>
-	<div class="card">
-		<div class="content">
+<div class="content-container" ng-controller="CashierFundsAllocationSettlementController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title" ng-show="ifAllocate()">{{'label.anchor.cashier.allocatefunds' | translate}}</h2>
+		<h2 class="ca-page-title" ng-show="ifSettle()">{{'label.anchor.cashier.settlefunds' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-users"></i>
+				<a href="#/tellers/{{tellersId}}/cashiers">{{cashierTxnTemplate.tellerName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-money"></i>
+			<span ng-show="ifAllocate()">{{'label.anchor.cashier.allocatefunds' | translate}}</span>
+			<span ng-show="ifSettle()">{{'label.anchor.cashier.settlefunds' | translate}}</span>
+		</div>
 			<form name="cashiertxnform" novalidate="" class="form-horizontal"
 		     	 rc-submit="submit()">
 			    	<api-validate></api-validate>
@@ -79,7 +94,7 @@
 		            	</td>
 		        	</td>
 			    </table>
-			</form>	
-		</div>
-	</div>
+			</form>
+	</div><!-- /.ca-card -->
+
 </div>

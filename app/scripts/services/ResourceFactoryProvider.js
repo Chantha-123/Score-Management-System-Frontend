@@ -823,11 +823,30 @@
                         update: {method: 'PUT', params: {}},
                         save: {method: 'POST', params: {}}
                     }),
-                    spotRateResource: defineResource(apiVer + "/spotrates/:spotRateId", {spotRateId: '@spotRateId'}, {
+                    spotRateResource: defineResource(apiVer + "/dailyspotrates/:spotRateId", {spotRateId: '@spotRateId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET', params: {spotRateId: '@spotRateId'}},
                         update: {method: 'PUT', params: {spotRateId: '@spotRateId'}},
                         save: {method: 'POST', params: {}}
+                    }),
+                    provinceResource: defineResource(apiVer + "/provinces/:provinceId", {provinceId: "@provinceId"}, {
+                        getAllProvinces: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT'}
+                    }),
+                    districtResource: defineResource(apiVer + "/districts/:districtId", {districtId: "@districtId"}, {
+                        getAllDistricts: {method: 'GET', params: {}, isArray: true},
+                        getByProvince: {method: 'GET', params: {provinceId: '@provinceId'}, isArray: true},
+                        update: {method: 'PUT'}
+                    }),
+                    communeResource: defineResource(apiVer + "/communes/:communeId", {communeId: "@communeId"}, {
+                        getAllCommunes: {method: 'GET', params: {}, isArray: true},
+                        getByDistrict: {method: 'GET', params: {districtId: '@districtId'}, isArray: true},
+                        update: {method: 'PUT'}
+                    }),
+                    villageResource: defineResource(apiVer + "/villages/:villageId", {villageId: "@villageId"}, {
+                        getAllVillages: {method: 'GET', params: {}, isArray: true},
+                        getByCommune: {method: 'GET', params: {communeId: '@communeId'}, isArray: true},
+                        update: {method: 'PUT'}
                     })
                 };
             }];

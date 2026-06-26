@@ -1,12 +1,27 @@
-<div class="col-md-12" ng-controller="EntityDatatableChecksController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li class="active">{{'label.anchor.entitydatatablechecks' | translate}}</li>
-    </ul>
-<div class="card well">
-    <input ng-model="filterText" type="text" class="span form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
-    <a data-ng-click="createDatatableCheck()" class="btn btn-primary pull-right" has-permission='CREATE_ENTITY_DATATABLE_CHECK'><i
-            class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.createdatatablecheck' | translate}}</a>
+<div class="content-container" ng-controller="EntityDatatableChecksController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.entitydatatablechecks' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-table"></i> {{'label.anchor.entitydatatablechecks' | translate}}
+			<span class="pull-right">
+				<a data-ng-click="createDatatableCheck()" class="btn btn-primary btn-sm" has-permission='CREATE_ENTITY_DATATABLE_CHECK'><i class="fa fa-plus"></i>&nbsp;{{'label.button.createdatatablecheck' | translate}}</a>
+			</span>
+		</div>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="col-sm-4">
+				<input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+			</div>
+		</div>
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -151,5 +166,6 @@
             </div>
         </form>
     </script>
-</div>
+	</div><!-- /.ca-card -->
+
 </div>

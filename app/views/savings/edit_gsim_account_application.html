@@ -1,14 +1,20 @@
-<div ng-controller="EditGSIMAccountController">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
-            <li class="active">{{'label.anchor.editsavingapplication' | translate}}</li>
-        </ul>
-    </div>
+<div class="content-container" ng-controller="EditGSIMAccountController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editsavingapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-piggy-bank"></i>
+				<a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
     <api-validate></api-validate>
-    <form name="editsavingccountform" novalidate="" class="well form-inline" rc-submit="submit()">
+    <form name="editsavingccountform" novalidate="" class="form-inline" rc-submit="submit()">
         <fieldset>
-            <legend>{{ 'label.heading.editsavingapplication' | translate }}</legend>
             <table class="width100">
                 <tr>
                     <td class="width14">
@@ -293,4 +299,7 @@
 
         </fieldset>
     </form>
+
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,23 +1,24 @@
 <div class="content-container" ng-controller="CreateSavingAccountController">
-    <ul class="breadcrumb">
-        <li ng-show="centerEntity">
-            <a href="#/viewcenter/{{groupId}}">
-                <strong>'{{groupName}}'</strong>
-            </a>
-        </li>
-        <li ng-show="groupName&&!centerEntity">
-            <a href="#/viewgroup/{{groupId}}">
-                <strong>'{{groupName}}'</strong>
-            </a>
-        </li>
-        <li ng-show="clientName">
-            <a href="#/viewclient/{{clientId}}">
-                <strong>'{{clientName}}'</strong>
-            </a>
-        </li>
-        <li class="active">{{'label.anchor.savingapplication' | translate}}</li>
-    </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.savingapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-show="centerEntity"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="groupName&&!centerEntity"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="clientName"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{clientId}}">{{clientName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+    <wizard current-step="step" on-finish="submit()">
         <wz-step wz-title="{{'label.heading.details' | translate}}">
             <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-horizontal">
                 <fieldset>
@@ -594,4 +595,7 @@
             </form>
         </wz-step>
     </wizard>
+
+	</div><!-- /.ca-card -->
+
 </div>

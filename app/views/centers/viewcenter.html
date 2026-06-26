@@ -1,12 +1,17 @@
 <div class="content-container" ng-controller="ViewCenterController">
-    <ul class="breadcrumb">
-        <li>
-            <a ng-href="#/viewoffice/{{center.officeId}}">
-                {{center.officeName}}
-            </a>
-        </li>
-        <li>{{center.name}}</li>
-    </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">
+			<i class="fa fa-stop {{center.status.code | StatusLookup}}"></i> {{center.name}}
+		</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-building"></i>
+				<a ng-href="#/viewoffice/{{center.officeId}}">{{center.officeName}}</a>
+			</span>
+		</div>
+	</div>
+
     <script type="text/ng-template" id="delete.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -29,23 +34,7 @@
             <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4 class="client-title">
-                    <i class="fa fa-circle {{center.status.code | StatusLookup}}">
-                    </i>
-                    <i class="fa fa-map-marker"></i>
-                    <strong>{{center.name}} </strong>
-                    <small>
-                        <i class="fa fa-barcode"></i>
-                        {{ 'label.heading.accnum' | translate }}: {{center.accountNo}} |
-                        <i class="fa fa-building"></i>
-                        {{ 'label.heading.office' | translate }}: "{{center.officeName}}"
-                    </small>
-                </h4>
-            </div>
-            <br>
+    <div class="ca-card">
             <uib-tabset tabset-name="centerTabset scrollable" scrollable>
                 <uib-tab heading="{{ 'label.heading.general' | translate }}">
                     <div>
@@ -322,5 +311,6 @@
                 </span>
             </div>
         </div>
-    </div>
+    </div><!-- /.ca-card -->
+
 </div>

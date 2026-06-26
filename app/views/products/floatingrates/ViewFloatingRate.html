@@ -1,16 +1,27 @@
 <div class="content-container" ng-controller="ViewFloatingRateController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/floatingrates">{{'label.anchor.floatingrates' | translate}}</a></li>
-        <li class="active">{{'label.anchor.floatingrate' | translate}}</li>
-    </ul>
 
-    <form name="newfloatingrateform" novalidate="" class="card form-horizontal well">
-        <api-validate></api-validate>
-        <fieldset>
-            <div class="btn-group pull-right">
-                <a href="#/editfloatingrate/{{id}}" class="btn btn-primary" has-permission='UPDATE_FLOATINGRATE'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
-            </div>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{name}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-money"></i>
+				<a href="#/floatingrates">{{'label.anchor.floatingrates' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-eye"></i> {{name}}
+			<span class="pull-right">
+				<a href="#/editfloatingrate/{{id}}" class="btn btn-primary btn-sm" has-permission='UPDATE_FLOATINGRATE'><i class="fa fa-edit"></i>&nbsp;{{'label.button.edit' | translate}}</a>
+			</span>
+		</div>
+    <api-validate></api-validate>
+    <fieldset>
             <div class="form-group">
                 <div class="col-sm-4">
                     <label class="control-label">{{'label.input.floatingratename' | translate}}:&nbsp;</label>
@@ -53,7 +64,7 @@
                     </td>
                 </tr>
             </table>
-        </fieldset>
-    </form>
+    </fieldset>
+	</div><!-- /.ca-card -->
 
 </div>

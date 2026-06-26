@@ -1,14 +1,22 @@
 <div class="content-container" ng-controller="ViewProvisioningEntryController">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li><a href="#/viewprovisioningentries">{{'label.anchor.viewprovisioningeentries' | translate}}</a></li>
-        <li class="active">{{'label.anchor.provisionigetriespreview' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4></h4>
-            </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.provisionigetriespreview' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/viewprovisioningentries">{{'label.anchor.viewprovisioningeentries' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-eye"></i> {{'label.anchor.provisionigetriespreview' | translate}}
+		</div>
             <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <api-validate></api-validate>
                 <fieldset>
@@ -72,6 +80,6 @@
                     </div>
                 </fieldset>
             </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

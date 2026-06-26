@@ -1,22 +1,25 @@
 <div class="content-container" ng-controller="ViewLoanProductController">
-<div id="viewlptop"></div>
-<div class="paddedbottom10">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a></li>
-        <li class="active">{{loanproduct.name}}</li>
-    </ul>
-</div>
-<div>
-    <div class="card">
-        <div class="content">
-            <div class="pull-right">
-                <div class="btn-group">
-                    <a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
-                       class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
-                </div>
-            </div>
-            <legend class="paddedtop paddedbottom10">{{loanproduct.name}}</legend>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{loanproduct.name}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-eye"></i> {{loanproduct.name}}
+			<span class="pull-right">
+				<a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary btn-sm" has-permission='UPDATE_LOANPRODUCT'><i class="fa fa-edit"></i>&nbsp;{{'label.button.edit' | translate}}</a>
+			</span>
+		</div>
 <table width="100%">
 <tr>
     <td>
@@ -560,7 +563,6 @@
     </td>
 </tr>
 </table>
-</div>
-</div>
-</div>
+	</div><!-- /.ca-card -->
+
 </div>

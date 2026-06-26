@@ -1,12 +1,31 @@
-
 <div class="content-container" ng-controller="ViewCashiersForTellerController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-        <li class="active">{{'label.anchor.cashiers' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.cashiers' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-users"></i> {{'label.anchor.cashiers' | translate}}
+			<span class="pull-right">
+				<a href="#/tellers/{{cashiersForTeller.tellerId}}/createCashierForTeller" class="btn btn-primary btn-sm" has-permission='CREATE_CASHIERS_FOR_TELLER'><i class="fa fa-plus"></i>&nbsp;{{'label.button.createcashier' | translate}}</a>
+			</span>
+		</div>
+        <p><strong>{{'label.heading.cashmgmt.officeName' | translate}}:</strong> {{cashiersForTeller.officeName}} &nbsp;|&nbsp; <strong>{{'label.heading.cashmgmt.tellerName' | translate}}:</strong> {{cashiersForTeller.tellerName}}</p>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="col-sm-4">
+				<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+			</div>
+		</div>
         {{'label.heading.cashmgmt.officeName' | translate}} : {{cashiersForTeller.officeName}} | 
         {{'label.heading.cashmgmt.tellerName' | translate }} : {{cashiersForTeller.tellerName}}
         <div class="row">
@@ -77,6 +96,6 @@
                 </tbody>
             </table>
             </div>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

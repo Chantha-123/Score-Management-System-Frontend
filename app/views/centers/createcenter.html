@@ -1,14 +1,19 @@
 <div class="content-container" ng-controller="CreateCenterController">
-    <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createcenter' | translate}}</li>
-    </ul>
-    <div class="card">
-    	<div class="content">
-    		<div class="toolbar">
-    			<h4>{{'label.heading.createcenter' | translate}}</h4>
-    		</div>
-    		<hr/>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createcenter' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/centers">{{'label.anchor.centers' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-building"></i> {{'label.heading.createcenter' | translate}}
+		</div>
     			<form name="createcenterform" novalidate="" class="form-horizontal"
     			      rc-submit="submit()">
     			    <api-validate></api-validate>
@@ -134,6 +139,6 @@
     			        </div>
     			    </fieldset>
     			</form>
-    	</div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

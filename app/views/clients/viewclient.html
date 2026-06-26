@@ -798,7 +798,7 @@
 									data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'>
 								<i class="fa fa-user"></i> {{"label.button.unassignstaff" | translate}}
 							</button>
-							<span uib-dropdown ng-show="buttonsArray.options" class="btn-group" on-toggle="toggled(open)">
+							<!-- <span uib-dropdown ng-show="buttonsArray.options" class="btn-group" on-toggle="toggled(open)">
 								<a uib-dropdown-toggle class="btn btn-default btn-sm">
 									<i class="fa fa-ellipsis-h"></i> {{ 'label.button.more' | translate}} <span class="caret"></span>
 								</a>
@@ -841,7 +841,7 @@
 										<a href="#/selfservice/createuser/{{client.id}}">{{'label.createselfserviceuser' | translate}}</a>
 									</li>
 								</ul>
-							</span>
+							</span> -->
 							<button type="button" class="btn btn-danger btn-sm" data-ng-click="deleteClient()"
 									data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'>
 								<i class="fa fa-trash-o"></i> {{"label.button.delete" | translate}}
@@ -1608,7 +1608,7 @@
 				</uib-tab>
 
 				<!-- ══ CREDIT REPORT TAB ══ -->
-				<uib-tab heading="{{ 'label.heading.creditreportcheck' | translate }}" has-permission='READ_CLIENTNOTE'>
+				<!-- <uib-tab heading="{{ 'label.heading.creditreportcheck' | translate }}" has-permission='READ_CLIENTNOTE'>
 					<div style="margin-top:16px; max-width:480px;">
 						<div class="form-group">
 							<label for="orgcreditbureau">
@@ -1627,7 +1627,7 @@
 							</a>
 						</div>
 					</div>
-				</uib-tab>
+				</uib-tab> -->
 
 			</uib-tabset>
 			</div><!-- end vc-sidebar-tabs -->

@@ -1,15 +1,20 @@
 <div class="content-container" ng-controller="DefineOpeningBalancesController">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li class="active">{{'label.anchor.define.openingbalances' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>opening balances</h4>
-            </div>
-            <br/>
-            <api-validate></api-validate>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.define.openingbalances' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-dollar"></i> {{'label.heading.define.openingbalances' | translate}}
+		</div>
+		<api-validate></api-validate>
             <form name="openingbalancesform" novalidate="" class="form-horizontal" ng-submit="submit()">
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
@@ -83,6 +88,6 @@
                     <button id="save" type="submit" class="btn btn-primary" has-permission='DEFINEOPENINGBALANCE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
                 </div>
             </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

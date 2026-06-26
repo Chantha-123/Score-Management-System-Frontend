@@ -1,118 +1,93 @@
-<div  class="content-container" ng-controller="ViewGSIMaccountController" >
-    <div>
-        <ul class="breadcrumb">
-            <li ng-show="groupLevel == 1"><a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li ng-show="groupLevel == 2"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li class="active">{{savingaccountdetails.savingsProductName}}({{gsimAccountNumber}})</li>
-        </ul>
-    </div>
+<div class="content-container" ng-controller="ViewGSIMaccountController">
 
-    <div class="card">
-        <br>
-        <div class="form-horizontal">
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{savingaccountdetails.savingsProductName}} ({{gsimAccountNumber}})</h2>
+		<div>
+			<span class="ca-hero-chip" ng-show="groupLevel == 1"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="groupLevel == 2"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+			</span>
+		</div>
+	</div>
 
-            <div class="span gray-head" style="margin-left:0%;">
-                <div class="col-xs-1"></div>
-                <span style="...">
-                        <strong><i ng-show="savingaccountdetails.subStatus.id==0"
-                                   class="fa fa-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>
-                            <i ng-hide="savingaccountdetails.subStatus.id==0"
-                               class="fa fa-stop {{savingaccountdetails.status.code+savingaccountdetails.subStatus.value | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{groupAccounts.accountNumber}})
-                        </strong>
-                 </span>
-                <br>
-            </div>
+	<div class="ca-card">
 
-            <br>
-            <div class="col-sm-12 col-md-12 primarydiv">
-                <div class="pull-right btn-group">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i ng-show="savingaccountdetails.subStatus.id==0"
+			   class="fa fa-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>
+			<i ng-hide="savingaccountdetails.subStatus.id==0"
+			   class="fa fa-stop {{savingaccountdetails.status.code+savingaccountdetails.subStatus.value | StatusLookup}}"></i>
+			{{savingaccountdetails.savingsProductName}} (#{{groupAccounts.accountNumber}})
+			<div class="pull-right" style="margin-left:auto;">
+				<a ng-repeat="button in buttons.singlebuttons" has-permission='{{button.taskPermissionName}}'
+				   ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
+				   class="btn btn-primary btn-sm"><i class="{{button.icon}}"></i> {{'label.' + button.name | translate}}</a>
+				<span ng-show="buttons.options" uib-dropdown class="btn-group dropdown" on-toggle="toggled(open)">
+					<a uib-dropdown-toggle class="btn btn-primary btn-sm">
+						{{'label.button.more' | translate}} <span class="caret"></span>
+					</a>
+					<ul class="dropdown dropdown-menu dropdown-menu-right">
+						<li class="{{button.icon}}" ng-repeat="button in buttons.options">
+							<a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
+							   has-permission='{{button.taskPermissionName}}'>{{'label.' + button.name | translate}}</a>
+						</li>
+					</ul>
+				</span>
+			</div>
+		</div>
 
-                    <a ng-repeat="button in buttons.singlebuttons"  has-permission='{{button.taskPermissionName}}'
-                       ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                       class="btn btn-primary"><i class="{{button.icon}} "></i>{{'label.'+button.name | translate}}</a>
+		<div data-ng-show="groupAccounts.childGSIMAccounts">
+			<div class="ca-section-heading">
+				<i class="fa fa-list-alt"></i> {{'label.heading.savingsaccoverview' | translate}}
+			</div>
+			<table class="table">
+				<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.clientdetails' | translate}}</th>
+					<th>{{ 'label.heading.savingsaccountno' | translate }}</th>
+					<th>{{ 'label.heading.products' | translate }}</th>
+					<th>{{ 'label.heading.balance' | translate }}</th>
+					<th>{{ 'label.heading.actions' | translate }}</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr class="pointer-main"
+					ng-repeat="savingaccount in groupAccounts.childGSIMAccounts | orderBy:'productName':reverse | filter:isSavingNotClosed">
+					<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.displayName}}</td>
+					<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+						<i tooltip-placement="right" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+						{{savingaccount.accountNo}}
+					</td>
+					<td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
+					<td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance | number}}</td>
+					<td class="pointer" ng-if="savingaccount.status.active">
+						<a uib-tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit"
+						   class="btn btn-xs btn-primary" ng-show="savingaccount.depositType.id == '100'">
+							<i class="fa fa-arrow-right"></i>
+						</a>
+						<a uib-tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal"
+						   class="btn btn-xs btn-primary" ng-show="savingaccount.depositType.id == '100'">
+							<i class="fa fa-arrow-left"></i>
+						</a>
+					</td>
+					<td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
+						<a uib-tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve"
+						   class="btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
+					</td>
+					<td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
+						<a uib-tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval"
+						   class="btn btn-xs btn-primary"><i class="fa fa-undo"></i></a>
+						<a uib-tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate"
+						   class="btn btn-xs btn-primary"><i class="fa fa-check-circle-o"></i></a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
 
+	</div><!-- /.ca-card -->
 
-                    <span ng-show="buttons.options" uib-dropdown class="btn-group dropdown"
-                          on-toggle="toggled(open)">
-                          <a uib-dropdown-toggle class="btn btn-primary">
-                              {{'label.button.more' | translate}}
-                              <span class="caret"></span>
-                          </a>
-                          <ul class="dropdown dropdown-menu dropdown-menu-right">
-                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                                  <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                                     has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
-                              </li>
-                          </ul>
-                      </span>
-                </div>
-            </div>
-        </div>
-
-        <hr/>
-        <br/>
-
-        <div class="">
-            <div class="col-sm-1"></div>
-            <div class="row client">
-                <div class="col-sm-9 col-md-9 ">
-                    <div data-ng-show="groupAccounts.childGSIMAccounts" >
-
-                        <div class="span gray-head">
-                                    <span class="boldlabel">
-                                          <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
-                                    </span>
-                        </div>
-                        <br>
-                        <table class="table" >
-                            <thead>
-                            <tr class="graybg">
-                                <th>{{'label.heading.clientdetails' | translate}}</th>
-                                <th>{{ 'label.heading.savingsaccountno' | translate }}</th>
-                                <th>{{ 'label.heading.products' | translate }}</th>
-                                <th>{{ 'label.heading.balance' | translate }}</th>
-                                <th>{{ 'label.heading.actions' | translate }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="pointer-main"
-                                ng-repeat="savingaccount in groupAccounts.childGSIMAccounts | orderBy:'productName':reverse | filter:isSavingNotClosed">
-                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)"> {{savingaccount.displayName}}</td>
-                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
-                                    <i tooltip-placement="right" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
-                                    {{savingaccount.accountNo}}
-                                </td>
-                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
-                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance | number}}</td>
-                                <td class="pointer" ng-if="savingaccount.status.active">
-                                    <a uib-tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
-                                        <i class="fa fa-arrow-right "></i>
-                                    </a>
-
-                                    <a uib-tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
-                                        <i class="fa fa-arrow-left "></i>
-                                    </a>
-
-                                </td>
-                                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
-                                    <a uib-tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-                                        <i class="fa fa-check "></i>
-                                    </a>
-                                </td>
-                                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
-                                    <a uib-tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
-                                        <i class="fa fa-undo "></i>
-                                    </a>
-                                    <a uib-tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
-                                        <i class="fa fa-check-circle-o "></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

@@ -1,17 +1,28 @@
-<div ng-controller="NewGLIMAccountController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewgroup/{{group.id}}"><strong>{{group.name}}</strong></a></li>
-        <li ng-show="centerEntity"><a href="#/viewcenter/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
-        <li ng-show="groupName&&!centerEntity"><a href="#/viewgroup/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
-        <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
-        <li class="active">{{'label.anchor.glimloanapplication' | translate}}</li>
-    </ul>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <HR>
-                <wizard current-step="step">
-                    <div class="card">
+<div class="content-container" ng-controller="NewGLIMAccountController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.glimloanapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{group.id}}">{{group.name}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="centerEntity"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="groupName&&!centerEntity"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="clientName"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{clientId}}">{{clientName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+    <wizard current-step="step">
+                    <div>
                         <wz-step title="{{'label.heading.glimloanaccoverview' | translate}}">
                             <div class="card-header">
                                 <div class="card-badge animated flipInX"><span class="icon fa fa-th"></span></div>
@@ -356,7 +367,7 @@
                         </wz-step>
                     </div>
                 </wizard>
-            </div>
-        </div>
-    </div>
+
+	</div><!-- /.ca-card -->
+
 </div>

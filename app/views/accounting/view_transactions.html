@@ -1,15 +1,23 @@
 <div class="content-container" ng-controller="ViewTransactionController">
-        <ul class="breadcrumb" ng-if="productName == null">
-            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-            <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
-        </ul>
-        <ul class="breadcrumb" ng-if="productName != null">
-            <li ng-if="groupId != null"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
-            <li ng-if="clientId != null"><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
-            <li class="active">{{productName}}({{accountNo}})</li>
-            <li class="active">{{'label.anchor.journalentries' | translate}}</li>
-        </ul>
-         <script type="text/ng-template" id="confirmation.html">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title" ng-if="productName == null">{{'label.anchor.viewtransaction' | translate}}</h2>
+		<h2 class="ca-page-title" ng-if="productName != null">{{productName}} ({{accountNo}}) — {{'label.anchor.journalentries' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-if="productName == null"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-if="groupId != null"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-if="clientId != null"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{clientId}}">{{clientName}}</a>
+			</span>
+		</div>
+	</div>
+
+     <script type="text/ng-template" id="confirmation.html">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.transactionreverse' | translate}}</h3>
                 <h4><strong class="required">{{ 'label.heading.transactionnumber' | translate }}&nbsp;:&nbsp;&nbsp;<b>{{transactionnumber}}</b></strong>
@@ -121,8 +129,7 @@
                 <button class="btn btn-primary" ng-click="reverse()">{{'label.button.reverse' | translate}}</button>
             </div>
         </script>
-        <div class="card">
-            <div class="content">
+        <div class="ca-card">
                 <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
                 <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
                <div class="toolbar">
@@ -193,7 +200,7 @@
                           class="btn btn-primary center"><i
                             class=""></i>{{'label.button.back' | translate}}</a></div>
                 </div>
-            </div>
-        </div>
+        </div><!-- /.ca-card -->
+
 </div>
 

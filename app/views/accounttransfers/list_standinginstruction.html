@@ -1,14 +1,22 @@
 <div class="content-container" ng-controller="ListStandingInstructionController">
-    <ul class="breadcrumb" >
-        <li><a href="#/viewclient/{{standinginstruction.fromClient.id}}" ng-show="fromClient">{{standinginstruction.fromClient.displayName}}</a></li>
-        <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-                <api-validate></api-validate>
-                <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
-                    <fieldset>
-                        <legend>{{ 'label.heading.liststandinginstruction' | translate }}</legend>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.standinginstruction' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-show="fromClient"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{standinginstruction.fromClient.id}}">{{standinginstruction.fromClient.displayName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-list"></i> {{ 'label.heading.liststandinginstruction' | translate }}
+		</div>
+		<api-validate></api-validate>
+        <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
+            <fieldset>
                          <div ng-hide="isCollapsed" width="100%" >
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="transferType">{{'label.heading.type' | translate}}</label>
@@ -111,7 +119,7 @@
                             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                         </div>
                     </script>
-                </form>
-        </div>
-    </div>
+        </form>
+	</div><!-- /.ca-card -->
+
 </div>

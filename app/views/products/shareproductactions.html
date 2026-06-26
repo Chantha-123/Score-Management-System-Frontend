@@ -1,12 +1,22 @@
 <div class="content-container" ng-controller="ShareProductActionsController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewshareaccount/{{accountId}}">{{'label.anchor.viewshareaccount' | translate}}</a></li>
-        <li class="active">{{action}}</li>
-    </ul>
-    <form name="shareccountactionform" novalidate="" class="card form-horizontal well" ng-submit="submit()">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{action}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-share-alt"></i>
+				<a href="#/viewshareaccount/{{accountId}}">{{'label.anchor.viewshareaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-cog"></i> {{ title | translate}}
+		</div>
+    <form name="shareccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-            <legend>{{ title | translate}}</legend>
 
             <div class="form-group" ng-show="createdividend">
                 <label class="control-label col-sm-2" for="dividendPeriodStartDate">{{fromDatelabelName | translate}}<span
@@ -205,4 +215,6 @@
 
         </fieldset>
     </form>
+	</div><!-- /.ca-card -->
+
 </div>

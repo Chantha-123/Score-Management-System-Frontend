@@ -1,10 +1,23 @@
 <div class="content-container" ng-controller="CreateChargeController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createcharge' | translate}}</li>
-    </ul>
-    <form name="createchargeform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createcharge' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-tag"></i>
+				<a href="#/charges">{{'label.anchor.charges' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus"></i> {{'label.anchor.createcharge' | translate}}
+		</div>
+    <form name="createchargeform" novalidate="" class="form-horizontal" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
@@ -289,11 +302,13 @@
                     <a id="cancel" href="#/charges">
                         <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                     </a>
-                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CHARGE'>
+                    <button id="save" type="submit" class="btn btn-primary btn-sm" has-permission='CREATE_CHARGE'>
                         {{'label.button.save' | translate}}
                     </button>
                 </div>
             </div>
         </fieldset>
     </form>
+	</div><!-- /.ca-card -->
+
 </div>

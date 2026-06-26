@@ -1,56 +1,55 @@
 <div class="content-container" ng-controller="AddLoanCollateralController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-        <li class="active">{{'label.anchor.addloancollateral' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-        <div class="toolbar">
-            <h4>{{ 'label.heading.addloancollateral' | translate }}</h4>
-        </div>
-        <br/>
-        <form name="addloancollateralform" class="form-horizontal" ng-submit="submit()">
-            <api-validate></api-validate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="collateralTypeId">{{ 'label.input.collateraltype' | translate }}<span
-                            class="required">*</span></label>
 
-                    <div class="col-sm-3">
-                        <select id="collateralTypeId" ng-model="formData.collateralTypeId" class="form-control"
-                                ng-options="collateralType.id as collateralType.name for collateralType in collateralTypes"
-                                value="{{collateralType.id}}"></select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="value">{{ 'label.input.value' | translate }}<span
-                            class="required">*</span></label>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{ 'label.heading.addloancollateral' | translate }}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
 
-                    <div class="col-sm-3">
-                        <input id="value" name="value" type="text" class="form-control" ng-model="formData.value" required late-validate>
-                    </div>
-                    
-                    <div class="col-sm-2">
-                        <form-validate valattributeform="addloancollateralform" valattribute="value"/>
-                    </div>
-                
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="description">{{ 'label.input.description' | translate }}</label>
+	<div class="ca-card">
 
-                    <div class="col-sm-3">
-                        <textarea id="description" class="form-control" ng-model="formData.description" rows="4" cols=""></textarea>
-                    </div>
-                </div>
-                <div class="col-md-offset-3">
-                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate
-                        }}
-                    </button>
-                    <button id="save" type="submit" has-permission='CREATE_COLLATERAL' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
-                </div>
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-shield"></i> {{ 'label.heading.addloancollateral' | translate }}
+		</div>
 
-            </fieldset>
-        </form> 
-        </div>
-    </div>
+		<form name="addloancollateralform" class="form-horizontal" ng-submit="submit()">
+			<api-validate></api-validate>
+
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="collateralTypeId">{{ 'label.input.collateraltype' | translate }}<span class="required">*</span></label>
+				<div class="col-sm-4">
+					<select id="collateralTypeId" ng-model="formData.collateralTypeId" class="form-control"
+							ng-options="collateralType.id as collateralType.name for collateralType in collateralTypes"
+							value="{{collateralType.id}}"></select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="value">{{ 'label.input.value' | translate }}<span class="required">*</span></label>
+				<div class="col-sm-4">
+					<input id="value" name="value" type="text" class="form-control" ng-model="formData.value" required late-validate>
+					<form-validate valattributeform="addloancollateralform" valattribute="value"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="description">{{ 'label.input.description' | translate }}</label>
+				<div class="col-sm-4">
+					<textarea id="description" class="form-control" ng-model="formData.description" rows="4"></textarea>
+				</div>
+			</div>
+
+			<div class="ca-form-actions">
+				<button id="cancel" type="reset" class="btn btn-default btn-sm" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</button>
+				<button id="save" type="submit" has-permission='CREATE_COLLATERAL' class="btn btn-primary btn-sm">{{ 'label.button.save' | translate }}</button>
+			</div>
+
+		</form>
+
+	</div><!-- /.ca-card -->
+
 </div>

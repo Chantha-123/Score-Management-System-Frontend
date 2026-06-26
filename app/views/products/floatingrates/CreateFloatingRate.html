@@ -1,11 +1,23 @@
 <div class="content-container" ng-controller="CreateFloatingRateController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/floatingrates">{{'label.anchor.floatingrates' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createfloatingrate' | translate}}</li>
-    </ul>
 
-    <form name="newfloatingrateform" novalidate="" rc-submit="submit()" class="card form-horizontal well">
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createfloatingrate' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-money"></i>
+				<a href="#/floatingrates">{{'label.anchor.floatingrates' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus"></i> {{'label.anchor.createfloatingrate' | translate}}
+		</div>
+    <form name="newfloatingrateform" novalidate="" rc-submit="submit()" class="form-horizontal">
         <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
@@ -101,5 +113,6 @@
             </div>
         </fieldset>
     </form>
+	</div><!-- /.ca-card -->
 
 </div>

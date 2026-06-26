@@ -1,13 +1,19 @@
 <div class="content-container" ng-controller="CreateSmsCampaignController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createcampaign' | translate}}</li>
-    </ul>
-    <br>
 
-    <div class="card">
-        <div class="content">
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createcampaign' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-envelope"></i>
+				<a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
                 <hr>
                 <wizard current-step="step">
                         <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.campaign' | translate}}">
@@ -337,6 +343,6 @@
                         </wz-step>
                 </wizard>
             </div>
-        </div>
-    </div>
-            
+	</div><!-- /.ca-card -->
+
+</div>

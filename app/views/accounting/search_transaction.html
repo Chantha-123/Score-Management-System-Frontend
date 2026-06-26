@@ -1,12 +1,19 @@
 <div class="content-container" ng-controller="SearchTransactionController" xmlns="http://www.w3.org/1999/html">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li class="active">{{'label.anchor.searchjournalentries' | translate}}</li>
-    </ul>
 
-    <div class="card">
-        <div class="content">
-          <br>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.searchjournalentries' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+    <div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-search"></i> {{'label.anchor.searchjournalentries' | translate}}
+		</div>
             <div class="form-inline" ng-show="isCollapsed">
                 <div class="form-group">
                     <div class="form-group">
@@ -115,6 +122,6 @@
                     <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
                 </ul>
             </div>
-        </div>
-    </div>
+    </div><!-- /.ca-card -->
+
 </div>

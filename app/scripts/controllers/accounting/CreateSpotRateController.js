@@ -10,6 +10,10 @@
                 scope.offices = data;
             });
 
+            resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
+                scope.currencyOptions = data.selectedCurrencyOptions;
+            });
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.rateDate, scope.df);
                 this.formData.locale = scope.optlang.code;

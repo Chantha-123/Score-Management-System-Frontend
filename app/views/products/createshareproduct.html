@@ -1,11 +1,20 @@
-
 <div class="content-container" ng-controller="CreateShareProductController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/shareproducts">{{'label.anchor.shareproducts' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createshareproduct' | translate}}</li>
-    </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createshareproduct' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-share-alt"></i>
+				<a href="#/shareproducts">{{'label.anchor.shareproducts' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+    <wizard current-step="step" on-finish="submit()" class="wizard-unstyled">
         <wz-step wz-title="{{ 'label.heading.details' | translate }}">
             <form name="Details" ng-submit="goNext(Details)" novalidate="" class="form-horizontal">
                 <api-validate></api-validate>
@@ -643,4 +652,6 @@
             </form>
         </wz-step>
     </wizard>
+	</div><!-- /.ca-card -->
+
 </div>

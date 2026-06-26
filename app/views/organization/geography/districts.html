@@ -1,0 +1,46 @@
+<div class="content-container" ng-controller="DistrictsController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">Manage Districts</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-map-marker"></i> Manage Districts
+			<span class="pull-right">
+				<a href="#/createdistrict" class="btn btn-primary btn-sm" has-permission='CREATE_DISTRICT'><i class="fa fa-plus"></i>&nbsp;Create District</a>
+			</span>
+		</div>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="col-sm-4">
+				<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control" placeholder="Filter by code or name...">
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>Code</th>
+					<th>Name (Khmer)</th>
+					<th>Name (English)</th>
+					<th>Province</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" dir-paginate="district in districts | filter:filterText | itemsPerPage: DistrictsPerPage">
+					<td class="pointer" data-ng-click="routeTo(district.id)">{{district.code}}</td>
+					<td class="pointer" data-ng-click="routeTo(district.id)">{{district.nameKhm}}</td>
+					<td class="pointer" data-ng-click="routeTo(district.id)">{{district.nameEng}}</td>
+					<td class="pointer" data-ng-click="routeTo(district.id)">{{district.provinceNameEng}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div><!-- /.ca-card -->
+
+</div>

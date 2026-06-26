@@ -1,36 +1,44 @@
 <div class="content-container" data-ng-controller="HookController">
-    <ul class="breadcrumb">
-        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-        <li class="active">{{'label.anchor.managehooks' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="row">
-                <div class="col-md-6">
-                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
-                </div>
-                <div class="col-md-6">
-                    <a href="#/addhook" class="btn btn-primary pull-right" has-permission='CREATE_HOOK'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.addhook' | translate }}</a>
-                </div>
-            </div>
-            <hr/>
-            <table class="table">
-                <thead>
-                <tr class="graybg">
-                    <th>{{ 'label.heading.hooktemplate' | translate }}</th>
-                    <th>{{ 'label.heading.hookname' | translate }}</th>
-                    <th>{{ 'label.heading.isactive' | translate }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="pointer-main" dir-paginate="hook in hooks | filter:{displayName:filterText} |  itemsPerPage: HooksPerPage">
-                    <td class="pointer" data-ng-click="routeTo(hook.id)">{{hook.name}}</td>
-                    <td class="pointer" data-ng-click="routeTo(hook.id)">{{hook.displayName}}</td>
-                    <td class="pointer" data-ng-click="routeTo(hook.id)">{{hook.isActive}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html">
-        </div>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.managehooks' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cog"></i>
+				<a href="#/system">{{'label.anchor.system' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-link"></i> {{'label.anchor.managehooks' | translate}}
+			<span class="pull-right">
+				<a href="#/addhook" class="btn btn-primary btn-sm" has-permission='CREATE_HOOK'><i class="fa fa-plus"></i>&nbsp;{{'label.button.addhook' | translate}}</a>
+			</span>
+		</div>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="col-sm-4">
+				<input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.hooktemplate' | translate}}</th>
+					<th>{{'label.heading.hookname' | translate}}</th>
+					<th>{{'label.heading.isactive' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" dir-paginate="hook in hooks | filter:{displayName:filterText} | itemsPerPage: HooksPerPage">
+					<td class="pointer" data-ng-click="routeTo(hook.id)">{{hook.name}}</td>
+					<td class="pointer" data-ng-click="routeTo(hook.id)">{{hook.displayName}}</td>
+					<td class="pointer" data-ng-click="routeTo(hook.id)">{{hook.isActive}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div><!-- /.ca-card -->
+
 </div>

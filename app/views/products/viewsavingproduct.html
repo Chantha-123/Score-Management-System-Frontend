@@ -1,20 +1,25 @@
 <div class="content-container" ng-controller="ViewSavingProductController">
-<div id="viewlptop"></div>
-        <ul class="breadcrumb">
-            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-            <li><a href="#/savingproducts">{{'label.anchor.savingproducts' | translate}}</a></li>
-            <li class="active">{{savingproduct.name}}</li>
-        </ul>
 
-<div class="card">
-    <div class="content">
-    <legend>{{savingproduct.name}}
-        <div class="pull-right">
-            <div class="btn-group">
-                <a href="#/editsavingproduct/{{savingproduct.id}}" class="btn btn-primary" has-permission='UPDATE_SAVINGSPRODUCT'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
-            </div>
-        </div>
-    </legend>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{savingproduct.name}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-money"></i>
+				<a href="#/savingproducts">{{'label.anchor.savingproducts' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-eye"></i> {{savingproduct.name}}
+			<span class="pull-right">
+				<a href="#/editsavingproduct/{{savingproduct.id}}" class="btn btn-primary btn-sm" has-permission='UPDATE_SAVINGSPRODUCT'><i class="fa fa-edit"></i>&nbsp;{{'label.button.edit' | translate}}</a>
+			</span>
+		</div>
     <table width="100%">
         <tr>
             <td colspan="4">
@@ -288,6 +293,6 @@
             </td>
         </tr>
     </table>
-</div>
-</div>
+	</div><!-- /.ca-card -->
+
 </div>

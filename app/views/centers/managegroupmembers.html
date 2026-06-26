@@ -1,86 +1,97 @@
 <div class="content-container" data-ng-controller="ManageGroupMembersController">
-    <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
-        <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
-        <li class="active">{{'label.anchor.managegroups' | translate}}</li>
-    </ul>
-    <api-validate></api-validate>
-    <script type="text/ng-template" id="delete.html">
-            <div class="modal-header silver">
-                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
-            </div>
-            <div class="modal-body ">
-                <api-validate></api-validate>
-                <br>
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-            </div>
-    </script>
-    <div class="card">
-    	<div class="content">
-    		    <form name="managegroupmembers" class="form-horizontal">
-    			    <fieldset>
-    				    <div class="row">
-    			            <div class="col-md-7">
-    			                <legend>{{'label.heading.associatenewgroups' | translate}}</legend>
-    			                <div class="form-group">
-    			                    <label class="control-label col-sm-4">{{ 'label.input.searchforgroup' | translate }}</label>
-    			                    <div class="col-sm-4 col-md-4">
-    			                        <input id="expert" type="text" data-ng-model="available" class="col-md-4 form-control"
-    										   typeahead-min-length="1"
-    											typeahead-editable="false"
-    											uib-typeahead="groupList as groupList.name for groupList in groupsOptions($viewValue)"
-    											typeahead-on-select="viewGroup(available)"/>
-    			                    </div>
-    			                    <div class="col-sm-1 col-md-1">
-    			                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
-    			                            {{ 'label.button.add' | translate }}
-    			                            <i class="fa fa-double-angle-right"></i></button>
-    			                    </div>
 
-    			                </div>
-    			                <div class="form-group">
-    			                    <div data-ng-show="available" class="col-md-6 col-md-offset-1">
-    			                        <p>{{'label.heading.groupdetails' | translate}}</p>
-    			                        <table class="table">
-    			                            <tr>
-    			                                <td>{{'label.heading.name' | translate}}</td>
-    			                                <td>{{group.name}}</td>
-    			                            </tr>
-    			                            <tr>
-    			                                <td>{{ 'label.heading.id' | translate }}</td>
-    			                                <td valign="top">{{group.id}}</td>
-    			                            </tr>
-    			                            <tr>
-    			                                <td>{{ 'label.heading.office' | translate }}</td>
-    			                                <td>{{group.officeName}}</td>
-    			                            </tr>
-    			                        </table>
-    			                    </div>
-    			                </div>
-    			            </div>
-    			            <div class="col-md-5">
-    			                <legend>{{'label.heading.centermembers' | translate}}</legend>
-    			                <div class="form-group" ng-repeat="group in groups">
-    			                    <div class="col-sm-6 col-md-6">
-    			                        <input disabled="" class="form-control input-xxlarge" placeholder="{{group.name}} (Id: {{group.id}})"
-    			                               type="text"/>
-    			                    </div>
-    			                    <div class="col-sm-2 col-md-2">
-    			                        <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,group.id)">
-    			                                <i class="fa fa-times"></i>
-    			                        </button>
-    			                    </div>
-    			                </div>
-    			            </div>
-    			        </div>
-    				    <div class="col-sm-3 col-md-offset-5">
-    			            <br>
-    			            <a id="cancel" href="#/viewcenter/{{centerId}}" class="btn btn-default">
-    			                <i class="fa fa-double-angle-left"></i>{{'label.button.back' | translate}}</a>
-    			        </div>
-    		        </fieldset>
-    		   </form>
-    	</div>
-    </div>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.managegroups' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/centers">{{'label.anchor.centers' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<script type="text/ng-template" id="delete.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
+
+	<div class="ca-card">
+		<api-validate></api-validate>
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-users"></i> {{'label.heading.associatenewgroups' | translate}}
+		</div>
+		<form name="managegroupmembers" class="form-horizontal">
+			<fieldset>
+				<div class="row">
+					<div class="col-md-7">
+						<div class="form-group">
+							<label class="control-label col-sm-4">{{ 'label.input.searchforgroup' | translate }}</label>
+							<div class="col-sm-5">
+								<input id="expert" type="text" data-ng-model="available" class="form-control"
+									typeahead-min-length="1"
+									typeahead-editable="false"
+									uib-typeahead="groupList as groupList.name for groupList in groupsOptions($viewValue)"
+									typeahead-on-select="viewGroup(available)"/>
+							</div>
+							<div class="col-sm-2">
+								<button ng-show="available" type="button" class="btn btn-primary btn-sm" data-ng-click="add()">
+									{{ 'label.button.add' | translate }} <i class="fa fa-angle-double-right"></i>
+								</button>
+							</div>
+						</div>
+						<div class="form-group" data-ng-show="available">
+							<div class="col-md-8 col-md-offset-4">
+								<p><strong>{{'label.heading.groupdetails' | translate}}</strong></p>
+								<table class="table table-condensed">
+									<tr>
+										<td>{{'label.heading.name' | translate}}</td>
+										<td>{{group.name}}</td>
+									</tr>
+									<tr>
+										<td>{{ 'label.heading.id' | translate }}</td>
+										<td>{{group.id}}</td>
+									</tr>
+									<tr>
+										<td>{{ 'label.heading.office' | translate }}</td>
+										<td>{{group.officeName}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="ca-section-heading">
+							<i class="fa fa-building"></i> {{'label.heading.centermembers' | translate}}
+						</div>
+						<div class="form-group" ng-repeat="group in groups">
+							<div class="col-sm-8">
+								<input disabled="" class="form-control" placeholder="{{group.name}} (Id: {{group.id}})" type="text"/>
+							</div>
+							<div class="col-sm-2">
+								<button type="button" class="btn btn-danger btn-sm" data-ng-click="remove($index,group.id)">
+									<i class="fa fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ca-form-actions" style="justify-content:flex-start;">
+					<a id="cancel" href="#/viewcenter/{{centerId}}" class="btn btn-default btn-sm">
+						<i class="fa fa-angle-double-left"></i> {{'label.button.back' | translate}}
+					</a>
+				</div>
+			</fieldset>
+		</form>
+	</div><!-- /.ca-card -->
+
 </div>

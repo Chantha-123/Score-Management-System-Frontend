@@ -1,43 +1,47 @@
 <div class="content-container" ng-controller="ViewTellerController">
-	<ul class="breadcrumb">
-	    <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-	    <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-	    <li class="active">{{teller.name}}</li>
-	</ul>
-	<div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{teller.name}}</h4>
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a href="#/editteller/{{teller.id}}" class="btn btn-primary" has-permission='UPDATE_TELLER'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{
-                            'label.button.edit' | translate }}</a>
-                    </div>
-                </div>
-            </div>
-            <br>
-                    <table class="table-bordered table view-table" style="width: 350px">
-                        <tr>
-                            <td>{{ 'label.input.teller.office' | translate }}</td>
-                            <td>{{teller.officeName}}</td>
-                        </tr>
-                            <tr>
-                            <td>{{ 'label.input.teller.description' | translate }}</td>
-                            <td>{{teller.description}}</td>
-                        </tr>
-                            <tr>
-                            <td>{{ 'label.input.teller.startDate' | translate }}</td>
-                            <td>{{teller.startDate | DateFormat }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ 'label.input.teller.endDate' | translate }}</td>
-                            <td>{{teller.endDate | DateFormat }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ 'label.input.teller.status' | translate }}</td>
-                            <td>{{teller.status}}</td>
-                        </tr>
-                    </table>
-        </div>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{teller.name}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-inbox"></i> {{teller.name}}
+			<span class="pull-right">
+				<a href="#/editteller/{{teller.id}}" class="btn btn-primary btn-sm" has-permission='UPDATE_TELLER'><i class="fa fa-edit"></i>&nbsp;{{ 'label.button.edit' | translate }}</a>
+			</span>
+		</div>
+		<table class="table-bordered table view-table" style="width:400px;">
+			<tr>
+				<td>{{ 'label.input.teller.office' | translate }}</td>
+				<td>{{teller.officeName}}</td>
+			</tr>
+			<tr>
+				<td>{{ 'label.input.teller.description' | translate }}</td>
+				<td>{{teller.description}}</td>
+			</tr>
+			<tr>
+				<td>{{ 'label.input.teller.startDate' | translate }}</td>
+				<td>{{teller.startDate | DateFormat}}</td>
+			</tr>
+			<tr>
+				<td>{{ 'label.input.teller.endDate' | translate }}</td>
+				<td>{{teller.endDate | DateFormat}}</td>
+			</tr>
+			<tr>
+				<td>{{ 'label.input.teller.status' | translate }}</td>
+				<td>{{teller.status}}</td>
+			</tr>
+		</table>
+	</div><!-- /.ca-card -->
+
 </div>

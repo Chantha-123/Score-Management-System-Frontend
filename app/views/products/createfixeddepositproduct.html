@@ -1,10 +1,20 @@
 <div class="content-container" ng-controller="CreateFixedDepositProductController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/fixeddepositproducts">{{'label.anchor.fixeddepositproducts' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createfixeddepositproduct' | translate}}</li>
-    </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createfixeddepositproduct' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-university"></i>
+				<a href="#/fixeddepositproducts">{{'label.anchor.fixeddepositproducts' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+    <wizard current-step="step" on-finish="submit()" class="wizard-unstyled">
         <wz-step wz-title="{{'label.heading.details' | translate}}">
             <form name="Details" ng-submit="goNext(Details)" novalidate="" class="form-horizontal">
                 <fieldset>
@@ -1099,7 +1109,8 @@
             </form>
         </wz-step>
     </wizard>
-    <!--Incentive Modal (Interest Rate Chart)-->
+	</div><!-- /.ca-card -->
+
     <script type="text/ng-template" id="incentive.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>

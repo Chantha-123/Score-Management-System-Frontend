@@ -1,35 +1,42 @@
 <div class="content-container" ng-controller="ViewAllProvisoningCriteriaController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li class="active">{{'label.anchor.provisioningcriteria' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input ng-model="filterText" type="text" class="form-control " ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
-                    </div>
-                    <div class="col-md-6">
-                        <a href="#/createprovisioningcriteria" class="btn btn-primary pull-right" has-permission='CREATE_PROVISIONING_CRITERIA'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createprovisioningcriteria' | translate}}</a>
-                    </div>
-                </div>
-            </div>
-            <table class="table">
-                <thead>
-                <tr class="graybg">
-                    <th>{{'label.heading.name' | translate}}</th>
-                    <th>{{'label.heading.createdby' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="pointer-main" dir-paginate="criteriaObject in criterias | orderBy:'criteriaName':reverse | filter:filterText |  itemsPerPage: ProvisioningPerPage">
-                    <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.criteriaName}}</td>
-                    <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.createdBy}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
-        </div>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.provisioningcriteria' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-list"></i> {{'label.anchor.provisioningcriteria' | translate}}
+			<span class="pull-right">
+				<a href="#/createprovisioningcriteria" class="btn btn-primary btn-sm" has-permission='CREATE_PROVISIONING_CRITERIA'><i class="fa fa-plus"></i>&nbsp;{{'label.button.createprovisioningcriteria' | translate}}</a>
+			</span>
+		</div>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="col-sm-4">
+				<input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.name' | translate}}</th>
+					<th>{{'label.heading.createdby' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" dir-paginate="criteriaObject in criterias | orderBy:'criteriaName':reverse | filter:filterText | itemsPerPage: ProvisioningPerPage">
+					<td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.criteriaName}}</td>
+					<td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.createdBy}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div><!-- /.ca-card -->
+
 </div>

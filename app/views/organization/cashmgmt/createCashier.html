@@ -1,13 +1,25 @@
-<div class="content-container"  ng-controller="CreateCashierForTellerController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-        <li>{{cashier.officeName}}</li>
-        <li><a href="#/tellers/{{tellerId}}/cashiers">{{cashier.tellerName}}</a></li>
-        <li class="active">{{'label.anchor.createCashier' | translate}}</li>
-    </ul>
-    <div class="card">
-    	<div class="content">
+<div class="content-container" ng-controller="CreateCashierForTellerController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createCashier' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-users"></i>
+				<a href="#/tellers/{{tellerId}}/cashiers">{{cashier.tellerName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus-circle"></i> {{'label.anchor.createCashier' | translate}}
+		</div>
     		<form name="createcashierform" novalidate="" class="form-horizontal"
     	     	 rc-submit="submit()">
     		    	<api-validate></api-validate>
@@ -106,6 +118,6 @@
     				</div>
     			</div>
     		</form>
-    	</div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

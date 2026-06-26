@@ -1,11 +1,22 @@
 <div class="content-container" ng-controller="ViewProvisioningCriteriaController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/viewallprovisionings">{{'label.anchor.provisioningcriteria' | translate}}</a></li>
-        <li class="active">{{'label.anchor.viewprovisioningcriteria' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.viewprovisioningcriteria' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/viewallprovisionings">{{'label.anchor.provisioningcriteria' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-eye"></i> {{'label.anchor.viewprovisioningcriteria' | translate}}
+		</div>
         <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal" rc-submit="submit()">
             <fieldset>
                 <!-- Start -->
@@ -59,6 +70,6 @@
                 </table>
             </fieldset>
         </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

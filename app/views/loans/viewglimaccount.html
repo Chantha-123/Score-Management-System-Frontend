@@ -1,71 +1,63 @@
-<div class="col-md-12" ng-controller="ViewGLIMaccountController" >
-    <div>
-        <ul class="breadcrumb">
-            <li ><a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a></li>
-            <li class="active">{{productName}}({{groupGLIMAccounts.accountNumber}})</li>
-        </ul>
-    </div>
+<div class="content-container" ng-controller="ViewGLIMaccountController">
 
-    <div class="card">
-        <br>
-        <div class="col-sm-12 col-md-12 primarydiv">
-            <div class="pull-right">
-                              <span ng-repeat="button in buttons.singlebuttons">
-                                  <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), groupGLIMAccounts.glimId)"
-                                     class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
-                                          class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
-                                      translate}}</a>
-                              </span>
-                <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
-                                  <a class="btn btn-primary dropdown-toggle">
-                                      {{ 'label.button.more' | translate}}
-                                      <span class="caret"></span>
-                                  </a>
-                                  <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
-                                      <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                                          <a ng-click="clickEvent(button.name.replace('button.',''), groupGLIMAccounts.glimId)"
-                                             has-permission='{{button.taskPermissionName}}'>{{'label.'+
-                                              button.name | translate}}</a>
-                                      </li>
-                                  </ul>
-                                </span>
-            </div>
-        </div>
-        <hr/>
-        <br/>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{productName}} ({{groupGLIMAccounts.accountNumber}})</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-users"></i>
+				<a ng-href="#/viewgroup/{{group.id}}">{{group.name}}</a>
+			</span>
+		</div>
+	</div>
 
-        <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-9">
-                <table class="table table-condensed"  >
-                <span class="span gray-head">
-								      <strong>{{ 'label.heading.glimloanaccoverview' | translate }}</strong>
-								</span>
-                    <tr class="graybg">
-                        <th>{{'label.heading.loanId' | translate}}</th>
-                        <th>{{'label.heading.clientid' | translate}}</th>
-                        <th>{{'label.heading.clientname' | translate}}</th>
-                        <th>{{'label.heading.loanaccountnum' | translate}}</th>
-                        <th>{{'label.heading.clientprincipalloan' | translate}}</th>
-                        <th>{{'label.heading.grouplprincipalloan' | translate}}</th>
-                    </tr>
+	<div class="ca-card">
 
-                   <tr class="pointer-main" ng-repeat="glimloanaccount in glimAccounts">
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childLoanId }}</td>
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-list-alt"></i> {{'label.heading.glimloanaccoverview' | translate}}
+			<div class="pull-right" style="margin-left:auto;">
+				<span ng-repeat="button in buttons.singlebuttons">
+					<a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), groupGLIMAccounts.glimId)"
+					   class="btn btn-primary btn-sm" has-permission='{{button.taskPermissionName}}'>
+						<i class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name | translate}}
+					</a>
+				</span>
+				<span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
+					<a class="btn btn-primary btn-sm dropdown-toggle">
+						{{ 'label.button.more' | translate}} <span class="caret"></span>
+					</a>
+					<ul style='margin-left:-95px;' class="dropdown dropdown-menu">
+						<li class="{{button.icon}}" ng-repeat="button in buttons.options">
+							<a ng-click="clickEvent(button.name.replace('button.',''), groupGLIMAccounts.glimId)"
+							   has-permission='{{button.taskPermissionName}}'>{{'label.' + button.name | translate}}</a>
+						</li>
+					</ul>
+				</span>
+			</div>
+		</div>
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.clientId }}</td>
+		<table class="table table-condensed">
+			<thead>
+			<tr class="graybg">
+				<th>{{'label.heading.loanId' | translate}}</th>
+				<th>{{'label.heading.clientid' | translate}}</th>
+				<th>{{'label.heading.clientname' | translate}}</th>
+				<th>{{'label.heading.loanaccountnum' | translate}}</th>
+				<th>{{'label.heading.clientprincipalloan' | translate}}</th>
+				<th>{{'label.heading.grouplprincipalloan' | translate}}</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="pointer-main" ng-repeat="glimloanaccount in glimAccounts">
+				<td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childLoanId}}</td>
+				<td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.clientId}}</td>
+				<td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.clientName}}</td>
+				<td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childLoanAccountNo}}</td>
+				<td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childPrincipalAmount}}</td>
+				<td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.parentPrincipalAmount}}</td>
+			</tr>
+			</tbody>
+		</table>
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.clientName }}</td>
+	</div><!-- /.ca-card -->
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childLoanAccountNo }}</td>
-
-                       <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childPrincipalAmount }}</td>
-
-                       <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.parentPrincipalAmount }}</td>
-                    </tr>
-
-                </table>
-            </div>
-        </div>
-    </div>
 </div>

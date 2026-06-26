@@ -545,6 +545,42 @@
             .when('/editPaymentType/:id', {
                 templateUrl: 'views/organization/editpaymenttype.html'
             })
+            .when('/provinces', {
+                templateUrl: 'views/organization/geography/provinces.html'
+            })
+            .when('/createprovince', {
+                templateUrl: 'views/organization/geography/createprovince.html'
+            })
+            .when('/editprovince/:id', {
+                templateUrl: 'views/organization/geography/editprovince.html'
+            })
+            .when('/districts', {
+                templateUrl: 'views/organization/geography/districts.html'
+            })
+            .when('/createdistrict', {
+                templateUrl: 'views/organization/geography/createdistrict.html'
+            })
+            .when('/editdistrict/:id', {
+                templateUrl: 'views/organization/geography/editdistrict.html'
+            })
+            .when('/communes', {
+                templateUrl: 'views/organization/geography/communes.html'
+            })
+            .when('/createcommune', {
+                templateUrl: 'views/organization/geography/createcommune.html'
+            })
+            .when('/editcommune/:id', {
+                templateUrl: 'views/organization/geography/editcommune.html'
+            })
+            .when('/villages', {
+                templateUrl: 'views/organization/geography/villages.html'
+            })
+            .when('/createvillage', {
+                templateUrl: 'views/organization/geography/createvillage.html'
+            })
+            .when('/editvillage/:id', {
+                templateUrl: 'views/organization/geography/editvillage.html'
+            })
             .when('/reports/:type', {
                 templateUrl: 'views/reports/view_reports.html'
             })

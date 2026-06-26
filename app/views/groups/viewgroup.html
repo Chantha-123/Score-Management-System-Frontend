@@ -1,9 +1,20 @@
 <div ng-controller="ViewGroupController" class="content-container">
-	<ul class="breadcrumb">
-	    <li><a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a></li>
-	    <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
-	    <li>{{group.name}}</li>
-	</ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">
+			<i class="fa fa-stop {{group.status.code | StatusLookup}}"></i> {{group.name}}
+		</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-building"></i>
+				<a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="group.centerName"><i class="fa fa-th-large"></i>
+				<a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a>
+			</span>
+		</div>
+	</div>
+
 	<script type="text/ng-template" id="deletegroup.html">
     	<div class="modal-header silver">
     	    <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -26,20 +37,7 @@
     	    <button class="btn btn-primary" ng-click="unassign()">	{{'label.button.confirm' | translate}}</button>
     	</div>
 	</script>
-	<div class="card">
-		<div class="content">
-			<div class="toolbar">
-			    <h4 class="">
-			        <i class="fa fa-circle {{group.status.code | StatusLookup}}">
-			        </i>
-			        <i class="fa fa-group"></i>{{group.name}}
-			        <i class="fa fa-barcode"></i>
-			         {{ 'label.heading.accnum' | translate }}: {{group.accountNo}} | <i class="fa fa-building"></i>
-			         {{ 'label.heading.office' | translate }}: "{{group.officeName}}" |
-			        <i class="fa fa-map-marker"></i> {{ 'label.heading.center' | translate }}: "{{group.centerName}}"
-			    </h4>
-			</div>
-			<br>
+	<div class="ca-card">
 			<uib-tabset class = "scrollable" uib-tabset-name="groupuib-tabset" scrollable persistent-tab>
 				<uib-tab heading="{{ 'label.heading.general' | translate }}">
 						<div>
@@ -606,6 +604,6 @@
 				    	</div>
 				</uib-tab>
 			</uib-tabset>
-		</div>
-	</div>
+	</div><!-- /.ca-card -->
+
 </div>

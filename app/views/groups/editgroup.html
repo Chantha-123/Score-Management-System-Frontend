@@ -1,11 +1,22 @@
 <div class="content-container" ng-controller="EditGroupController">
-<div class="content-container" data-ng-controller="MemberManageController">
-    <ul class="breadcrumb">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
-        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
-    </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.heading.editgroup' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/groups">{{'label.anchor.groups' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
     <wizard current-step="step" on-finish="submitDatatable()">
-        <div class="card well">
+        <div>
          <wz-step wz-title="{{'label.heading.details' | translate}}">
                 <div ng-show="managecode == 1">
                
@@ -172,4 +183,7 @@
             </wz-step>
         </div>
     </wizard>
+
+	</div><!-- /.ca-card -->
+
 </div>

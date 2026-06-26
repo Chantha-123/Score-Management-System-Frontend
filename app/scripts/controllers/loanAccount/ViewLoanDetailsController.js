@@ -185,11 +185,11 @@
                 }
                 if (data.status.value == "Submitted and pending approval") {
                     scope.buttons = { singlebuttons: [
-                        {
-                            name: "button.addloancharge",
-                            icon: "fa fa-plus",
-                            taskPermissionName: 'CREATE_LOANCHARGE'
-                        },
+                        // {
+                        //     name: "button.addloancharge",
+                        //     icon: "fa fa-plus",
+                        //     taskPermissionName: 'CREATE_LOANCHARGE'
+                        // },
                         {
                             name: "button.approve",
                             icon: "fa fa-check",
@@ -211,10 +211,10 @@
                                 name: (scope.loandetails.loanOfficerName?"button.changeloanofficer":"button.assignloanofficer"),
                                 taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                             },
-                            {
-                                name: "button.withdrawnbyclient",
-                                taskPermissionName: 'WITHDRAW_LOAN'
-                            },
+                            // {
+                            //     name: "button.withdrawnbyclient",
+                            //     taskPermissionName: 'WITHDRAW_LOAN'
+                            // },
                             {
                                 name: "button.delete",
                                 taskPermissionName: 'DELETE_LOAN'
@@ -230,11 +230,12 @@
                             {
                                 name: "button.createguarantor",
                                 taskPermissionName: 'CREATE_GUARANTOR'
-                            },
-                            {
-                                name: "button.loanscreenreport",
-                                taskPermissionName: 'READ_LOAN'
                             }
+                            // ,
+                            // {
+                            //     name: "button.loanscreenreport",
+                            //     taskPermissionName: 'READ_LOAN'
+                            // }
                         ]
 
                     };
@@ -258,11 +259,11 @@
                             icon: "fa fa-flag",
                             taskPermissionName: 'DISBURSE_LOAN'
                         },
-                        {
-                            name: "button.disbursetosavings",
-                            icon: "fa fa-flag",
-                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
-                        },
+                        // {
+                        //     name: "button.disbursetosavings",
+                        //     icon: "fa fa-flag",
+                        //     taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+                        // },
                         {
                             name: "button.undoapproval",
                             icon: "fa fa-undo",
@@ -270,10 +271,10 @@
                         }
                     ],
                         options: [
-                            {
-                                name: "button.addloancharge",
-                                taskPermissionName: 'CREATE_LOANCHARGE'
-                            },
+                            // {
+                            //     name: "button.addloancharge",
+                            //     taskPermissionName: 'CREATE_LOANCHARGE'
+                            // },
                             {
                                 name: "button.listguarantor",
                                 taskPermissionName: 'READ_GUARANTOR'
@@ -293,11 +294,11 @@
 
                 if (data.status.value == "Active") {
                     scope.buttons = { singlebuttons: [
-                        {
-                            name: "button.addloancharge",
-                            icon: "fa fa-plus",
-                            taskPermissionName: 'CREATE_LOANCHARGE'
-                        },
+                        // {
+                        //     name: "button.addloancharge",
+                        //     icon: "fa fa-plus",
+                        //     taskPermissionName: 'CREATE_LOANCHARGE'
+                        // },
                         {
                             name: "button.foreclosure",
                             icon: "icon-dollar",
@@ -335,10 +336,10 @@
                                 name: "button.close",
                                 taskPermissionName: 'CLOSE_LOAN'
                             },
-                            {
-                                name: "button.loanscreenreport",
-                                taskPermissionName: 'READ_LOAN'
-                            },
+                            // {
+                            //     name: "button.loanscreenreport",
+                            //     taskPermissionName: 'READ_LOAN'
+                            // },
                             {
                                 name: "button.listguarantor",
                                 taskPermissionName: 'READ_GUARANTOR'

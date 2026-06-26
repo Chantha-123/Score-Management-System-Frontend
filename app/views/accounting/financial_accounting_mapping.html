@@ -1,36 +1,36 @@
 <div class="content-container" ng-controller="FinancialActivityMappingsController">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li class="active">{{'label.anchor.financialactivity.accountmappings' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                    <a href="#/addfinancialmapping" class="pull-right btn btn-primary" has-permission='CREATE_FINANCIALACTIVITYACCOUNT'>
-                        <i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.define.new.financial.mapping' | translate}}</a>
-                </div>
-            </div>
-            <hr/>
-            <table class="table">
-                <thead>
-                <tr class="graybg">
-                    <th>{{'label.heading.financial.activity.type' | translate}}</th>
-                    <th>{{'label.heading.financial.activity.account.name' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="pointer-main" ng-repeat="mapping in mappings">
-                    <td class="pointer" data-ng-click="routeTo(mapping.id)">{{mapping.financialActivityData.name | translate }}</td>
-                    <td class="pointer" data-ng-click="routeTo(mapping.id)">{{mapping.glAccountData.name}}({{mapping.glAccountData.glCode}})</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.financialactivity.accountmappings' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-map-o"></i> {{'label.anchor.financialactivity.accountmappings' | translate}}
+			<a href="#/addfinancialmapping" class="btn btn-primary btn-sm pull-right" has-permission='CREATE_FINANCIALACTIVITYACCOUNT'>
+				<i class="fa fa-plus"></i> {{'label.button.define.new.financial.mapping' | translate}}
+			</a>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.financial.activity.type' | translate}}</th>
+					<th>{{'label.heading.financial.activity.account.name' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="mapping in mappings">
+					<td class="pointer" data-ng-click="routeTo(mapping.id)">{{mapping.financialActivityData.name | translate}}</td>
+					<td class="pointer" data-ng-click="routeTo(mapping.id)">{{mapping.glAccountData.name}} ({{mapping.glAccountData.glCode}})</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- /.ca-card -->
+
 </div>

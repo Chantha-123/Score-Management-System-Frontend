@@ -1,32 +1,43 @@
 <div class="content-container" ng-controller="CreditReportUploadThitsaWorksController">
-    <ul class="breadcrumb">
-        <li ng-if="!groupid"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
-        <li class="active"><a href="#/viewclient/{{clientId}}">{{displayName}}</a></li>
-        <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
-    </ul>
-    <wizard current-step="step" class="card well">
-        <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.uploaddocument' | translate}}">
-          <div class="card">
-            <div class="content">
-              <div class="toolbar">
-                <form class="form">
-                  <api-validate></api-validate>
-                   <div class="form-group">
-                       <label class="control-label col-sm-2" for="file">{{'label.input.uploadcreditreport' | translate}}<span class="required">*</span>
-                       </label>
-                         <div class="col-sm-5">
-                           <input type="file" id="file" accept=".csv" class="form-control btn btn-default" ngf-select="onFileSelect($files)">
-                         </div>
-                     <div class="col-sm-2">
-                          <button style="margin-left:10px;" type="button" class="form-control btn btn-primary col-sm-2" ng-click="upload()">
-                             {{'label.button.upload' | translate}}
-                          </button>
-                     </div>
-                   </div>
-                </form>
-             </div>
-            </div>
-          </div>
-        </wz-step>
-    </wizard>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.heading.uploaddocument' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-if="!groupid"><i class="fa fa-users"></i>
+				<a href="#/clients">{{'label.anchor.clients' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{clientId}}">{{displayName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-upload"></i> {{'label.input.uploadcreditreport' | translate}}
+		</div>
+
+		<wizard current-step="step" on-finish="upload()">
+			<wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.uploaddocument' | translate}}">
+				<form class="form-horizontal">
+					<api-validate></api-validate>
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="file">{{'label.input.uploadcreditreport' | translate}}<span class="required">*</span></label>
+						<div class="col-sm-4">
+							<input type="file" id="file" accept=".csv" class="form-control" ngf-select="onFileSelect($files)">
+						</div>
+						<div class="col-sm-2">
+							<button type="button" class="btn btn-primary btn-sm" ng-click="upload()">
+								{{'label.button.upload' | translate}}
+							</button>
+						</div>
+					</div>
+				</form>
+			</wz-step>
+		</wizard>
+
+	</div><!-- /.ca-card -->
+
 </div>

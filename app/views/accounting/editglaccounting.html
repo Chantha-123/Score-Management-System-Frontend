@@ -1,14 +1,28 @@
 <div ng-controller="AccEditGLAccountController" class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a></li>
-        <li><a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a></li>
-        <li class="active">{{'label.anchor.editglaccount' | translate}}</li>
-    </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editglaccount' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-sitemap"></i>
+				<a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-pencil"></i> {{'label.heading.editglaccount' | translate}}
+		</div>
     <api-validate></api-validate>
-    <form name="editglaccountingform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+    <form name="editglaccountingform" novalidate="" class="form-horizontal" rc-submit="submit()">
         <fieldset>
-            <legend>{{'label.heading.editglaccount' | translate}}</legend>
 			<div class="form-group">
 				<label class="control-label col-sm-2 " for="type">{{'label.input.accounttype' | translate}}
 				</label>
@@ -87,4 +101,6 @@
             </div>
         </fieldset>
     </form>
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,8 +1,21 @@
-<div class="content-container">
-   <div class="card well" ng-controller="XBRLController">
+<div class="content-container" ng-controller="XBRLController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">XBRL</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-bar-chart"></i>
+				<a href="#/reports">{{'label.anchor.reports' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-file-code-o"></i> XBRL
+		</div>
     <api-validate></api-validate>
-    <h2><strong ng-show="XbrlSuccess" class="display-save-message">{{'label.savesuccessfully' | translate}}</strong>
-    </h2>
+    <strong ng-show="XbrlSuccess" class="display-save-message">{{'label.savesuccessfully' | translate}}</strong>
 
     <div ng-hide="XbrlSuccess">
         <div class="col-sm-12 col-md-12">
@@ -92,7 +105,7 @@
                 </tr>
             </table>
         </div>
-    </div>
-</div> 
+	</div><!-- /.ca-card -->
+
 </div>
 

@@ -1,11 +1,20 @@
 <div class="content-container" ng-controller="StandingInstructionsHistoryController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li class="active">{{'label.anchor.standinginstruction.history' | translate}}</li>
-    </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.standinginstruction.history' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
     <api-validate></api-validate>
-    <div class="card">
-        <div class="content">
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-history"></i> {{'label.anchor.standinginstruction.history' | translate}}
+		</div>
             <div class="form-inline" ng-show="isCollapsed">
                 <div class="form-group">
                     <input class="form-control width155px" type="text" ng-model="formData.clientName" placeholder="{{'label.input.clientName' | translate }}"/>
@@ -82,8 +91,8 @@
                         | translate}} &rarr; </a></li>
                 </ul>
             </div>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
     <script type="text/ng-template" id="errorlog.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.errorlog' | translate}}</h3>

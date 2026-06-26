@@ -1,25 +1,37 @@
 <div class="content-container" ng-controller="TaxGroupController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a></li>
-        <li class="active">{{'label.anchor.managetaxgroup' | translate}}</li>
-    </ul>
-    <div class="clear"></div>
-    <div class="card well">
-        <div class="pull-right">
-            <a href="#/createtaxgroup" class="btn btn-primary" has-permission='CREATE_TAXGROUP'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createtaxgroup' | translate}}</a>
-        </div>
-        <table class="table">
-            <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.name' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="pointer-main" ng-repeat="taxgroup in taxgroups | orderBy:'name':reverse  | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(taxgroup.id)">{{taxgroup.name}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.managetaxgroup' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-percent"></i>
+				<a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-cogs"></i> {{'label.anchor.managetaxgroup' | translate}}
+			<span class="pull-right">
+				<a href="#/createtaxgroup" class="btn btn-primary btn-sm" has-permission='CREATE_TAXGROUP'><i class="fa fa-plus"></i>&nbsp;{{'label.button.createtaxgroup' | translate}}</a>
+			</span>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.name' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="taxgroup in taxgroups | orderBy:'name':reverse | filter:filterText">
+					<td class="pointer" data-ng-click="routeTo(taxgroup.id)">{{taxgroup.name}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- /.ca-card -->
+
 </div>

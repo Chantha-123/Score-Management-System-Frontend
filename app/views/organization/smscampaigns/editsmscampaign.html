@@ -1,15 +1,25 @@
 <div class="content-container" ng-controller="EditSmsCampaignController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a></li>
-        <li><a href="#/viewsmscampaign/{{campaignData.id}}">{{campaignData.campaignName}}</a></li>
-        <li class="active">{{'label.anchor.editcampaign' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h3>{{'label.heading.editsmscampaign' | translate}}</h3>
-            </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editcampaign' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-envelope"></i>
+				<a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-eye"></i>
+				<a href="#/viewsmscampaign/{{campaignData.id}}">{{campaignData.campaignName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-pencil"></i> {{'label.heading.editsmscampaign' | translate}}
+		</div>
             <br>
             <form name="editsmsform" novalidate="" class="form-horizontal " rc-submit="submit()">
                 <api-validate></api-validate>
@@ -206,7 +216,7 @@
                         </button>
                     </div>
                 </fieldset>
-            </form>
-        </div>
-    </div>
+        </form>
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,11 +1,24 @@
 <div class="content-container" ng-controller="CreateFixedDepositAccountController">
-    <ul class="breadcrumb">
-        <li ng-show="centerEntity"><a href="#/viewcenter/{{groupId}}"><strong>{{groupName}}</strong></a></li>
-        <li ng-show="groupName && !centerEntity"><a href="#/viewgroup/{{groupId}}"><strong>{{groupName}}</strong></a></li>
-        <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>{{clientName}}</strong></a></li>
-        <li class="active">{{'label.anchor.fixeddepositapplication' | translate}}</li>
-    </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.fixeddepositapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip" ng-show="centerEntity"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="groupName && !centerEntity"><i class="fa fa-users"></i>
+				<a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
+			</span>
+			<span class="ca-hero-chip" ng-show="clientName"><i class="fa fa-user"></i>
+				<a href="#/viewclient/{{clientId}}">{{clientName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+    <wizard current-step="step" on-finish="submit()">
         <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.details' | translate}}">
             <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-inline">
                 <api-validate></api-validate>
@@ -631,4 +644,8 @@
     </script>
     </fieldset>
     </form>
-    </div>
+    </div><!-- closes wizard step -->
+
+	</div><!-- /.ca-card -->
+
+</div>

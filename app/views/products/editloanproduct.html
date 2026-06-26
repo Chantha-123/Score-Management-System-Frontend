@@ -1,11 +1,23 @@
 <div class="content-container" ng-controller="EditLoanProductController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li><a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a></li>
-        <li><a href="#/viewloanproduct/{{product.id}}">{{product.name}}</a></li>
-        <li class="active">{{'label.anchor.editloanproduct' | translate}}</li>
-    </ul>
-	<form name="editloanproductform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editloanproduct' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-eye"></i>
+				<a href="#/viewloanproduct/{{product.id}}">{{product.name}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+	<form name="editloanproductform" novalidate="" class="form-horizontal" rc-submit="submit()">
 	<api-validate></api-validate>
 	<fieldset>
 	<h3>{{ 'label.heading.details' | translate }}</h3>
@@ -1296,4 +1308,6 @@
 	</div>
 	</fieldset>
 	</form>
+	</div><!-- /.ca-card -->
+
 </div>

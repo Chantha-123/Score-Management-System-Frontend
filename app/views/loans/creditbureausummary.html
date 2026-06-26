@@ -1,54 +1,44 @@
 <div class="content-container" ng-controller="CreditBureauSummaryController">
 
-    <fieldset>
-        <legend> {{ 'label.anchor.creditcheck' | translate }}</legend>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{ 'label.anchor.creditcheck' | translate }}</h2>
+	</div>
 
-        <table class="table">
+	<div class="ca-card">
 
-            <tr class="graybg">
-                <td>
-                {{'label.input.creditbureausummary' | translate}}
-                </td>
-                <td>
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-bar-chart"></i> {{'label.input.creditbureausummary' | translate}}
+		</div>
 
-                </td>
-            </tr>
-            <tr>
-                <td>{{'label.input.creditbureauId'  | translate}}
-                </td>
-                <td>{{cbId| translate}} </td>
-            </tr>
-            <tr>
-                <td>{{'label.input.name' | translate}}
-                </td>
-                <td>{{cbname| translate}} </td>
-            </tr>
+		<table class="table">
+			<tr>
+				<td class="width30">{{'label.input.creditbureauId' | translate}}</td>
+				<td>{{cbId}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.input.name' | translate}}</td>
+				<td>{{cbname}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.input.loanproduct' | translate}}</td>
+				<td>{{lpId}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.input.productname' | translate}}</td>
+				<td>{{lpName}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.input.is_active' | translate}}</td>
+				<td>{{cbactive}}</td>
+			</tr>
+		</table>
 
-            <tr>
-                <td> {{'label.input.loanproduct' | translate}} </td>
-                <td> {{lpId | translate}}</td>
-            </tr>
+		<div class="ca-form-actions">
+			<button data-ng-click="cancel()" class="btn btn-default btn-sm">{{'label.button.cancel' | translate}}</button>
+			<button data-ng-click="routeToCreditBureau()" class="btn btn-primary btn-sm">{{'label.button.viewprint' | translate}}</button>
+		</div>
 
-            <tr>
-                <td> {{'label.input.productname' | translate}} </td>
-                <td> {{lpName | translate}}</td>
-            </tr>
-
-            <tr>
-                <td>{{'label.input.is_active' | translate}} </td>
-                <td> {{cbactive }} </td>
-            </tr>
-            <tr>
-                <td>
-                    <button data-ng-click = "routeToCreditBureau()" class="btn btn-primary ng-binding">{{'label.button.viewprint' | translate}} </button>
-
-                    <button data-ng-click = "cancel()" class="btn btn-primary ng-binding">{{'label.button.cancel' | translate}} </button>
-
-                </td>
-            </tr>
-
-        </table>
-
-    </fieldset>
+	</div><!-- /.ca-card -->
 
 </div>

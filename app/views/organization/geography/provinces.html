@@ -1,0 +1,44 @@
+<div class="content-container" ng-controller="ProvincesController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">Manage Provinces</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-map-marker"></i> Manage Provinces
+			<span class="pull-right">
+				<a href="#/createprovince" class="btn btn-primary btn-sm" has-permission='CREATE_PROVINCE'><i class="fa fa-plus"></i>&nbsp;Create Province</a>
+			</span>
+		</div>
+		<div class="row" style="margin-bottom:12px;">
+			<div class="col-sm-4">
+				<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control" placeholder="Filter by code or name...">
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>Code</th>
+					<th>Name (Khmer)</th>
+					<th>Name (English)</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" dir-paginate="province in provinces | filter:filterText | itemsPerPage: ProvincesPerPage">
+					<td class="pointer" data-ng-click="routeTo(province.id)">{{province.code}}</td>
+					<td class="pointer" data-ng-click="routeTo(province.id)">{{province.nameKhm}}</td>
+					<td class="pointer" data-ng-click="routeTo(province.id)">{{province.nameEng}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div><!-- /.ca-card -->
+
+</div>

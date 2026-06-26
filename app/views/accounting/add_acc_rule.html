@@ -1,17 +1,22 @@
 <div class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
-        </li>
-        <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a>
-        </li>
-        <li class="active">{{'label.anchor.addrule' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{ 'label.heading.accountingruletitle' | translate }}</h4>
-            </div>
-            <br/>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.addrule' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-list-alt"></i>
+				<a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus-circle"></i> {{ 'label.heading.accountingruletitle' | translate }}
+		</div>
             <api-validate></api-validate>
             <form name="addaccountruleform" novalidate="" class="form-horizontal" ng-controller="AccCreateRuleController" rc-submit="submit()">
                 <fieldset>
@@ -115,6 +120,6 @@
                     </div>
                 </fieldset>
             </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

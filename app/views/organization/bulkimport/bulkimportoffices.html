@@ -1,9 +1,20 @@
-<div class="col-md-12" ng-controller="BulkImportOfficesController" ng-init="refreshImportTable()">
-    <ul class="breadcrumb">
-        <li><a href="#/bulkimport">{{'label.anchor.bulkimport' | translate}}</a></li>
-        <li class="active">{{'label.anchor.importoffices' | translate}}</li>
-    </ul>
-    <api-validate></api-validate>
+﻿<div class="content-container" ng-controller="BulkImportOfficesController" ng-init="refreshImportTable()">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.importoffices' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-upload"></i>
+				<a href="#/bulkimport">{{'label.anchor.bulkimport' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<api-validate></api-validate>
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-upload"></i> {{'label.anchor.importoffices' | translate}}
+		</div>
 
     <div style="margin-top:20px;" class="panel panel-default">
         <div class="panel-heading">
@@ -79,4 +90,6 @@
     </div>
 
     <div class="clearfix"></div>
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,32 +1,44 @@
 <div class="content-container" ng-controller="RejectLoanRescheduleRequestController">
-        <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-            <li><a href="#/loans/{{loanId}}/viewreschedulerequest/" class="active">{{'label.anchor.reschedulerequest' | translate}}</a></li>
-        </ul>
-    <div class="card">
-        <div class="content">
-            <form name="rejectloanrescheduleform" novalidate="" class="form-horizontal" rc-submit="submit()">
-                <api-validate></api-validate>
-                <fieldset>
-                    <legend>{{'label.heading.rejectloanreschedule' | translate}}</legend>
 
-                    <label class="control-label col-sm-2">{{'label.input.rejectedOnDate' | translate}}<span class="required">*</span></label>
-                    <div class="col-sm-3">
-                        <input id="rejectedOnDate" type="text" name="rejectedOnDate" datepicker-pop="dd MMMM yyyy"
-                               class="form-control paddedbottom10 paddedtop" ng-model="formData.rejectedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                    <div style="padding-left: 100px;">
-                        <button type="button" ng-click="cancel()" class="btn btn-default ">{{ 'label.button.cancel' | translate }}</button>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.heading.rejectloanreschedule' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-calendar"></i>
+				<a href="#/loans/{{loanId}}/viewreschedulerequest/">{{'label.anchor.reschedulerequest' | translate}}</a>
+			</span>
+		</div>
+	</div>
 
-                        <button type="button" ng-click="reject()" type="submit" class="btn btn-primary"  has-permission="REJECTRESCHEDULE_LOAN">
-                            {{'label.button.save' | translate}}
-                        </button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+	<div class="ca-card">
+
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-times-circle"></i> {{'label.heading.rejectloanreschedule' | translate}}
+		</div>
+
+		<form name="rejectloanrescheduleform" novalidate="" class="form-horizontal" rc-submit="submit()">
+			<api-validate></api-validate>
+
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{'label.input.rejectedOnDate' | translate}}<span class="required">*</span></label>
+				<div class="col-sm-4">
+					<input id="rejectedOnDate" type="text" name="rejectedOnDate" datepicker-pop="dd MMMM yyyy"
+						   class="form-control" ng-model="formData.rejectedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+				</div>
+			</div>
+
+			<div class="ca-form-actions">
+				<button type="button" ng-click="cancel()" class="btn btn-default btn-sm">{{ 'label.button.cancel' | translate }}</button>
+				<button type="button" ng-click="reject()" class="btn btn-primary btn-sm" has-permission="REJECTRESCHEDULE_LOAN">
+					{{'label.button.save' | translate}}
+				</button>
+			</div>
+
+		</form>
+
+	</div><!-- /.ca-card -->
+
 </div>

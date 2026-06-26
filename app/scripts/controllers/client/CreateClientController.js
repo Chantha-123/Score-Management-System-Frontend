@@ -37,6 +37,65 @@
             scope.tf = "HH:mm";
             scope.clientId = routeParams.clientId;
 
+            // Geography – Living Address & Birth Address
+            scope.living = { provinceId: null, districtId: null, communeId: null, villageId: null, districts: [], communes: [], villages: [] };
+            scope.birth  = { provinceId: null, districtId: null, communeId: null, villageId: null, districts: [], communes: [], villages: [] };
+            scope.geoProvinces = [];
+
+            resourceFactory.provinceResource.getAllProvinces(function (data) {
+                scope.geoProvinces = data;
+            });
+
+            scope.onLivingProvinceChange = function () {
+                scope.living.districtId = null; scope.living.communeId = null; scope.living.villageId = null;
+                scope.living.districts = []; scope.living.communes = []; scope.living.villages = [];
+                if (scope.living.provinceId) {
+                    resourceFactory.districtResource.getByProvince({ provinceId: scope.living.provinceId }, function (data) { scope.living.districts = data; });
+                }
+            };
+            scope.onLivingDistrictChange = function () {
+                scope.living.communeId = null; scope.living.villageId = null;
+                scope.living.communes = []; scope.living.villages = [];
+                if (scope.living.districtId) {
+                    resourceFactory.communeResource.getByDistrict({ districtId: scope.living.districtId }, function (data) { scope.living.communes = data; });
+                }
+            };
+            scope.onLivingCommuneChange = function () {
+                scope.living.villageId = null; scope.living.villages = [];
+                if (scope.living.communeId) {
+                    resourceFactory.villageResource.getByCommune({ communeId: scope.living.communeId }, function (data) { scope.living.villages = data; });
+                }
+            };
+            scope.clearLivingAddress = function () {
+                scope.living.provinceId = null; scope.living.districtId = null; scope.living.communeId = null; scope.living.villageId = null;
+                scope.living.districts = []; scope.living.communes = []; scope.living.villages = [];
+            };
+
+            scope.onBirthProvinceChange = function () {
+                scope.birth.districtId = null; scope.birth.communeId = null; scope.birth.villageId = null;
+                scope.birth.districts = []; scope.birth.communes = []; scope.birth.villages = [];
+                if (scope.birth.provinceId) {
+                    resourceFactory.districtResource.getByProvince({ provinceId: scope.birth.provinceId }, function (data) { scope.birth.districts = data; });
+                }
+            };
+            scope.onBirthDistrictChange = function () {
+                scope.birth.communeId = null; scope.birth.villageId = null;
+                scope.birth.communes = []; scope.birth.villages = [];
+                if (scope.birth.districtId) {
+                    resourceFactory.communeResource.getByDistrict({ districtId: scope.birth.districtId }, function (data) { scope.birth.communes = data; });
+                }
+            };
+            scope.onBirthCommuneChange = function () {
+                scope.birth.villageId = null; scope.birth.villages = [];
+                if (scope.birth.communeId) {
+                    resourceFactory.villageResource.getByCommune({ communeId: scope.birth.communeId }, function (data) { scope.birth.villages = data; });
+                }
+            };
+            scope.clearBirthAddress = function () {
+                scope.birth.provinceId = null; scope.birth.districtId = null; scope.birth.communeId = null; scope.birth.villageId = null;
+                scope.birth.districts = []; scope.birth.communes = []; scope.birth.villages = [];
+            };
+
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
                 requestParams.groupId = routeParams.groupId;
@@ -439,6 +498,13 @@
                 //
 
 
+
+                if (scope.living.villageId) {
+                    this.formData.villageId = scope.living.villageId;
+                }
+                if (scope.birth.villageId) {
+                    this.formData.birthVillageId = scope.birth.villageId;
+                }
 
                 resourceFactory.clientResource.save(this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);

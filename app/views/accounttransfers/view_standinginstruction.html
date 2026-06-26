@@ -1,14 +1,19 @@
 <div class="content-container" ng-controller="ViewStandingInstructionController">
-    <ul class="breadcrumb">
-        <li><a href="#/liststandinginstructions/{{standinginstruction.fromOffice.id}}/{{
-        standinginstruction.fromClient.id}}">{{'label.heading.liststandinginstruction'| translate}}</a></li>
-        <li class="active">{{'label.anchor.standinginstruction' | translate}}>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{ 'label.heading.viewstandinginstruction' | translate }}</h4>
-            </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.standinginstruction' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/liststandinginstructions/{{standinginstruction.fromOffice.id}}/{{standinginstruction.fromClient.id}}">{{'label.heading.liststandinginstruction' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-eye"></i> {{ 'label.heading.viewstandinginstruction' | translate }}
+		</div>
             <form class="form-horizontal" name="standinginstructionform" 
             novalidate="" rc-submit="submit()">
                 <fieldset>
@@ -139,6 +144,6 @@
             </div>
             </fieldset>
         </form>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

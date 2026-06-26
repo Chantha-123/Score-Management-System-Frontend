@@ -42,13 +42,6 @@
                         subhref: "reject",
                         icon: "fa fa-remove-circle",
                         taskPermissionName: "REJECT_CLIENT"
-                    },
-                    {
-                        name: "label.button.withdraw",
-                        href: "#/client",
-                        subhref: "withdraw",
-                        icon: "fa fa-remove-circle",
-                        taskPermissionName: "WITHDRAW_CLIENT"
                     }
                 ],
                 "Closed":[
@@ -95,25 +88,25 @@
                         icon: "fa fa-plus",
                         taskPermissionName: "CREATE_LOAN"
                     },
-                    {
-                        name: "label.button.newsaving",
-                        href: "#/new_client_saving_application",
-                        icon: "fa fa-plus",
-                        taskPermissionName: "CREATE_SAVINGSACCOUNT"
-                    },
-                    {
-                        name: "label.button.newcharge",
-                        href: "#/viewclient",
-                        subhref: "addcharge",
-                        icon: "fa fa-plus",
-                        taskPermissionName: "CREATE_CLIENTCHARGE"
-                    },
-                    {
-                        name: "label.button.transferclient",
-                        href: "#/transferclient",
-                        icon: "fa fa-arrow-right",
-                        taskPermissionName: "PROPOSETRANSFER_CLIENT"
-                    },
+                    // {
+                    //     name: "label.button.newsaving",
+                    //     href: "#/new_client_saving_application",
+                    //     icon: "fa fa-plus",
+                    //     taskPermissionName: "CREATE_SAVINGSACCOUNT"
+                    // },
+                    // {
+                    //     name: "label.button.newcharge",
+                    //     href: "#/viewclient",
+                    //     subhref: "addcharge",
+                    //     icon: "fa fa-plus",
+                    //     taskPermissionName: "CREATE_CLIENTCHARGE"
+                    // },
+                    // {
+                    //     name: "label.button.transferclient",
+                    //     href: "#/transferclient",
+                    //     icon: "fa fa-arrow-right",
+                    //     taskPermissionName: "PROPOSETRANSFER_CLIENT"
+                    // },
                     {
                         name: "label.button.close",
                         href: "#/client",

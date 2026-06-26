@@ -1,9 +1,18 @@
 <div class="content-container" ng-controller="SavingAccountActionsController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
-        <li class="active">{{action}}</li>
-    </ul>
-    <wizard current-step="step" on-finish="submitDatatable()" class="card well">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{title | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-piggy-bank"></i>
+				<a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+    <wizard current-step="step" on-finish="submitDatatable()">
         <wz-step wz-title="{{title | translate}}">
     <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
         <fieldset>
@@ -281,4 +290,7 @@
             </div>
         </wz-step>
     </wizard>
+
+	</div><!-- /.ca-card -->
+
 </div>

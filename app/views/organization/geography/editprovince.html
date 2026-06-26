@@ -1,0 +1,58 @@
+<div class="content-container" ng-controller="EditProvinceController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">Edit Province</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-map-marker"></i>
+				<a href="#/provinces">Manage Provinces</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-edit"></i> Edit Province
+		</div>
+		<form name="editprovinceform" novalidate="" class="form-horizontal" rc-submit="submit()">
+			<api-validate></api-validate>
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label col-sm-3">Code<span class="required">*</span></label>
+					<div class="col-sm-4">
+						<input id="code" ng-autofocus="true" type="text" name="code" ng-model="formData.code" class="form-control" required late-Validate/>
+					</div>
+					<div class="col-sm-3">
+						<form-validate valattributeform="editprovinceform" valattribute="code"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">Name (Khmer)<span class="required">*</span></label>
+					<div class="col-sm-4">
+						<input id="nameKhm" type="text" name="nameKhm" ng-model="formData.nameKhm" class="form-control" required late-Validate/>
+					</div>
+					<div class="col-sm-3">
+						<form-validate valattributeform="editprovinceform" valattribute="nameKhm"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">Name (English)<span class="required">*</span></label>
+					<div class="col-sm-4">
+						<input id="nameEng" type="text" name="nameEng" ng-model="formData.nameEng" class="form-control" required late-Validate/>
+					</div>
+					<div class="col-sm-3">
+						<form-validate valattributeform="editprovinceform" valattribute="nameEng"/>
+					</div>
+				</div>
+				<div class="ca-form-actions">
+					<a id="cancel" href="#/provinces" class="btn btn-default btn-sm">{{'label.button.cancel' | translate}}</a>
+					<button id="save" type="submit" class="btn btn-primary btn-sm" has-permission='UPDATE_PROVINCE'>{{'label.button.save' | translate}}</button>
+				</div>
+			</fieldset>
+		</form>
+	</div><!-- /.ca-card -->
+
+</div>

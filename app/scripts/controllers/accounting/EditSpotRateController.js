@@ -8,6 +8,10 @@
                 scope.offices = data;
             });
 
+            resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
+                scope.currencyOptions = data.selectedCurrencyOptions;
+            });
+
             resourceFactory.spotRateResource.get({spotRateId: routeParams.id}, function (data) {
                 scope.spotRateId = data.id;
                 scope.formData = {

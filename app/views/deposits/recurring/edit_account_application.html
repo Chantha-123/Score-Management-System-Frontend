@@ -1,15 +1,20 @@
-<div class ="content-container" ng-controller="EditRecurringDepositAccountController">
-<div>
-    <ul class="breadcrumb">
-        <li><a href="#/viewrecurringdepositaccount/{{accountId}}">{{'label.anchor.viewrecurringdepositaccount' |
-            translate}}</a> </li>
-        <li class="active">{{'label.anchor.editrecurringdepositapplication' | translate}}</li>
-    </ul>
-</div>
+<div class="content-container" ng-controller="EditRecurringDepositAccountController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editrecurringdepositapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-refresh"></i>
+				<a href="#/viewrecurringdepositaccount/{{accountId}}">{{'label.anchor.viewrecurringdepositaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
 <api-validate></api-validate>
-<form name="editrecurringdepositaccountform" novalidate="" class="well form-inline card" rc-submit="submit()">
+<form name="editrecurringdepositaccountform" novalidate="" class="form-inline" rc-submit="submit()">
 <fieldset>
-<legend>{{ 'label.heading.editrecurringdepositapplication' | translate }}</legend>
 <table class="width100">
     <tr>
         <td class="width14">
@@ -374,4 +379,7 @@
 </script>
 </fieldset>
 </form>
+
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,4 +1,27 @@
 @charset "UTF-8";
+/* ── Design Tokens ────────────────────────────────────────────────────────── */
+:root {
+  /* Brand — navy is the single app primary */
+  --color-primary:       #1a2744;
+  --color-primary-hover: #253558;
+  --color-primary-shadow: rgba(26, 39, 68, 0.25);
+  --color-primary-bg:    #edf0f7;
+
+  /* Semantic */
+  --color-success:       #00b894;
+  --color-success-bg:    #e0faf3;
+  --color-warning:       #c9a84c;
+  --color-warning-bg:    #fdf5e0;
+  --color-danger:        #d9534f;
+  --color-danger-bg:     #fef2f2;
+
+  /* Neutrals */
+  --gray-900: #1e293b;
+  --gray-700: #475569;
+  --gray-500: #94a3b8;
+  --gray-200: #e2e8f0;
+  --gray-50:  #f8fafc;
+}
 /* Variables */
 /* Mixins and Colors */
 /* Load External Stylesheets */
@@ -23481,9 +23504,9 @@ tr:hover .row-actions { opacity: 1; }
   gap: 8px;
 }
 .cp-btn-primary {
-  background: #1a2744;
+  background: var(--color-primary);
   color: #fff !important;
-  border: 2px solid #1a2744;
+  border: 2px solid var(--color-primary);
   border-radius: 6px;
   padding: 7px 16px;
   font-size: 13px;
@@ -23493,15 +23516,15 @@ tr:hover .row-actions { opacity: 1; }
   text-decoration: none !important;
 }
 .cp-btn-primary:hover {
-  background: #253558;
-  -webkit-box-shadow: 0 4px 12px rgba(26,39,68,0.25);
-          box-shadow: 0 4px 12px rgba(26,39,68,0.25);
+  background: var(--color-primary-hover);
+  -webkit-box-shadow: 0 4px 12px var(--color-primary-shadow);
+          box-shadow: 0 4px 12px var(--color-primary-shadow);
   color: #fff !important;
 }
 .cp-btn-outline {
   background: transparent;
-  color: #1a2744 !important;
-  border: 2px solid #1a2744;
+  color: var(--color-primary) !important;
+  border: 2px solid var(--color-primary);
   border-radius: 6px;
   padding: 7px 16px;
   font-size: 13px;
@@ -23511,7 +23534,7 @@ tr:hover .row-actions { opacity: 1; }
   text-decoration: none !important;
 }
 .cp-btn-outline:hover {
-  background: #1a2744;
+  background: var(--color-primary);
   color: #fff !important;
 }
 
@@ -23547,9 +23570,9 @@ tr:hover .row-actions { opacity: 1; }
   -webkit-box-shadow: 0 4px 16px rgba(26,39,68,0.13);
           box-shadow: 0 4px 16px rgba(26,39,68,0.13);
 }
-.cp-stat-total  { border-left-color: #1a2744; }
-.cp-stat-active { border-left-color: #00b894; }
-.cp-stat-pending{ border-left-color: #c9a84c; }
+.cp-stat-total  { border-left-color: var(--color-primary); }
+.cp-stat-active { border-left-color: var(--color-success); }
+.cp-stat-pending{ border-left-color: var(--color-warning); }
 
 .cp-stat-icon {
   width: 44px;
@@ -23568,14 +23591,14 @@ tr:hover .row-actions { opacity: 1; }
   -ms-flex-negative: 0;
       flex-shrink: 0;
 }
-.cp-stat-total  .cp-stat-icon { background: #edf0f7; color: #1a2744; }
-.cp-stat-active .cp-stat-icon { background: #e0faf3; color: #00b894; }
-.cp-stat-pending .cp-stat-icon { background: #fdf5e0; color: #c9a84c; }
+.cp-stat-total  .cp-stat-icon { background: var(--color-primary-bg); color: var(--color-primary); }
+.cp-stat-active .cp-stat-icon { background: var(--color-success-bg); color: var(--color-success); }
+.cp-stat-pending .cp-stat-icon { background: var(--color-warning-bg); color: var(--color-warning); }
 
 .cp-stat-value {
   font-size: 26px;
   font-weight: 700;
-  color: #1a2744;
+  color: var(--color-primary);
   line-height: 1;
 }
 .cp-stat-label {
@@ -24256,3 +24279,548 @@ tr:hover .row-actions { opacity: 1; }
 .navbar .navbar-brand {
   font-weight: 700;
 }
+
+/* ══════════════════════════════════════════
+   Client Action Forms  (ca-*)
+   Shared design system matching viewclient.html
+   ══════════════════════════════════════════ */
+
+/* Page hero strip */
+.ca-page-hero {
+  padding: 20px 24px 16px;
+  background: -webkit-linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #1d4ed8 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #1d4ed8 100%);
+  margin: -15px -15px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.ca-page-hero:after {
+  content: '';
+  position: absolute;
+  width: 180px; height: 180px;
+  top: -50px; right: -50px;
+  background: rgba(59,130,246,0.10);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ca-page-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.ca-page-subtitle {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.ca-page-subtitle a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+}
+.ca-page-subtitle a:hover { color: #ffffff; text-decoration: underline; }
+.ca-page-subtitle .ca-breadcrumb-sep { margin: 0 6px; color: rgba(255,255,255,0.35); }
+
+/* Form card */
+.ca-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  padding: 20px 24px 24px;
+  margin-bottom: 20px;
+}
+
+/* Section heading — mirrors .vc-section-heading */
+.ca-section-heading {
+  padding: 0 0 9px;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 7px;
+  margin: 20px 0 18px;
+}
+.ca-section-heading:first-child { margin-top: 0; }
+.ca-section-heading i { color: #3b82f6; font-size: 12px; }
+
+/* ── Field labels — override Bootstrap form-horizontal right-align ── */
+
+/* Default: label stacks above input (used in ca-field-half) */
+.ca-card .control-label,
+.ca-form .control-label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left !important;
+  float: none !important;
+  width: 100% !important;
+  padding-top: 0 !important;
+  padding-right: 0 !important;
+  margin-bottom: 5px !important;
+}
+
+/* ca-field-half: reset Bootstrap grid margins so inputs fill full half-width */
+.ca-field-half .form-group {
+  display: block !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.ca-field-half .form-control { width: 100%; }
+
+/* ── Standalone form-group rows (label carries col-sm-X): side-by-side layout ── */
+/* Make the form-group a flex row */
+.ca-card .form-group:not(.ca-field-half .form-group) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+/* When label has col-sm-X it IS a standalone row label: right-align it */
+.ca-card .control-label.col-sm-3,
+.ca-card .control-label.col-sm-2 {
+  -ms-flex: 0 0 170px;
+  flex: 0 0 170px;
+  width: 170px !important;
+  max-width: 170px;
+  text-align: right !important;
+  padding-right: 14px !important;
+  padding-top: 7px !important;
+  margin-bottom: 0 !important;
+}
+/* Input/select containers that carry col-sm-X: stretch to fill remaining space */
+.ca-card .form-group > .col-sm-5,
+.ca-card .form-group > .col-sm-4,
+.ca-card .form-group > .col-sm-2:not(.control-label),
+.ca-card .form-group > .col-sm-3:not(.control-label) {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  float: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 460px;
+}
+
+/* Input / select / textarea focus ring */
+.ca-card .form-control:focus,
+.ca-form .form-control:focus {
+  border-color: #3b82f6;
+  -webkit-box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  outline: none;
+}
+
+/* Actions footer row */
+.ca-form-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 18px 0 4px;
+  border-top: 2px solid #e2e8f0;
+  margin-top: 24px;
+}
+
+/* Info chip in hero (client name / id) */
+.ca-hero-chip {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 20px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-top: 6px;
+  margin-right: 4px;
+  position: relative;
+  z-index: 1;
+}
+.ca-hero-chip i { color: rgba(255,255,255,0.55); font-size: 10px; }
+.ca-hero-chip strong { color: #ffffff; }
+.ca-hero-chip a { color: rgba(255,255,255,0.85); text-decoration: none; }
+.ca-hero-chip a:hover { color: #ffffff; text-decoration: underline; }
+
+/* ── ca-field-row: two fields side-by-side ── */
+.ca-field-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 4px;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+.ca-field-half {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 4px;
+}
+.ca-field-half .control-label {
+  display: block !important;
+  margin-bottom: 5px !important;
+}
+.ca-field-half .form-group {
+  margin-bottom: 14px;
+}
+.ca-card .form-control,
+.ca-form .form-control {
+  height: 36px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 13px;
+  color: #1e293b;
+  -webkit-transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.15s, -webkit-box-shadow 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ca-card textarea.form-control { height: auto; }
+@media (max-width: 767px) {
+  .ca-field-row { display: block; }
+  .ca-field-half { margin-bottom: 10px; }
+}
+
+/* ── ca-sub-card: nested card for address / family blocks ── */
+.ca-sub-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.ca-sub-card-header {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.ca-sub-card-header i { color: #3b82f6; }
+.ca-sub-card-header .ca-sub-card-actions {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ca-sub-card-header .ca-member-name {
+  font-weight: 400;
+  color: #64748b;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+.ca-sub-card-body {
+  padding: 16px;
+}
+.ca-sub-card-body .form-group:last-child { margin-bottom: 0; }
+
+/* Family member sub-card accent */
+.ca-sub-card-family > .ca-sub-card-header {
+  background: #eff6ff;
+  border-bottom-color: #bfdbfe;
+}
+
+/* ── ca-avatar-ring: circular photo placeholder ── */
+.ca-avatar-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 18px;
+  cursor: pointer;
+  -webkit-transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s;
+  margin-left: auto;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+.ca-avatar-ring:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+/* ── Sticky action bar ── */
+.ca-form-actions-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-top: 2px solid #e2e8f0;
+  padding: 12px 24px;
+  margin: 20px -24px -24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+}
+.ca-form-actions-sticky .ca-actions-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+}
+
+/* ── Validation color feedback within ca-card ── */
+.ca-card .has-error .form-control,
+.ca-form .has-error .form-control {
+  border-color: #ef4444;
+}
+.ca-card .has-success .form-control,
+.ca-form .has-success .form-control {
+  border-color: #22c55e;
+}
+.ca-card .has-error .control-label,
+.ca-form .has-error .control-label {
+  color: #ef4444 !important;
+}
+.ca-card .help-block.error-msg {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+/* ── Same-as-Living checkbox row ── */
+.ca-same-as-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+.ca-same-as-row input[type="checkbox"] { margin: 0; cursor: pointer; }
+
+/* ── Add-member button row ── */
+.ca-add-row {
+  text-align: center;
+  padding: 4px 0 8px;
+}
+.ca-add-row .btn { border-style: dashed; color: #3b82f6; border-color: #93c5fd; }
+.ca-add-row .btn:hover { background: #eff6ff; }
+
+/* ── New Loan Account — wizard layout helpers ── */
+
+/* 3-column row for grace period fields */
+.ca-field-third { flex: 1; min-width: 0; }
+
+/* Review step: key-value pairs */
+.ca-review-section { margin-bottom: 20px; }
+.ca-review-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 7px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+.ca-review-row .ca-review-label {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 250px;
+  flex: 0 0 250px;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.ca-review-row .ca-review-value {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #1e293b;
+}
+
+/* Wizard step footer action bar */
+.ca-wizard-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 12px;
+}
+.ca-wizard-actions .btn-prev { margin-right: auto; }
+
+/* Collateral input row */
+.ca-collateral-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+.ca-collateral-row > div { -webkit-box-flex: 1; -ms-flex: 1; flex: 1; min-width: 0; }
+
+/* ── Schedule preview bar ── */
+.ca-schedule-preview-bar {
+  margin: 20px 0 0;
+  padding: 10px 0;
+  border-top: 1px solid #e5e7eb;
+}
+.ca-preview-link {
+  font-size: 13px;
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.ca-preview-link:hover { color: #1d4ed8; text-decoration: none; }
+.ca-preview-link--open { color: #6b7280; }
+.ca-preview-link--open:hover { color: #374151; }
+
+/* ── Advanced Options collapsible ── */
+.ca-advanced-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+.ca-advanced-toggle {
+  font-size: 13px;
+  color: #6b7280;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.ca-advanced-toggle:hover { color: #374151; text-decoration: none; }
+.ca-advanced-hint { color: #9ca3af; font-size: 12px; }
+
+/* ── Interest Recalculation info card ── */
+.ca-info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: #0369a1;
+  user-select: none;
+}
+.ca-info-card:hover { background: #e0f2fe; }
+.ca-info-card-title { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.ca-info-card-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  background: #0ea5e9;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: normal;
+}
+.ca-info-card-body {
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #bae6fd;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  margin-bottom: 16px;
+}
+
+/* ── Overdue charges banner ── */
+.ca-overdue-banner {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 8px 0 16px;
+  font-size: 13px;
+}
+.ca-overdue-banner-title {
+  font-weight: 600;
+  color: #c2410c;
+  margin-bottom: 6px;
+}
+.ca-overdue-banner-title i { margin-right: 4px; }
+.ca-overdue-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  color: #7c3012;
+  border-top: 1px solid #fed7aa;
+}
+.ca-overdue-item:first-of-type { border-top: none; padding-top: 0; }
+.ca-overdue-meta { color: #9a3412; font-size: 12px; }

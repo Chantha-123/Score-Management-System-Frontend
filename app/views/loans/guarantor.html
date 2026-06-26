@@ -1,198 +1,194 @@
 <div class="content-container">
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{'label.heading.createguarantor' | translate}}</h4>
-            </div>
-            <br/>
-            <form class="form-horizontal" name="guaratorform" novalidate="" ng-controller="GuarantorController"
-                  rc-submit="submit()">
-                <api-validate></api-validate>
-                <fieldset>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.existingclient' | translate }}</label>
 
-                        <div class="col-sm-3">
-                            <input type="checkbox" data-ng-model="temp" data-ng-change="checkClient()">
-                        </div>
-                    </div>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.heading.createguarantor' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">
-                            {{'label.input.office' | translate}} <span ng-show="forceOffice == null" class="required">*</span>
-                        </label>
-                        <div class="col-sm-3">
-                            <div ng-show="forceOffice == null">
-                                <select chosen="offices" id="officeId" ng-model="formData.officeId"  class="form-control"
-                                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-                                        ng-change="changeOffice(formData.officeId)"></select>
-                            </div>
-                            <div ng-show="forceOffice != null">
-                                <p class="form-control-static">{{forceOffice.name}}</p>
-                            </div>
-                        </div>
-                    </div>
+	<div class="ca-card">
 
-                    <div data-ng-switch on="temp">
-                        <div data-ng-switch-when="true">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span
-                                        class="required">*</span></label>
+		<form class="form-horizontal" name="guaratorform" novalidate="" ng-controller="GuarantorController" rc-submit="submit()">
+			<api-validate></api-validate>
 
-                                <div class="col-sm-3">
-                                    <input type="text" ng-model="clientData.available" class="form-control"
-                                        typeahead-editable="false"
-                                        uib-typeahead="client as ( client.id + ' '+ client.displayName ) for client in clientOptions($viewValue)"
-                                        typeahead-on-select="viewClient(clientData.available)"/>
-                                </div>
-                                <div class="col-sm-2">
-                                    <form-validate valattributeform="guaratorform" valattribute="clientname"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-building-o"></i> {{ 'label.heading.assignment' | translate }}
+			</div>
 
-                                <div class="col-sm-3">
-                                    <select id="relationship" ng-model="formData.relationship" class="form-control"
-                                            ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes"
-                                            value="{{type.id}}">
-                                        <option value="">{{'label.selectone' | translate}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div data-ng-switch-when="false">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{ 'label.input.existingclient' | translate }}</label>
+				<div class="col-sm-4" style="padding-top:7px;">
+					<input type="checkbox" data-ng-model="temp" data-ng-change="checkClient()">
+				</div>
+			</div>
 
-                                <div class="col-sm-3">
-                                    <select id="relationshipType" ng-model="formData.relationshipType" class="form-control"
-                                            ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes"
-                                            value="{{type.id}}">
-                                        <option value="">{{'label.selectone' | translate}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="firstname">{{ 'label.input.firstname' | translate }}<span
-                                        class="required">*</span></label>
+			<div class="form-group">
+				<label class="control-label col-sm-3">
+					{{'label.input.office' | translate}} <span ng-show="forceOffice == null" class="required">*</span>
+				</label>
+				<div class="col-sm-4">
+					<div ng-show="forceOffice == null">
+						<select id="officeId" ng-model="formData.officeId" class="form-control"
+								ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+								ng-change="changeOffice(formData.officeId)"></select>
+					</div>
+					<div ng-show="forceOffice != null">
+						<p class="form-control-static">{{forceOffice.name}}</p>
+					</div>
+				</div>
+			</div>
 
-                                <div class="col-sm-3">
-                                    <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control"
-                                           ng-required="!temp" late-Validate/>
-                                </div>
-                                <div class="col-sm-2">
-                                    <form-validate valattributeform="guaratorform" valattribute="firstname"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.lastname' | translate }}<span class="required">*</span></label>
+			<!-- Existing client branch -->
+			<div data-ng-switch on="temp">
+				<div data-ng-switch-when="true">
+					<div class="ca-section-heading">
+						<i class="fa fa-user"></i> {{ 'label.input.name' | translate }}
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
+						<div class="col-sm-4">
+							<input type="text" ng-model="clientData.available" class="form-control"
+								typeahead-editable="false"
+								uib-typeahead="client as ( client.id + ' '+ client.displayName ) for client in clientOptions($viewValue)"
+								typeahead-on-select="viewClient(clientData.available)"/>
+							<form-validate valattributeform="guaratorform" valattribute="clientname"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.relationship' | translate }}</label>
+						<div class="col-sm-4">
+							<select id="relationship" ng-model="formData.relationship" class="form-control"
+									ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes"
+									value="{{type.id}}">
+								<option value="">{{'label.selectone' | translate}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
 
-                                <div class="col-sm-3">
-                                    <input id="lastname" type="text" name="lastname" ng-model="formData.lastname" class="form-control"
-                                           ng-required="!temp" late-Validate/>
-                                </div>
-                                <div class="col-sm-2">
-                                    <form-validate valattributeform="guaratorform" valattribute="lastname"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.dob' | translate }}</label>
+				<!-- External guarantor branch -->
+				<div data-ng-switch-when="false">
+					<div class="ca-section-heading">
+						<i class="fa fa-id-card-o"></i> {{ 'label.heading.personaldetails' | translate }}
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.relationship' | translate }}</label>
+						<div class="col-sm-4">
+							<select id="relationshipType" ng-model="formData.relationshipType" class="form-control"
+									ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes"
+									value="{{type.id}}">
+								<option value="">{{'label.selectone' | translate}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="firstname">{{ 'label.input.firstname' | translate }}<span class="required">*</span></label>
+						<div class="col-sm-4">
+							<input type="text" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control" ng-required="!temp" late-Validate/>
+							<form-validate valattributeform="guaratorform" valattribute="firstname"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.lastname' | translate }}<span class="required">*</span></label>
+						<div class="col-sm-4">
+							<input id="lastname" type="text" name="lastname" ng-model="formData.lastname" class="form-control" ng-required="!temp" late-Validate/>
+							<form-validate valattributeform="guaratorform" valattribute="lastname"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.dob' | translate }}</label>
+						<div class="col-sm-4">
+							<input id="dob" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" class="form-control"
+								   is-open="opened" min="minDate" max="restrictDate"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.address' | translate }}</label>
+						<div class="col-sm-4">
+							<input id="addressline1" type="text" placeholder="Line 1" class="form-control" ng-model="formData.addressLine1">
+							<input id="addressline2" type="text" placeholder="Line 2" class="form-control" ng-model="formData.addressLine2" style="margin-top:6px;">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.city' | translate }}</label>
+						<div class="col-sm-4">
+							<input id="city" type="text" class="form-control" ng-model="formData.city">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.zip' | translate }}</label>
+						<div class="col-sm-4">
+							<input id="zip" type="text" class="form-control" ng-model="formData.zip">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.mobile' | translate }}</label>
+						<div class="col-sm-4">
+							<input id="mobile" type="text" class="form-control" ng-model="formData.mobile">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">{{ 'label.input.residence' | translate }}</label>
+						<div class="col-sm-4">
+							<input id="residence" type="text" class="form-control" ng-model="formData.residence">
+						</div>
+					</div>
+				</div>
+			</div>
 
-                                <div class="col-sm-3">
-                                    <input id="dob" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" class="form-control"
-                                           is-open="opened" min="minDate" max="restrictDate"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.address' | translate }}</label>
+			<!-- Client details preview (existing client selected) -->
+			<div data-ng-show="clientview">
+				<div class="ca-section-heading">
+					<i class="fa fa-user"></i> {{'label.heading.clientdetails' | translate}}
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.heading.name' | translate}}</label>
+					<div class="col-sm-4"><p class="form-control-static">{{client.displayName}}</p></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.heading.id' | translate}}</label>
+					<div class="col-sm-4"><p class="form-control-static">{{client.id}}</p></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.heading.office' | translate}}</label>
+					<div class="col-sm-4"><p class="form-control-static">{{client.officeName}}</p></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">{{'label.heading.activationdate' | translate}}</label>
+					<div class="col-sm-4"><p class="form-control-static">{{client.activationDate | DateFormat}}</p></div>
+				</div>
+				<div class="form-group" data-ng-show="accounts">
+					<label class="control-label col-sm-3" for="savingsId">{{ 'label.input.account' | translate }}</label>
+					<div class="col-sm-4">
+						<select id="savingsId" ng-model="formData.savingsId" name="savingsId" class="form-control"
+								ng-options="savingsAccount.id as (savingsAccount.productName+' - '+savingsAccount.accountNo) for savingsAccount in accounts"
+								value="{{savingsAccount.id}}">
+							<option value="">{{'label.selectone' | translate}}</option>
+						</select>
+						<form-validate valattributeform="guaratorform" valattribute="savingsId"/>
+					</div>
+				</div>
+				<div class="form-group" data-ng-show="accounts">
+					<label class="control-label col-sm-3" for="amount">{{ 'label.input.amount' | translate }}</label>
+					<div class="col-sm-4">
+						<input id="amount" type="text" name="amount" ng-model="formData.amount" class="form-control" number-format
+							   ng-required="formData.savingsId" late-Validate/>
+						<form-validate valattributeform="guaratorform" valattribute="amount"/>
+					</div>
+				</div>
+			</div>
 
-                                <div class="col-sm-3">
-                                    <input id="addressline1" type="text" placeholder="Line 1" class="form-control" ng-model="formData.addressLine1">
-                                </div>
-                                <div class="col-sm-3">
-                                    <input id="addressline2" type="text" placeholder="Line 2" class="form-control" ng-model="formData.addressLine2">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.city' | translate }}</label>
+			<div class="ca-form-actions">
+				<a id="cancel" href="#/viewloanaccount/{{loanId}}" class="btn btn-default btn-sm">{{ 'label.button.cancel' | translate }}</a>
+				<button id="save" type="submit" class="btn btn-primary btn-sm" has-permission='CREATE_GUARANTOR'>{{ 'label.button.save' | translate }}</button>
+			</div>
 
-                                <div class="col-sm-3">
-                                    <input id="city" type="text" class="form-control" ng-model="formData.city">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.zip' | translate }}</label>
+		</form>
 
-                                <div class="col-sm-3">
-                                    <input id="zip" type="text" class="form-control" ng-model="formData.zip">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.mobile' | translate }}</label>
+	</div><!-- /.ca-card -->
 
-                                <div class="col-sm-3">
-                                    <input id="mobile" type="text" class="form-control" ng-model="formData.mobile">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{ 'label.input.residence' | translate }}</label>
-
-                                <div class="col-sm-3">
-                                    <input id="residence" type="text" class="form-control" ng-model="formData.residence">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div data-ng-show="clientview">
-                        <h3>{{'label.heading.clientdetails' | translate}}</h3>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{'label.heading.name' | translate}}</label>
-                                <label class="col-sm-2">{{client.displayName}}</label>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{'label.heading.id' | translate}}</label>
-                                <label class="col-sm-2">{{client.id}}</label>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{'label.heading.office' | translate}}</label>
-                                <label class="col-sm-2">{{client.officeName}}</label>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">{{'label.heading.activationdate' | translate}}</label>
-                                <label class="col-sm-2">{{client.activationDate | DateFormat}}</label>
-                            </div>
-
-                            <div class="form-group" data-ng-show="accounts">
-                                <label class="control-label col-sm-2" for="savingsId">{{ 'label.input.account' | translate }}</label>
-
-                                <div class="col-sm-3">
-                                    <select id="savingsId" ng-model="formData.savingsId" name="savingsId" class="form-control"
-                                            ng-options="savingsAccount.id as (savingsAccount.productName+' - '+savingsAccount.accountNo) for savingsAccount in accounts"
-                                            value="{{savingsAccount.id}}" >
-                                        <option value="">{{'label.selectone' | translate}}</option>
-                                    </select>
-                                    <form-validate valattributeform="guaratorform" valattribute="savingsId"/>
-                                </div>
-                            </div>
-                            <div class="form-group" data-ng-show="accounts">
-                                <label class="control-label col-sm-2" for="amount">{{ 'label.input.amount' | translate }}</label>
-
-                                <div class="col-sm-3">
-                                    <input id="amount" type="text" name="amount" ng-model="formData.amount" class="form-control" number-format
-                                           ng-required="formData.savingsId" late-Validate/>
-                                    <form-validate valattributeform="guaratorform" valattribute="amount"/>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="col-md-offset-2 paddedleft120">
-                        <a id="cancel" href="#/viewloanaccount/{{loanId}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
-                        <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_GUARANTOR'>{{ 'label.button.save' | translate }}</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
 </div>
-
-

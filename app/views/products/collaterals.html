@@ -1,40 +1,43 @@
 <div class="content-container" ng-controller="CollateralController">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li class="active">{{'label.anchor.collaterals' | translate}}</li>
-    </ul>
-    
-    <div class="card well">
-        <div class="toolbar">
-        <h4>List of Collaterals</h4>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-2 col-sm-3 paddedbottom20">
-                <a href="#/createcollateral" class="btn btn-primary pull-right" has-permission='CREATE_COLLATERAL'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createcollateral' | translate}}</a>
-            </div>
-        </div>
-        <table class="table">
-            <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.name' | translate}}</th>
-                <th>{{'label.heading.quality' | translate}}</th>
-                <th>{{'label.heading.basePrice' | translate}}</th>
-                <th>{{'label.heading.pctToBase' | translate}}</th>
-                <th>{{'label.heading.unitType' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="pointer-main" dir-paginate="collateral in collaterals | orderBy:'name':reverse |  itemsPerPage: CollateralsPerPage">
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.name | translate}}</td>
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.quality | translate }}</td>
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.basePrice}}</td>
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.pctToBase}}</td>
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.unitType}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
-    </div>
-    
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.collaterals' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-lock"></i> {{'label.anchor.collaterals' | translate}}
+			<span class="pull-right">
+				<a href="#/createcollateral" class="btn btn-primary btn-sm" has-permission='CREATE_COLLATERAL'><i class="fa fa-plus"></i>&nbsp;{{'label.button.createcollateral' | translate}}</a>
+			</span>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.name' | translate}}</th>
+					<th>{{'label.heading.quality' | translate}}</th>
+					<th>{{'label.heading.basePrice' | translate}}</th>
+					<th>{{'label.heading.pctToBase' | translate}}</th>
+					<th>{{'label.heading.unitType' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" dir-paginate="collateral in collaterals | orderBy:'name':reverse | itemsPerPage: CollateralsPerPage">
+					<td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.name | translate}}</td>
+					<td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.quality | translate}}</td>
+					<td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.basePrice}}</td>
+					<td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.pctToBase}}</td>
+					<td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.unitType}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div><!-- /.ca-card -->
+
 </div>

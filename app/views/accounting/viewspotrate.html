@@ -1,52 +1,54 @@
 <div ng-controller="ViewSpotRateController" class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li><a href="#/spotrates">Daily Spot Rates</a></li>
-        <li class="active">View Spot Rate</li>
-    </ul>
-    <api-validate></api-validate>
-    <div class="card">
-        <div class="content">
-            <h3 class="bolder">Spot Rate Detail
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a href="#/editspotrate/{{spotRate.id}}" class="btn btn-primary">
-                            <i class="fa fa-edit"></i>&nbsp;Edit
-                        </a>
-                    </div>
-                </div>
-                <hr>
-            </h3>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-1">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <td><strong>Office</strong></td>
-                        <td>{{spotRate.officeName || spotRate.officeId}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Currency Code</strong></td>
-                        <td>{{spotRate.currencyCode}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Rate Date</strong></td>
-                        <td>{{spotRate.rateDate | DateFormat}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Spot Rate</strong></td>
-                        <td>{{spotRate.spotRate}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Buying Rate</strong></td>
-                        <td>{{spotRate.buyingRate}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Selling Rate</strong></td>
-                        <td>{{spotRate.sellingRate}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">View Spot Rate</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-dollar"></i>
+				<a href="#/spotrates">Daily Spot Rates</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-dollar"></i> Spot Rate Detail
+			<span class="pull-right">
+				<a href="#/editspotrate/{{spotRate.id}}" class="btn btn-primary btn-sm">
+					<i class="fa fa-edit"></i> Edit
+				</a>
+			</span>
+		</div>
+		<api-validate></api-validate>
+		<table class="table table-bordered" style="max-width:500px;">
+			<tr>
+				<td><strong>Office</strong></td>
+				<td>{{spotRate.officeName || spotRate.officeId}}</td>
+			</tr>
+			<tr>
+				<td><strong>Currency Code</strong></td>
+				<td>{{spotRate.currencyCode}}</td>
+			</tr>
+			<tr>
+				<td><strong>Rate Date</strong></td>
+				<td>{{spotRate.rateDate | DateFormat}}</td>
+			</tr>
+			<tr>
+				<td><strong>Spot Rate</strong></td>
+				<td>{{spotRate.spotRate}}</td>
+			</tr>
+			<tr>
+				<td><strong>Buying Rate</strong></td>
+				<td>{{spotRate.buyingRate}}</td>
+			</tr>
+			<tr>
+				<td><strong>Selling Rate</strong></td>
+				<td>{{spotRate.sellingRate}}</td>
+			</tr>
+		</table>
+	</div><!-- /.ca-card -->
+
 </div>

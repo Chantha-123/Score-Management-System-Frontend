@@ -1,16 +1,19 @@
 <div class="content-container" ng-controller="EditSavingAccountController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
-        <li class="active">{{'label.anchor.editsavingapplication' | translate}}</li>
-    </ul>
-<api-validate></api-validate>
-<div class="card">
-    <div class="content">
-        <div class="toolbar">
-            <h4>{{ 'label.heading.editsavingapplication' | translate }}</h4>
-        </div>
-        <br/>
-        <form name="editsavingccountform" novalidate="" class="form-inline" rc-submit="         submit()">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editsavingapplication' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-piggy-bank"></i>
+				<a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+	<api-validate></api-validate>
+    <form name="editsavingccountform" novalidate="" class="form-inline" rc-submit="submit()">
         <fieldset>
         <table class="width100">
             <tr>
@@ -307,7 +310,8 @@
         </div>
 
         </fieldset>
-        </form>
-    </div>
-</div>
+    </form>
+
+	</div><!-- /.ca-card -->
+
 </div>

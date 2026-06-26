@@ -1,15 +1,20 @@
 <div class="content-container" ng-controller="EditCenterController">
-    <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
-        <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate }}</a></li>
-        <li class="active">{{'label.anchor.editcenter' | translate}}</li>
-    </ul>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editcenter' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-list"></i>
+				<a href="#/centers">{{'label.anchor.centers' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-building"></i>
+				<a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
     <api-validate></api-validate>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{'label.heading.editcenter' | translate}}</h4>
-            </div>
+	<div class="ca-card">
                 <div data-ng-switch on="managecode">
                     <form name="editcenterform" novalidate="" class="form-horizontal" data-ng-switch-when="2">
                         <fieldset>
@@ -78,6 +83,6 @@
                         </div>
                     </form>
                 </div>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

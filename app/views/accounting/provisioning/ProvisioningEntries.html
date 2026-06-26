@@ -1,14 +1,19 @@
 <div class="content-container" ng-controller="ViewAllProvisoningEntriesController">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li class="active">{{'label.anchor.viewprovisioningeentries' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4></h4>
-            </div>
-            <br/>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.viewprovisioningeentries' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-list"></i> {{'label.anchor.viewprovisioningeentries' | translate}}
+		</div>
             <a href="#/createprovisioningentries" class="btn btn-primary pull-right"
                has-permission='VIEW_ALL_PROVISIONING_ENTRIES'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createprovisioning.entry'
                 | translate}}</a>
@@ -55,6 +60,6 @@
                 <li class="next"><a id="next" ng-click="entries.next()" href="" ng-disabled="!entries.hasNext()">{{'label.button.next'
                     | translate}} </a></li>
             </ul>
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

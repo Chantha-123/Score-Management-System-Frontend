@@ -1,15 +1,25 @@
-<div class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-        <li class="active">{{'label.anchor.createTeller' | translate}}</li>
-    </ul>
-    <div class="card">
-    	<div class="content">
-    		<form name="createtellerform" novalidate="" class="form-horizontal" ng-controller="CreateTellerController" rc-submit="submit()">
+<div class="content-container" ng-controller="CreateTellerController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.createTeller' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-plus-circle"></i> {{'label.heading.cashmgmt.createTeller' | translate}}
+		</div>
+    		<form name="createtellerform" novalidate="" class="form-horizontal" rc-submit="submit()">
     		    <api-validate></api-validate>
     		    <fieldset>
-    		        <legend>{{'label.heading.cashmgmt.createTeller' | translate}}</legend>
     		            <div class="form-group">
     		                <label class="control-label col-sm-2">{{ 'label.input.teller.name' | translate }}<span
     		                        class="required">*</span></label>
@@ -78,6 +88,6 @@
     		        </div>
     		    </fieldset>
     		</form>
-    	</div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,163 +1,176 @@
-    <div ng-controller="RescheduleLoansRequestController">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-            <li class="active">{{'label.anchor.rescheduleLoan' | translate}}</li>
-        </ul>
-    </div>
-    <form name="createloanrescheduleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
-        <api-validate></api-validate>
-        <fieldset>
-            <legend>{{'label.heading.rescheduleloan' | translate}}</legend>
-            <div class="form-group">
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
+<div ng-controller="RescheduleLoansRequestController">
 
-                <div class="col-sm-3">
-                    <input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.rescheduleReasonId' | translate}}<span class="required">*</span></label>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.heading.rescheduleloan' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-file-text-o"></i>
+				<a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
 
-                <div class="col-sm-3 paddedbottom10 paddedtop">
-                    <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}"
-                            ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
-                            ng-model="formData.rescheduleReasonId" >
-                        <option style="display:none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
+	<div class="ca-card">
 
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
-                <div class="col-sm-3 paddedbottom10 paddedtop">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-calendar"></i> {{'label.heading.rescheduleloan' | translate}}
+		</div>
 
-                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                </div>
-            </div>
-            <div class="form-group">
+		<form name="createloanrescheduleform" novalidate="" class="form-horizontal" rc-submit="submit()">
+			<api-validate></api-validate>
 
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{ 'label.input.comments' | translate }}</label>
-                <div class="col-sm-3 paddedbottom10 paddedtop">
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
+				<div class="col-sm-4">
+					<input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
+						   class="form-control" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+				</div>
+			</div>
 
-                    <textarea rows="2"  style="width: 402px; height: 76px;" class="form-control" ng-model="comments" ></textarea>
-                </div>
-            </div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{'label.input.rescheduleReasonId' | translate}}<span class="required">*</span></label>
+				<div class="col-sm-4">
+					<select chosen="codes" class="form-control" value="{{rescheduleReasonCode.id}}"
+							ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
+							ng-model="formData.rescheduleReasonId">
+						<option style="display:none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
+					</select>
+				</div>
+			</div>
 
-            <input type="checkbox" ng-model="changeRepaymentDate" > &nbsp;<span
-                class="control-label"><label>{{ 'label.input.changeRepaymentDate' | translate }}&nbsp;</label></span>
-            <div class="form-group">
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
+				<div class="col-sm-4">
+					<input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
+						   class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+				</div>
+			</div>
 
-                <label class="control-label col-sm-2 width20" data-ng-show="changeRepaymentDate" style="padding-left: 32px;text-align: left;">{{ 'label.input.installemtrescheduledto' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control " ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                </div>
-            </div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{ 'label.input.comments' | translate }}</label>
+				<div class="col-sm-4">
+					<textarea rows="2" class="form-control" ng-model="comments"></textarea>
+				</div>
+			</div>
 
-            <input type="checkbox" ng-model="introduceGracePeriods" > &nbsp;<span
-                class="control-label">{{ 'label.input.introduceGracePeriods' | translate }}&nbsp;</span>
+			<div class="ca-section-heading">
+				<i class="fa fa-sliders"></i> {{'label.heading.rescheduleoptions' | translate}}
+			</div>
 
-            <div class="form-group" ng-show="introduceGracePeriods">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-4">
+					<label>
+						<input type="checkbox" ng-model="changeRepaymentDate">&nbsp;
+						{{ 'label.input.changeRepaymentDate' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="form-group" ng-show="changeRepaymentDate">
+				<label class="control-label col-sm-3">{{ 'label.input.installemtrescheduledto' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="adjustedDueDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
+						   class="form-control" ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+				</div>
+			</div>
 
-                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnPrincipal' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="principalgrace" type="text" ng-show="introduceGracePeriods"
-                           class="form-control" ng-model="formData.graceOnPrincipal">
-                </div>
-            </div>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-4">
+					<label>
+						<input type="checkbox" ng-model="introduceGracePeriods">&nbsp;
+						{{ 'label.input.introduceGracePeriods' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="form-group" ng-show="introduceGracePeriods">
+				<label class="control-label col-sm-3">{{ 'label.input.graceOnPrincipal' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="principalgrace" type="text" class="form-control" ng-model="formData.graceOnPrincipal">
+				</div>
+			</div>
+			<div class="form-group" ng-show="introduceGracePeriods">
+				<label class="control-label col-sm-3">{{ 'label.input.graceOnInterest' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="interestgrace" class="form-control" type="text" ng-model="formData.graceOnInterest">
+				</div>
+			</div>
 
-            <div class="form-group" ng-show="introduceGracePeriods">
-                <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
-                    }}&nbsp;</label>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-4">
+					<label>
+						<input type="checkbox" ng-model="extendRepaymentPeriod">&nbsp;
+						{{ 'label.input.extendRepaymentPeriod' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="form-group" ng-show="extendRepaymentPeriod">
+				<label class="control-label col-sm-3">{{ 'label.input.noofnewrepayments' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="newrepayments" type="text" class="form-control" ng-model="formData.extraTerms">
+				</div>
+			</div>
 
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="interestgrace" class="form-control" ng-show="introduceGracePeriods" type="text" ng-model="formData.graceOnInterest">
-                </div>
-            </div>
-            <div class="form-group" data-ng-hide="introduceGracePeriods"></div>
-            <div class="form-group" data-ng-hide="introduceGracePeriods"></div>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-4">
+					<label>
+						<input type="checkbox" ng-model="adjustinterestrates">&nbsp;
+						{{ 'label.input.adjustinterestrates' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="form-group" ng-show="adjustinterestrates">
+				<label class="control-label col-sm-3">{{ 'label.input.newinterestrate' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="newinterestrate" type="text" class="form-control" ng-model="formData.newInterestRate">
+				</div>
+			</div>
 
-            <input type="checkbox" ng-model="extendRepaymentPeriod"> &nbsp;<span
-                class="control-label">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-4">
+					<label>
+						<input type="checkbox" ng-model="changeEMI">&nbsp;
+						{{ 'label.input.changeEMI' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="form-group" data-ng-show="changeEMI">
+				<label class="control-label col-sm-3">{{ 'label.input.emi.change.upto' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="adjustedDueDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
+						   class="form-control" ng-model="formData.endDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+				</div>
+			</div>
+			<div class="form-group" data-ng-show="changeEMI">
+				<label class="control-label col-sm-3">{{ 'label.input.new.emi' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="interestgrace" class="form-control" type="text" ng-model="formData.emi">
+				</div>
+			</div>
 
-            <div class="form-group">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-4">
+					<label>
+						<input type="checkbox" ng-model="changeFixedPrincipalPercentagePerInstallment">&nbsp;
+						{{ 'label.input.change.fixed.principal.percentage.per.installment' | translate }}
+					</label>
+				</div>
+			</div>
+			<div class="form-group" ng-show="changeFixedPrincipalPercentagePerInstallment">
+				<label class="control-label col-sm-3">{{ 'label.input.new.fixed.principal.percentage.per.installment' | translate }}</label>
+				<div class="col-sm-4">
+					<input id="newFixedPrincipalPercentagePerInstallment" type="text" class="form-control"
+						   ng-model="formData.newFixedPrincipalPercentagePerInstallment">
+				</div>
+			</div>
 
-                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="extendRepaymentPeriod">{{ 'label.input.noofnewrepayments' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="newrepayments" type="text" ng-show="extendRepaymentPeriod" class="form-control"
-                           ng-model="formData.extraTerms">
-                </div>
-            </div>
+			<div class="ca-form-actions">
+				<button type="button" data-ng-click="cancel()" class="btn btn-default btn-sm">{{ 'label.button.cancel' | translate }}</button>
+				<button type="button" data-ng-click="submit()" class="btn btn-primary btn-sm" has-permission='APPROVE_RESCHEDULELOAN'>
+					{{'label.button.save' | translate}}
+				</button>
+			</div>
 
-            <input type="checkbox" ng-model="adjustinterestrates"> &nbsp;<span
-                class="control-label">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
-            <div class="form-group">
+		</form>
 
-                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="newinterestrate" type="text" ng-show="adjustinterestrates" class="form-control paddedbottom10"
-                           ng-model="formData.newInterestRate"></div>
-            </div>
+	</div><!-- /.ca-card -->
 
-            <input type="checkbox" ng-model="changeEMI" > &nbsp;<span
-                class="control-label"><label>{{ 'label.input.changeEMI' | translate }}&nbsp;</label></span>
-            <div class="form-group" data-ng-show="changeEMI" >
-
-                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.emi.change.upto' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="adjustedDueDate" type="text" data-ng-show="changeEMI"  name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control " ng-model="formData.endDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                </div>
-            </div>
-
-            <div class="form-group" data-ng-show="changeEMI" >
-                <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.new.emi' | translate
-                    }}&nbsp;</label>
-
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="interestgrace" class="form-control" data-ng-show="changeEMI"  type="text" ng-model="formData.emi">
-                </div>
-            </div>
-            <br>
-            <br>
-            <input type="checkbox" ng-model="changeFixedPrincipalPercentagePerInstallment"> &nbsp;<span
-                class="control-label">{{ 'label.input.change.fixed.principal.percentage.per.installment' | translate }}&nbsp;</span>
-            <div class="form-group">
-
-                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;" ng-show="changeFixedPrincipalPercentagePerInstallment">{{ 'label.input.new.fixed.principal.percentage.per.installment' | translate
-                    }}&nbsp;</label>
-                <div class="col-sm-3 paddedbottom10">
-                    <input id="newFixedPrincipalPercentagePerInstallment" type="text" ng-show="changeFixedPrincipalPercentagePerInstallment" class="form-control paddedbottom10"
-                           ng-model="formData.newFixedPrincipalPercentagePerInstallment"></div>
-            </div>
-            <!--<input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
-                class="control-label">{{ 'label.input.recalculateInterest' +
-                    '' | translate }}&nbsp;</span>
-
-            <br>
-            <br>-->
-            <div align="center">
-
-                <button type="button" data-ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
-
-                <button type="button" data-ng-click="submit()" class="btn btn-primary"  has-permission='APPROVE_RESCHEDULELOAN'>
-                    {{'label.button.save' | translate}}
-
-                </button>
-            </div>
-
-        </fieldset>
-    </form>
 </div>
-
-
-
-

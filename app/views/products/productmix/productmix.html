@@ -1,26 +1,34 @@
-<div class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-        <li class="active">{{'label.anchor.productmix' | translate}}</li>
-    </ul>
-   
-	<div class="card well" ng-controller="ProductMixController">
-	<div class="pull-right paddedbottom20">
-        <a href="#/addproductmix" class="btn btn-primary" has-permission='CREATE_PRODUCTMIX'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.add' |
-            translate}}</a>
-    </div>
-	    <br>
-	    <table class="table">
-	        <thead>
-	        <tr class="graybg">
-	            <th>{{'label.heading.productname' | translate}}</th>
-	        </tr>
-	        </thead>
-	        <tbody>
-	        <tr class="pointer-main" ng-repeat="productmix in productmixes | orderBy:'productName':reverse">
-	            <td class="pointer" data-ng-click="routeTo(productmix.productId)">{{productmix.productName}}</td>
-	        </tr>
-	        </tbody>
-	    </table>
+<div class="content-container" ng-controller="ProductMixController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.productmix' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cube"></i>
+				<a href="#/products">{{'label.anchor.products' | translate}}</a>
+			</span>
+		</div>
 	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-random"></i> {{'label.anchor.productmix' | translate}}
+			<span class="pull-right">
+				<a href="#/addproductmix" class="btn btn-primary btn-sm" has-permission='CREATE_PRODUCTMIX'><i class="fa fa-plus"></i>&nbsp;{{'label.button.add' | translate}}</a>
+			</span>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.productname' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="productmix in productmixes | orderBy:'productName':reverse">
+					<td class="pointer" data-ng-click="routeTo(productmix.productId)">{{productmix.productName}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- /.ca-card -->
+
 </div>

@@ -1,16 +1,20 @@
 <div class="content-container" ng-controller="FixedDepositAccountActionsController">
-    <ul class="breadcrumb">
-        <li><a href="#/viewfixeddepositaccount/{{accountId}}">{{'label.anchor.viewfixeddepositaccount' | translate}}</a></li>
-        <li class="active">{{action}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h3>{{ title | translate}}</h3>
-            </div>
-            <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
-                <fieldset>
-                    <api-validate></api-validate>
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{ title | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-university"></i>
+				<a href="#/viewfixeddepositaccount/{{accountId}}">{{'label.anchor.viewfixeddepositaccount' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+
+    <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
+        <fieldset>
+            <api-validate></api-validate>
                     <div class="form-group" ng-show="showDateField">
                         <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
                                 class="required">*</span></label>
@@ -190,8 +194,9 @@
                         <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                     </div>
 
-                </fieldset>
-            </form>
-        </div>
-    </div>
+        </fieldset>
+    </form>
+
+	</div><!-- /.ca-card -->
+
 </div>

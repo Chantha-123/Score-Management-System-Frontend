@@ -1,56 +1,54 @@
-<div id="viewlptop"></div>
-<div class="content-container">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li class="active">{{'label.anchor.accountsclosure' | translate}}</li>
-    </ul>
-<div class="card" ng-controller="AccountingClosureController">
-    <div class="toolbar paddedtop paddedbottom">
-        <h4 class="col-md-8">{{ 'label.heading.accountingclosures' | translate }}</h4>
-        <div class="col-md-4">
-              <a href="#/createclosure" class="pull-right btn btn-primary" has-permission='CREATE_GLCLOSURE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createclosure' | translate}}</a>
-        </div>
-    </div>
-    <div class="content">
-        <div class="form-group">
-            <b>{{ 'label.input.filterclosuresbyoffice' | translate }}</b>
-            <div class="row">
-            	<div class="col-md-6">
-                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
-                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                        <option class="displaynone" value="">{{'label.alloffice' | translate}}</option>
-                    </select>
-                </div>
-            	<div class="col-md-6">
-                    <button class="btn btn-primary" ng-click="closedAccountingDetails(formData.officeId)">{{ 'label.button.save' | translate }}</button>
-                </div>
-            </div>
-        </div>
+<div class="content-container" ng-controller="AccountingClosureController">
 
-        <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{ 'label.heading.office' | translate }}</th>
-            <th>{{ 'label.heading.accountingclosuredate' | translate }}</th>
-            <th>{{ 'label.heading.comments' | translate }}</th>
-            <th>{{ 'label.heading.closeaccountingcreatedby' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-repeat="accountClosure in accountClosures">
-            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.officeName}}</td>
-            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.closingDate | DateFormat}}</td>
-            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.comments}}</td>
-            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.createdByUsername}}</td>
-        </tr>
-        </tbody>
-        <tr>
-            <td colspan="3">
-            </td>
-            <td class="pull-right">
-                <a ng-click="scrollto('viewlptop')"><i class="fa fa-upload"></i>{{'label.button.top' | translate}}</a>
-            </td>
-        </tr>   
-        </table>
-    </div>
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.accountsclosure' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-book"></i>
+				<a href="#/accounting">{{'label.anchor.accounting' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-lock"></i> {{ 'label.heading.accountingclosures' | translate }}
+			<a href="#/createclosure" class="btn btn-primary btn-sm pull-right" has-permission='CREATE_GLCLOSURE'>
+				<i class="fa fa-plus"></i> {{'label.button.createclosure' | translate}}
+			</a>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-sm-4">
+					<label><b>{{ 'label.input.filterclosuresbyoffice' | translate }}</b></label>
+					<select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
+						ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+						<option class="displaynone" value="">{{'label.alloffice' | translate}}</option>
+					</select>
+				</div>
+				<div class="col-sm-2" style="padding-top:25px;">
+					<button class="btn btn-primary btn-sm" ng-click="closedAccountingDetails(formData.officeId)">{{ 'label.button.filter' | translate }}</button>
+				</div>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{ 'label.heading.office' | translate }}</th>
+					<th>{{ 'label.heading.accountingclosuredate' | translate }}</th>
+					<th>{{ 'label.heading.comments' | translate }}</th>
+					<th>{{ 'label.heading.closeaccountingcreatedby' | translate }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="accountClosure in accountClosures">
+					<td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.officeName}}</td>
+					<td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.closingDate | DateFormat}}</td>
+					<td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.comments}}</td>
+					<td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.createdByUsername}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- /.ca-card -->
+
 </div>

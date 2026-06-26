@@ -1,12 +1,25 @@
-<div class="col-md-12"  ng-controller="EditCashierController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
-        <li><a href="#/tellers/{{cashier.tellerId}}/cashiers">{{cashier.tellerName}}</a></li>
-        <li class="active">{{'label.anchor.editcashier' | translate}}</li>
-    </ul>
-    <div class="card">
-        <div class="content">
+<div class="content-container" ng-controller="EditCashierController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{'label.anchor.editcashier' | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-cogs"></i>
+				<a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-inbox"></i>
+				<a href="#/tellers">{{'label.anchor.tellers' | translate}}</a>
+			</span>
+			<span class="ca-hero-chip"><i class="fa fa-users"></i>
+				<a href="#/tellers/{{cashier.tellerId}}/cashiers">{{cashier.tellerName}}</a>
+			</span>
+		</div>
+	</div>
+
+	<div class="ca-card">
+		<div class="ca-section-heading" style="margin-top:0;">
+			<i class="fa fa-pencil"></i> {{'label.anchor.editcashier' | translate}}
+		</div>
         <form name="editcashierform" novalidate="" class="form-horizontal"
             rc-submit="submit()">
             <api-validate></api-validate>
@@ -99,6 +112,6 @@
                 </div>
         </form>
 
-        </div>
-    </div>
+	</div><!-- /.ca-card -->
+
 </div>
