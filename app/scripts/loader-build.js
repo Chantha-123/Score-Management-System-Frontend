@@ -28,7 +28,7 @@
             'ngIdle': '../bower_components/ng-idle/angular-idle.min',
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",
-            'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
+            'chosen.jquery.min': "../bower_components/chosen/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
             'Q': '../bower_components/q/q.min',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',

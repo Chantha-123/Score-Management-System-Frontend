@@ -1,4 +1,7 @@
 @charset "UTF-8";
+@import url(../bower_components/angular-bootstrap/ui-bootstrap-csp.css);
+@import url(../bower_components/chosen/chosen.css);
+@import url(../bower_components/ng-scrollbar/dist/ng-scrollbar.css);
 /* ── Design Tokens ────────────────────────────────────────────────────────── */
 :root {
   /* Brand — navy is the single app primary */
@@ -31,9 +34,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url(../bower_components/angular-bootstrap/ui-bootstrap-csp.css);
-@import url(../bower_components/chosen/chosen.css);
-@import url(../bower_components/ng-scrollbar/dist/ng-scrollbar.css);
 /* line 9, ../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_normalize.scss */
 html {
   font-family: sans-serif;
@@ -21082,6 +21082,11 @@ span.required {
   background: #fff;
 }
 
+/* .navbar-fixed-top is z-index: 1030; Chosen's default .chosen-drop is 1010, so open dropdowns near the top of a form render underneath the fixed navbar without this. */
+.chosen-container .chosen-drop {
+  z-index: 99999;
+}
+
 /* line 7, ../styles-dev/main/components/_chosen.scss */
 .chosen-container-single .chosen-single {
   background: #fff;
@@ -24519,12 +24524,12 @@ tr:hover .row-actions { opacity: 1; }
 .ca-sub-card {
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  overflow: hidden;
   margin-bottom: 16px;
 }
 .ca-sub-card-header {
   background: #f8fafc;
   border-bottom: 1px solid #e2e8f0;
+  border-radius: 7px 7px 0 0;
   padding: 10px 16px;
   display: -webkit-box;
   display: -ms-flexbox;

@@ -32,7 +32,7 @@
             'ngIdle': '../bower_components/ng-idle/angular-idle',
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",
-            'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
+            'chosen.jquery.min': "../bower_components/chosen/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q',

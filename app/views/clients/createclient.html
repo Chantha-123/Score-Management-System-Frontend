@@ -362,7 +362,7 @@
 								<div class="ca-field-half">
 									<div class="form-group">
 										<label class="control-label">Province</label>
-										<select ng-model="living.provinceId" class="form-control"
+										<select chosen="geoProvinces" ng-model="living.provinceId" class="form-control"
 												ng-options="p.id as p.nameEng for p in geoProvinces"
 												ng-change="onLivingProvinceChange()">
 											<option value="">-- Select Province --</option>
@@ -372,7 +372,7 @@
 								<div class="ca-field-half">
 									<div class="form-group">
 										<label class="control-label">District</label>
-										<select ng-model="living.districtId" class="form-control"
+										<select chosen="living.districts" ng-model="living.districtId" class="form-control"
 												ng-options="d.id as d.nameEng for d in living.districts"
 												ng-change="onLivingDistrictChange()"
 												ng-disabled="!living.provinceId">
@@ -385,7 +385,7 @@
 								<div class="ca-field-half">
 									<div class="form-group" style="margin-bottom:0;">
 										<label class="control-label">Commune</label>
-										<select ng-model="living.communeId" class="form-control"
+										<select chosen="living.communes" ng-model="living.communeId" class="form-control"
 												ng-options="c.id as c.nameEng for c in living.communes"
 												ng-change="onLivingCommuneChange()"
 												ng-disabled="!living.districtId">
@@ -396,7 +396,7 @@
 								<div class="ca-field-half">
 									<div class="form-group" style="margin-bottom:0;">
 										<label class="control-label">Village</label>
-										<select ng-model="living.villageId" class="form-control"
+										<select chosen="living.villages" ng-model="living.villageId" class="form-control"
 												ng-options="v.id as v.nameEng for v in living.villages"
 												ng-disabled="!living.communeId">
 											<option value="">-- Select Village --</option>
@@ -426,7 +426,7 @@
 								<div class="ca-field-half">
 									<div class="form-group">
 										<label class="control-label">Province</label>
-										<select ng-model="birth.provinceId" class="form-control"
+										<select chosen="geoProvinces" ng-model="birth.provinceId" class="form-control"
 												ng-options="p.id as p.nameEng for p in geoProvinces"
 												ng-change="onBirthProvinceChange()">
 											<option value="">-- Select Province --</option>
@@ -436,7 +436,7 @@
 								<div class="ca-field-half">
 									<div class="form-group">
 										<label class="control-label">District</label>
-										<select ng-model="birth.districtId" class="form-control"
+										<select chosen="birth.districts" ng-model="birth.districtId" class="form-control"
 												ng-options="d.id as d.nameEng for d in birth.districts"
 												ng-change="onBirthDistrictChange()"
 												ng-disabled="!birth.provinceId">
@@ -449,7 +449,7 @@
 								<div class="ca-field-half">
 									<div class="form-group" style="margin-bottom:0;">
 										<label class="control-label">Commune</label>
-										<select ng-model="birth.communeId" class="form-control"
+										<select chosen="birth.communes" ng-model="birth.communeId" class="form-control"
 												ng-options="c.id as c.nameEng for c in birth.communes"
 												ng-change="onBirthCommuneChange()"
 												ng-disabled="!birth.districtId">
@@ -460,7 +460,7 @@
 								<div class="ca-field-half">
 									<div class="form-group" style="margin-bottom:0;">
 										<label class="control-label">Village</label>
-										<select ng-model="birth.villageId" class="form-control"
+										<select chose="birth.villages" ng-model="birth.villageId" class="form-control"
 												ng-options="v.id as v.nameEng for v in birth.villages"
 												ng-disabled="!birth.communeId">
 											<option value="">-- Select Village --</option>
