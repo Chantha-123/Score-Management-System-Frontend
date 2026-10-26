@@ -12,7 +12,7 @@
             scope.loandetails = [];
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
+                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 24) {
                     $rootScope.rates = scope.loandetails.rates;
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 };
@@ -88,6 +88,9 @@
                         break;
                     case "recoverypayment":
                         location.path('/loanaccount/' + accountId + '/recoverypayment');
+                        break;
+                    case "batchprincipalpaydown":
+                        location.path('/loanaccount/' + accountId + '/batchprincipalpaydown');
                         break;
                     case "close-rescheduled":
                         location.path('/loanaccount/' + accountId + '/close-rescheduled');
@@ -308,6 +311,11 @@
                             name: "button.makerepayment",
                             icon: "fa fa-dollar",
                             taskPermissionName: 'REPAYMENT_LOAN'
+                        },
+                        {
+                            name: "button.batchprincipalpaydown",
+                            icon: "fa fa-money",
+                            taskPermissionName: 'BATCHPRINCIPALPAYDOWN_LOAN'
                         },
                         {
                             name: "button.undodisbursal",

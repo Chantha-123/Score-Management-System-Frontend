@@ -31,7 +31,8 @@
 				   class="btn btn-primary btn-sm" has-permission='ADJUST_LOAN'>
 					<i class="fa fa-pencil"></i> {{ 'label.button.edit' | translate}}
 				</a>
-				<a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger btn-sm" has-permission='ADJUST_LOAN'>
+				<a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger btn-sm" has-permission='ADJUST_LOAN'
+				   ng-hide="transaction.type.id == 24 && !isLatestTransaction">
 					<i class="fa fa-trash"></i> {{ 'label.button.undo' | translate}}
 				</a>
 			</div>

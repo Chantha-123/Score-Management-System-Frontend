@@ -1,0 +1,41 @@
+server {
+    listen 80;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+    client_max_body_size 50m;
+    resolver 127.0.0.11 valid=10s ipv6=off;
+
+    gzip on;
+    gzip_comp_level 5;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_types text/css application/javascript application/json image/svg+xml text/plain;
+
+    location = /healthz {
+        access_log off;
+        return 200 'ok';
+    }
+
+    # API_UPSTREAM may be http:// or https:// (the API's self-signed cert is not verified).
+    location /fineract-provider/ {
+        set $api_upstream "${API_UPSTREAM}";
+        proxy_pass $api_upstream;
+        proxy_ssl_verify off;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Host $http_host;
+        # Pass through only an outer proxy's value. Never send "http" here: with SSL on,
+        # Fineract requires a secure channel for /api/** and would redirect every call.
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_read_timeout 300s;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location = /index.html {
+        add_header Cache-Control "no-cache";
+    }
+}

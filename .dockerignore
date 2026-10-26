@@ -1,0 +1,16 @@
+node_modules
+app/bower_components
+bower_components
+.git
+.github
+.tmp
+dist
+test
+*.log
+.idea
+.vscode
+docs
+.env*
+**/.env*
+.claude
+app/.claude

@@ -32,6 +32,15 @@
                 scope.transaction = data;
                 scope.transaction.accountId = routeParams.accountId;
                 scope.generateDetailTable();
+
+                scope.isLatestTransaction = true;
+                if (data.type.id === 24) {
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.accountId, associations: 'transactions'}, function (loanData) {
+                        var eligible = _.reject(loanData.transactions, function (t) { return t.manuallyReversed || (t.type && t.type.contra); });
+                        var latest = _.max(eligible, function (t) { return t.id; });
+                        scope.isLatestTransaction = !!latest && latest.id === scope.transaction.id;
+                    });
+                }
             });
 
             scope.undo = function (accountId, transactionId) {

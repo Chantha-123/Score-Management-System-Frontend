@@ -127,11 +127,16 @@
 
     require(['mifosXComponents'], function (componentsInit) {
         componentsInit().then(function(){
-            require(['test/testInitializer'], function (testMode) {
-                if (!testMode) {
-                    angular.bootstrap(document, ['MifosX_Application']);
-                }
-            });
+            // Functional demos apply only to pages opened from the filesystem.
+            if (window.location.protocol === 'file:') {
+                require(['test/testInitializer'], function (testMode) {
+                    if (!testMode) {
+                        angular.bootstrap(document, ['MifosX_Application']);
+                    }
+                });
+            } else {
+                angular.bootstrap(document, ['MifosX_Application']);
+            }
         });
     });
 }());

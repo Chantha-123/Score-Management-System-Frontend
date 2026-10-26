@@ -1,5 +1,9 @@
 # MifosX Community App [![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  [![Build Status](https://travis-ci.com/openMF/community-app.svg?branch=develop)](https://travis-ci.com/github/openMF/community-app)  [![Docker Hub](https://img.shields.io/docker/pulls/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app)  [![Docker Build](https://img.shields.io/docker/cloud/build/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app/builds)
 
+## Local Docker development and deployment
+
+Use the [shared API + frontend Docker stack](../Score-Management-API/docker/README.md) for this project. From the API repository, run `./docker/stack.ps1 -Mode dev -Action up` in PowerShell and open http://localhost:9090. See [frontend Docker details](docker/README.md) for image targets and proxy configuration.
+
 This is the default web application built on top of the MifosX platform for the mifos user community. It is a Single-Page App (SPA) written in web standard technologies like JavaScript, CSS and HTML5. It leverages common popular frameworks/libraries such as AngularJS, Bootstrap and Font Awesome.
 
 

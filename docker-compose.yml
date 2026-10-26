@@ -1,0 +1,10 @@
+services:
+  community-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: score-management-system-frontend:local
+    container_name: mifos-ui
+    restart: always
+    ports:
+      - "9090:80"

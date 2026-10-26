@@ -419,6 +419,18 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'RECOVERYPAYMENT_LOAN';
                     break;
+                case "batchprincipalpaydown":
+                    scope.modelName = 'transactionDate';
+                    scope.formData.transactionDate = new Date();
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.accountId}, function (data) {
+                        scope.outstandingPrincipal = data.summary.principalOutstanding;
+                    });
+                    scope.title = 'label.heading.batchprincipalpaydown';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showPrincipalAmountField = true;
+                    scope.taskPermissionName = 'BATCHPRINCIPALPAYDOWN_LOAN';
+                    break;
                 case "adddisbursedetails":
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.addDisburseDetails = true;
@@ -490,6 +502,9 @@
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
                 }
+                if(scope.action == "batchprincipalpaydown"){
+                    params.command = "batchPrincipalPaydown";
+                }
                 if(scope.action == "approve"){
                     this.formData.expectedDisbursementDate = dateFilter(scope.form.expectedDisbursementDate, scope.df);
                     if(scope.disbursementDetails != null) {
@@ -517,7 +532,8 @@
                     this.formData.dateFormat = scope.df;
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
-                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan") {
+                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
+                    || scope.action == "batchprincipalpaydown") {
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;

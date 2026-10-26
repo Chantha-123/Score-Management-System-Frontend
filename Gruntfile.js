@@ -16,6 +16,9 @@ module.exports = function(grunt) {
       almond: 'app/bower_components/almond'
     },
     watch: {
+        options: {
+            interval: process.env.DOCKER_DEV ? 1000 : 100
+        },
         js: {
             files: ['<%= mifosx.app %>/scripts/**/*.js'],
             options: {
@@ -50,9 +53,9 @@ module.exports = function(grunt) {
     connect: {
         options: {
             port:  9002,
-            hostname: 'localhost',
+            hostname: process.env.DOCKER_DEV ? '0.0.0.0' : 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://localhost:8443/fineract-provider/api/v1'
+            open: process.env.DOCKER_DEV ? false : 'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://localhost:8443/fineract-provider/api/v1'
         },
         livereload: {
             options: {

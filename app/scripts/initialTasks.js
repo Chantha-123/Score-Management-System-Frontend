@@ -27,14 +27,14 @@
         //accessing from a file system or other servers
         else {
             if (mainLink.hostname != "") {
-                baseApiUrl = "https://" + mainLink.hostname + (mainLink.port ? ':' + mainLink.port : '');
+                baseApiUrl = mainLink.protocol + "//" + mainLink.hostname + (mainLink.port ? ':' + mainLink.port : '');
             }
 
             if (QueryParameters["baseApiUrl"]) {
                 baseApiUrl = QueryParameters["baseApiUrl"];
             }
             var queryLink = getLocation(baseApiUrl);
-            host = "https://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
+            host = queryLink.protocol + "//" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
             portNumber = queryLink.port;
 
             $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
