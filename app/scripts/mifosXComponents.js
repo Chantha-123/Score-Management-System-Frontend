@@ -210,6 +210,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/EditWorkingDaysController',
             'organization/EditPasswordPreferencesController',
             'reports/RunReportsController',
+            'reports/JasperReportController',
             'reports/XBRLController',
             'reports/XBRLReportController',
             'savings/CreateSavingAccountController',
@@ -408,7 +409,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'SuccessfulResponsesDirective',
             'TabsPersistenceDirective',
             'ScrollableDirective',
-            'DecimalDirective'
+            'DecimalDirective',
+            'JasperReportViewerDirective'
         ]
     };
 

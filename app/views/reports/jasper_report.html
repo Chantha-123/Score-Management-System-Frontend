@@ -1,0 +1,14 @@
+<div class="content-container" ng-controller="JasperReportController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{reportName}}</h2>
+		<div>
+			<span class="ca-hero-chip"><i class="fa fa-bar-chart"></i>
+				<a href="#/reports/all">{{'label.anchor.reports' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<jasper-report-viewer report-name="{{reportName}}" params="params"></jasper-report-viewer>
+</div>

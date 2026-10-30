@@ -8,7 +8,7 @@
             scope.type = typeReport;
 
             scope.routeTo = function (report) {
-                location.path('/run_report/' + report.report_name).search({reportId: report.report_id, type: report.report_type});
+                location.path('/run_report/' + report.report_name).search({reportId: report.report_id});
             };
 
             scope.scrollto = function (link){
@@ -74,14 +74,18 @@
             scope.ReportsPerPage = 15;
 
             // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
+            // Only Jasper reports are listed: they all open in the unified Jasper viewer page. Converted "(Pentaho)" rows
+            // replace their Table twins, so they are shown under the plain report name.
             scope.getReports = function (data) {
                 var prevId = -1;
                 var currId;
                 var reports = [];
                 for (var i = 0; i < data.length; i++) {
                     currId = data[i].report_id;
-                    if (currId != prevId)
+                    if (currId != prevId && data[i].report_type == 'Jasper') {
+                        data[i].display_name = data[i].report_name.replace(/\s*\(Pentaho\)$/, '');
                         reports.push(data[i]);
+                    }
                     prevId = currId;
                 }
                 return reports;

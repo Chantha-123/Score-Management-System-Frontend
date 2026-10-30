@@ -41,6 +41,14 @@
                         scope.isLatestTransaction = !!latest && latest.id === scope.transaction.id;
                     });
                 }
+                if (data.type.id === 17) {
+                    // fee charge can only be undone while it is the latest non-accrual transaction
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.accountId, associations: 'transactions'}, function (loanData) {
+                        var eligible = _.reject(loanData.transactions, function (t) { return t.manuallyReversed || (t.type && t.type.accrual); });
+                        var latest = _.max(eligible, function (t) { return t.id; });
+                        scope.isLatestTransaction = !!latest && latest.id === scope.transaction.id;
+                    });
+                }
             });
 
             scope.undo = function (accountId, transactionId) {
@@ -60,7 +68,7 @@
             
             var UndoTransactionModel = function ($scope, $uibModalInstance, accountId, transactionId) {
                 $scope.undoTransaction = function () {
-                    var params = {loanId: accountId, transactionId: transactionId, command: 'undo'};
+                    var params = {loanId: accountId, transactionId: transactionId, command: scope.transaction.type.id === 17 ? 'undoChargeFee' : 'undo'};
                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
                     formData.transactionDate = dateFilter(new Date(), scope.df);
                     resourceFactory.loanTrxnsResource.save(params, formData, function (data) {

@@ -419,6 +419,34 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'RECOVERYPAYMENT_LOAN';
                     break;
+                case "chargefee":
+                    scope.modelName = 'transactionDate';
+                    scope.formData.transactionDate = new Date();
+                    resourceFactory.paymentTypeResource.getAll(function (data) {
+                        scope.paymentTypes = data;
+                        if (data.length > 0) {
+                            scope.formData.paymentTypeId = data[0].id;
+                        }
+                    });
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: scope.accountId}, function (loan) {
+                        scope.outstandingPrincipal = loan.summary.principalOutstanding;
+                        resourceFactory.chargeResource.getAllCharges(function (charges) {
+                            // on-demand (chargeTimeType 17) charges in the loan's currency
+                            scope.onDemandCharges = _.filter(charges, function (charge) {
+                                return charge.active && charge.chargeTimeType.id == 17 && charge.currency.code == loan.currency.code;
+                            });
+                            if (scope.onDemandCharges.length > 0) {
+                                scope.formData.chargeId = scope.onDemandCharges[0].id;
+                            }
+                            scope.onChargeFeeChange();
+                        });
+                    });
+                    scope.title = 'label.heading.chargefee';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showChargeFeeFields = true;
+                    scope.taskPermissionName = 'CHARGEFEE_LOAN';
+                    break;
                 case "batchprincipalpaydown":
                     scope.modelName = 'transactionDate';
                     scope.formData.transactionDate = new Date();
@@ -480,6 +508,26 @@
                 location.path('/viewloanaccount/' + routeParams.id);
             };
 
+            // preview only; the server computes the posted amount
+            scope.onChargeFeeChange = function () {
+                var charge = _.findWhere(scope.onDemandCharges, {id: scope.formData.chargeId});
+                scope.chargeFeeAmount = undefined;
+                if (!charge) {
+                    return;
+                }
+                var amount = charge.amount;
+                if (charge.chargeCalculationType.id == 6) {
+                    amount = scope.outstandingPrincipal * charge.amount / 100;
+                    if (charge.minCap && amount < charge.minCap) {
+                        amount = charge.minCap;
+                    }
+                    if (charge.maxCap && amount > charge.maxCap) {
+                        amount = charge.maxCap;
+                    }
+                }
+                scope.chargeFeeAmount = amount;
+            };
+
             scope.addTrancheAmounts = function(){
                 scope.showTrancheAmountTotal = 0;
                 for(var i in scope.disbursementDetails ){
@@ -504,6 +552,9 @@
                 }
                 if(scope.action == "batchprincipalpaydown"){
                     params.command = "batchPrincipalPaydown";
+                }
+                if(scope.action == "chargefee"){
+                    params.command = "chargeFee";
                 }
                 if(scope.action == "approve"){
                     this.formData.expectedDisbursementDate = dateFilter(scope.form.expectedDisbursementDate, scope.df);
@@ -533,7 +584,7 @@
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
-                    || scope.action == "batchprincipalpaydown") {
+                    || scope.action == "batchprincipalpaydown" || scope.action == "chargefee") {
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;

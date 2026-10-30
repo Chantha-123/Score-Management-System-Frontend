@@ -107,6 +107,25 @@
 								<form-validate valattributeform="loanactionform" valattribute="amount"/>
 							</div>
 						</div>
+						<div class="form-group" ng-show="showChargeFeeFields">
+							<label class="control-label col-sm-2" for="chargeId">{{ 'label.input.charge' | translate}}<span class="required">*</span></label>
+							<div class="col-sm-3">
+								<select id="chargeId" ng-model="formData.chargeId" class="form-control" ng-change="onChargeFeeChange()"
+										ng-options="charge.id as charge.name for charge in onDemandCharges"></select>
+							</div>
+							<div class="col-sm-4 help-block" ng-show="onDemandCharges && onDemandCharges.length == 0">
+								{{ 'label.chargefee.nocharges' | translate }}
+							</div>
+						</div>
+						<div class="form-group" ng-show="showChargeFeeFields">
+							<label class="control-label col-sm-2" for="chargeFeeAmount">{{ 'label.input.feeamount' | translate}}</label>
+							<div class="col-sm-3">
+								<input id="chargeFeeAmount" type="text" class="form-control" value="{{chargeFeeAmount | number:2}}" readonly>
+							</div>
+							<div class="col-sm-4 help-block" ng-show="outstandingPrincipal">
+								{{ 'label.input.outstandingprincipal' | translate }}: {{ outstandingPrincipal | number }}
+							</div>
+						</div>
 						<div class="form-group" ng-show="showAmountField">
 							<label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' | translate}}<span class="required">*</span></label>
 							<div class="col-sm-3">

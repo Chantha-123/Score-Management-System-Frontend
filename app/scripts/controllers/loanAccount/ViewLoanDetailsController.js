@@ -12,7 +12,7 @@
             scope.loandetails = [];
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 24) {
+                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 24 || transactionTypeId == 17) {
                     $rootScope.rates = scope.loandetails.rates;
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 };
@@ -76,6 +76,9 @@
                         break;
                     case "makerepayment":
                         location.path('/loanaccount/' + accountId + '/repayment');
+                        break;
+                    case "chargefee":
+                        location.path('/loanaccount/' + accountId + '/chargefee');
                         break;
                     case "prepayment":
                         location.path('/loanaccount/' + accountId + '/prepayloan');
@@ -311,6 +314,11 @@
                             name: "button.makerepayment",
                             icon: "fa fa-dollar",
                             taskPermissionName: 'REPAYMENT_LOAN'
+                        },
+                        {
+                            name: "button.chargefee",
+                            icon: "fa fa-plus-circle",
+                            taskPermissionName: 'CHARGEFEE_LOAN'
                         },
                         {
                             name: "button.batchprincipalpaydown",
@@ -605,26 +613,13 @@
 
             };
 
+            // Shows the receipt in the <jasper-report-viewer> under the transactions table (preview, print, PDF/Excel/Word)
             scope.viewloantransactionreceipts = function (transactionId) {
-                //scope.printbtn = true;
-                scope.report = true;
-                scope.viewTransactionReport = true;
-                scope.viewLoanReport = false;
-                scope.viewReport = true;
-                scope.hidePentahoReport = true;
-                scope.formData.outputType = 'PDF';
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Transaction Receipt");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
-
-                var reportParams = "";
-                var paramName = "R_transactionId";
-                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(transactionId);
-                if (reportParams > "") {
-                    scope.baseURL += "&" + reportParams;
-                }
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
-
+                scope.receiptParams = {transactionId: transactionId};
+            };
+            // Printable Khmer repayment schedule (ITD-0002 layout) above the schedule table; a second click hides it
+            scope.viewKhmerSchedule = function () {
+                scope.khmerScheduleParams = scope.khmerScheduleParams ? null : {loanId: scope.loandetails.id};
             };
             scope.viewloantransactionjournalentries = function(transactionId){
                 var transactionId = "L" + transactionId;

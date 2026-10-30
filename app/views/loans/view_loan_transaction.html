@@ -28,11 +28,15 @@
 			<i class="fa fa-info-circle"></i> {{ 'label.heading.details' | translate}}
 			<div class="pull-right" style="margin-left:auto;" ng-hide="transaction.type.contra">
 				<a href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
-				   class="btn btn-primary btn-sm" has-permission='ADJUST_LOAN'>
+				   class="btn btn-primary btn-sm" has-permission='ADJUST_LOAN' ng-hide="transaction.type.id == 17">
 					<i class="fa fa-pencil"></i> {{ 'label.button.edit' | translate}}
 				</a>
 				<a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger btn-sm" has-permission='ADJUST_LOAN'
-				   ng-hide="transaction.type.id == 24 && !isLatestTransaction">
+				   ng-hide="(transaction.type.id == 24 && !isLatestTransaction) || transaction.type.id == 17">
+					<i class="fa fa-trash"></i> {{ 'label.button.undo' | translate}}
+				</a>
+				<a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger btn-sm" has-permission='UNDOCHARGEFEE_LOAN'
+				   ng-show="transaction.type.id == 17 && isLatestTransaction">
 					<i class="fa fa-trash"></i> {{ 'label.button.undo' | translate}}
 				</a>
 			</div>

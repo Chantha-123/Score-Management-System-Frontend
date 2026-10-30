@@ -584,6 +584,9 @@
             .when('/reports/:type', {
                 templateUrl: 'views/reports/view_reports.html'
             })
+            .when('/jasper/:name', {
+                templateUrl: 'views/reports/jasper_report.html'
+            })
             .when('/run_report/:name', {
                 templateUrl: 'views/reports/run_reports.html'
             })

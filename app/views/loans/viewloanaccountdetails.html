@@ -684,7 +684,14 @@
 
                     <!-- Repayment Schedule -->
                     <div ng-show="loanDetailUI.tab == 'repaymentschedule'">
-                        <div class="lp-section-heading"><i class="fa fa-calendar-o"></i>{{'label.heading.repaymentschedule' | translate}}</div>
+                        <div class="lp-section-heading"><i class="fa fa-calendar-o"></i>{{'label.heading.repaymentschedule' | translate}}
+                            <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="viewKhmerSchedule()">
+                                <i class="fa fa-print"></i>&nbsp;{{'label.button.printkhmerschedule' | translate}}
+                            </button>
+                        </div>
+                        <div ng-if="khmerScheduleParams" style="margin-bottom:15px;">
+                            <jasper-report-viewer report-name="Loan Repayment Schedule Khmer" params="khmerScheduleParams"></jasper-report-viewer>
+                        </div>
                         <table class="table lv-table">
                             <colgroup span="4"></colgroup>
                             <thead>
@@ -808,11 +815,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div>
-                            <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary"><i class="fa fa-print">{{'label.button.print' | translate}}</i></button>
-                            <div id="printreceiptcontent">
-                                <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
-                            </div>
+                        <div ng-if="receiptParams" style="margin-top:15px;">
+                            <jasper-report-viewer report-name="Loan Transaction Receipt Khmer" params="receiptParams"></jasper-report-viewer>
                         </div>
                     </div>
 
