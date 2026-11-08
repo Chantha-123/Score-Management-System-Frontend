@@ -142,12 +142,9 @@
                 scope.started = false;
             });
 
-            // Log out the user when the window/tab is closed.
-            window.onunload = function () {
-                scope.logout();
-                $idle.unwatch();
-                scope.started = false;
-            };
+            // No logout on unload: sessionData lives in sessionStorage, which the browser
+            // clears when the tab closes but keeps across reloads (iOS Safari reloads
+            // backgrounded tabs, which used to log mobile users out constantly).
 
             scope.start = function (session) {
                 if (session) {

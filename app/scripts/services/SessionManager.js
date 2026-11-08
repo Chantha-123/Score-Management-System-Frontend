@@ -17,10 +17,10 @@
                     }
                 } else {
                     if(isOauth){
-                        webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.accessToken, userPermissions: data.permissions});
+                        webStorage.session.add("sessionData", {userId: data.userId, authenticationKey: data.accessToken, userPermissions: data.permissions});
                         httpService.setAuthorization(data.accessToken, true);
                     } else {
-                        webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey, userPermissions: data.permissions});
+                        webStorage.session.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey, userPermissions: data.permissions});
                         httpService.setAuthorization(data.base64EncodedAuthenticationKey, false);
                     }
                     return {user: new mifosX.models.LoggedInUser(data)};
@@ -28,13 +28,13 @@
             }
 
             this.clear = function () {
-                webStorage.remove("sessionData");
+                webStorage.remove("sessionData", true);
                 httpService.cancelAuthorization();
                 return EMPTY_SESSION;
             };
 
             this.restore = function (handler) {
-                var sessionData = webStorage.get('sessionData');
+                var sessionData = webStorage.session.get('sessionData');
                 if (sessionData !== null) {
                     var isOauth = SECURITY === 'oauth';
                     httpService.setAuthorization(sessionData.authenticationKey, isOauth);
