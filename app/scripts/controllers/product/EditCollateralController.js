@@ -13,9 +13,7 @@
                 scope.formData = {
                     name: data.name,
                     unitType: data.unitType,
-                    basePrice: data.basePrice,
                     type: data.quality,
-                    pctToBase: data.pctToBase,
                     currency: data.currency
                 };
             });
@@ -26,6 +24,9 @@
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
+                // the API field is "quality"; the form binds it as "type"
+                this.formData.quality = this.formData.type;
+                delete this.formData.type;
                 resourceFactory.collateralResource.update({collateralId: scope.collateralId}, this.formData, function (data) {
                     location.path('/viewcollateral/' + scope.collateralId);
                 });

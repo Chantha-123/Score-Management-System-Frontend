@@ -868,20 +868,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ca-field-row">
-                                    <div class="ca-field-half">
-                                        <div class="form-group">
-                                            <label class="control-label">{{'label.heading.totalValue' | translate}}</label>
-                                            <input class="form-control" type="text" ng-model="collateralFormData.total" number-format readonly>
-                                        </div>
-                                    </div>
-                                    <div class="ca-field-half">
-                                        <div class="form-group">
-                                            <label class="control-label">{{'label.heading.totalCollateralValue' | translate}}</label>
-                                            <input class="form-control" type="text" ng-model="collateralFormData.totalCollateral" number-format readonly>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div style="display:flex; gap:8px;">
                                     <a class="btn btn-primary btn-sm" ng-click="addCollateral(); showCollateralForm=false">
                                         <i class="fa fa-plus"></i>&nbsp;{{'label.button.add' | translate}}
@@ -898,8 +884,6 @@
                                 <tr>
                                     <th>{{'label.heading.id' | translate}}</th>
                                     <th>{{'label.heading.quantity' | translate}}</th>
-                                    <th>{{'label.heading.totalValue' | translate}}</th>
-                                    <th>{{'label.heading.totalCollateralValue' | translate}}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -907,8 +891,6 @@
                                 <tr ng-repeat="collateral in collaterals">
                                     <td><input type="text" class="form-control input-sm" ng-model="collateral.collateralId" readonly></td>
                                     <td><input id="{{collaterals[$index].quantity}}" type="text" class="form-control input-sm" ng-model="collateral.quantity" readonly></td>
-                                    <td><input id="total" type="text" class="form-control input-sm" ng-model="collateral.total"></td>
-                                    <td><input id="totalCollateral" type="text" class="form-control input-sm" ng-model="collateral.totalCollateral"></td>
                                     <td style="vertical-align:middle;">
                                         <a ng-click="deleteCollateral($index)" class="text-danger">
                                             <i class="fa fa-times-circle fa-lg"></i>

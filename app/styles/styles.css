@@ -24403,6 +24403,10 @@ tr:hover .row-actions { opacity: 1; }
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+/* Keep Bootstrap collapse working: the flex rule above must not un-hide collapsed blocks */
+.ca-card .collapse:not(.in) {
+  display: none !important;
+}
 /* When label has col-sm-X it IS a standalone row label: right-align it */
 .ca-card .control-label.col-sm-3,
 .ca-card .control-label.col-sm-2 {
@@ -24829,3 +24833,89 @@ tr:hover .row-actions { opacity: 1; }
 }
 .ca-overdue-item:first-of-type { border-top: none; padding-top: 0; }
 .ca-overdue-meta { color: #9a3412; font-size: 12px; }
+/* ══════════════════════════════════════════════════════════════
+   Client → loan onboarding wizard (views/onboarding/onboarding.html)
+   ══════════════════════════════════════════════════════════════ */
+.ob-wizard .ca-field-third .control-label,
+.ob-wizard .ca-field-quarter .control-label { display: block; margin-bottom: 5px; }
+.ob-wizard .ca-field-third,
+.ob-wizard .ca-field-quarter { flex: 1; min-width: 0; padding-bottom: 10px; }
+.ob-wizard .ca-section-heading { margin: 22px 0 14px; }
+
+.ob-steps {
+  display: flex; gap: 6px; list-style: none; padding: 0; margin: 0 0 16px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.ob-steps li {
+  flex: 1 0 auto; display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-radius: 8px; background: #ffffff;
+  border: 1px solid #e2e8f0; color: #64748b; font-size: 12px; font-weight: 600;
+  cursor: pointer; white-space: nowrap; transition: border-color .15s, background .15s;
+}
+.ob-steps li:hover { border-color: #93c5fd; }
+.ob-steps li.ob-locked { cursor: default; opacity: .6; }
+.ob-steps li.ob-locked:hover { border-color: #e2e8f0; }
+.ob-steps li.ob-active { background: #eff6ff; border-color: #3b82f6; color: #1d4ed8; }
+.ob-steps li.ob-done { color: #15803d; }
+.ob-step-num {
+  width: 24px; height: 24px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; background: #f1f5f9; font-size: 11px;
+}
+.ob-active .ob-step-num { background: #3b82f6; color: #ffffff; }
+.ob-done .ob-step-num { background: #dcfce7; color: #15803d; }
+
+.ob-row-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px 6px; margin-bottom: 10px; }
+.ob-row-footer { display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; }
+.ob-file { cursor: pointer; margin: 0; }
+
+.ob-table th { font-size: 11px; text-transform: uppercase; color: #64748b; letter-spacing: .4px; }
+.ob-table td { vertical-align: middle !important; font-variant-numeric: tabular-nums; }
+.ob-table-wrap { overflow-x: auto; }
+.ob-highlight { color: #1d4ed8; font-size: 15px; }
+
+.ob-kpis { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.ob-kpis > div {
+  flex: 1 1 140px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px;
+  display: flex; flex-direction: column;
+}
+.ob-kpis span { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: .4px; }
+.ob-kpis strong { font-size: 18px; color: #0f172a; font-variant-numeric: tabular-nums; }
+
+.ob-indent { border-left: 3px solid #dbeafe; padding-left: 14px; margin: 6px 0 12px; }
+
+.ob-review { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.ob-review section { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; }
+.ob-review header {
+  display: flex; justify-content: space-between; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; color: #64748b; letter-spacing: .5px; margin-bottom: 8px;
+}
+.ob-review header a { cursor: pointer; text-transform: none; font-weight: 600; }
+.ob-review dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13px; }
+.ob-review dt { color: #64748b; font-weight: 500; }
+.ob-review dd { margin: 0; color: #0f172a; }
+
+.ob-wizard .ob-actions {
+  margin: 16px 0 0; border: 1px solid #e2e8f0; border-radius: 8px;
+  box-shadow: 0 -4px 12px rgba(15, 23, 42, .06);
+}
+.ob-wizard .ob-actions .ca-actions-right { display: flex; gap: 8px; }
+
+.ob-result { text-align: center; padding: 32px 24px; }
+.ob-result-icon { font-size: 48px; color: #16a34a; line-height: 1; margin-bottom: 8px; }
+.ob-result-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 16px 0 8px; }
+.ob-uploads { text-align: left; margin-top: 20px; }
+.ob-draft .btn { margin-left: 8px; }
+
+@media (max-width: 767px) {
+  .ob-wizard .ca-field-row { flex-direction: column; gap: 0; }
+  .ob-steps .ob-step-title { display: none; }
+  .ob-steps li.ob-active .ob-step-title { display: inline; }
+  .ob-wizard .ob-actions { padding: 10px 12px; }
+}
+
+/* onboarding: new vs existing customer chooser */
+.ob-wizard .ob-choice { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 22px 16px; white-space: normal; border-radius: 10px; }
+.ob-wizard .ob-choice:hover { border-color: #3b82f6; background: #f8fbff; }
+.ob-wizard .ob-choice small { display: block; font-weight: normal; }
+.ob-wizard .ob-on-file { margin-bottom: 10px; }
+.ob-wizard .ob-review header span a { margin-left: 6px; }

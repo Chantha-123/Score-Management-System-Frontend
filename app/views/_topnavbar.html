@@ -28,6 +28,11 @@
                             }}</a></li> -->
                     <!-- </ul> -->
                 </li>
+                <li has-permission='CREATE_LOAN'>
+                    <a href="#/onboarding" ng-class="{ activate: isActive('onboarding') }">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> {{ 'label.button.onboarding' | translate }}
+                    </a>
+                </li>
                 <li uib-dropdown is-open="li.accounting.status.isopen"
                 ng-mouseenter="li.accounting.status.isopen = true" ng-mouseleave="li.accounting.status.isopen = false">
                     <a ng-class="{ activate: isActive('acc') }" href="#/accounting">

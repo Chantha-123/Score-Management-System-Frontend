@@ -158,6 +158,20 @@
                 };
             };
 
+            // per-loan pawned items (type / booking / evaluation / dates) and co-borrowers
+            scope.pawnItems = [];
+            scope.coBorrowers = [];
+            if (scope.hasPermission('READ_COLLATERAL')) {
+                resourceFactory.loanPawnItemsResource.getAll({loanId: routeParams.id}, function (data) {
+                    scope.pawnItems = data;
+                });
+            }
+            if (scope.hasPermission('READ_LOANCOBORROWER')) {
+                resourceFactory.loanCoBorrowersResource.getAll({loanId: routeParams.id}, function (data) {
+                    scope.coBorrowers = data;
+                });
+            }
+
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors,futureSchedule'}, function (data) {
                 scope.loandetails = data;
                 scope.productId = data.loanProductId;

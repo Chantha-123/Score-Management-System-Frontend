@@ -79,6 +79,15 @@
             .when('/createclient', {
                 templateUrl: 'views/clients/createclient.html'
             })
+            .when('/onboarding', {
+                templateUrl: 'views/onboarding/onboarding.html'
+            })
+            .when('/onboarding/existing', {
+                templateUrl: 'views/onboarding/onboarding.html'
+            })
+            .when('/onboarding/client/:clientId', {
+                templateUrl: 'views/onboarding/onboarding.html'
+            })
             .when('/editclient/:id', {
                 templateUrl: 'views/clients/editclient.html'
             })

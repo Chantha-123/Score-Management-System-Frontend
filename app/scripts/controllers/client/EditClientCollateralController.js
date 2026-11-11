@@ -11,10 +11,8 @@
                 scope.collaterals = data;
                 scope.formData = {
                     name: data.name,
-                    quantity: data.quantity,
-                    total: data.total,
-                    totalCollateral: data.totalCollateral
-                }
+                    quantity: data.quantity
+                };
             });
 
             scope.cancel = function () {

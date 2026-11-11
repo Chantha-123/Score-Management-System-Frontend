@@ -562,14 +562,6 @@
                 <input class="form-control" type="text" ng-model="collateralFormData.quantity" placeholder="{{'label.input.quantity' | translate}}"
                     number-format ng-change="updateValues()">
             </div>
-            <div class="col-sm-2">
-                <input class="form-control" type="text" ng-model="collateralFormData.total"
-                    number-format readonly>
-            </div>
-            <div class="col-sm-2">
-                <input class="form-control" type="text" ng-model="collateralFormData.totalCollateral"
-                    number-format readonly>
-            </div>
             <div class="col-sm-1">
                 <a class="btn btn-primary" ng-click="addCollateral()" class="col-sm-1">&nbsp;
                     <i class="fa fa-plus "></i>&nbsp;Add</a>
@@ -580,8 +572,6 @@
                 <tr class="graybg">
                     <th>{{'label.heading.id' | translate}}</th>
                     <th>{{'label.heading.quantity' | translate}}</th>
-                    <th>{{'label.heading.totalValue' | translate}}</th>
-                    <th>{{'label.heading.totalCollateralValue' | translate}}</th>
                 </tr>
                 <tr ng-repeat="collateral in collaterals">
                     <td>
@@ -589,12 +579,6 @@
                     </td>
                     <td>
                         <input id="{{collaterals[$index].quantity}}" type="text" class="form-control" ng-model="collateral.quantity" readonly>
-                    </td>
-                    <td>
-                        <input id="total" type="text" class="form-control" ng-model="collateral.total">
-                    </td>
-                    <td>
-                        <input id="totalCollateral" type="text" class="form-control" ng-model="collateral.totalCollateral">
                     </td>
                     <td>
                         <a ng-click="deleteCollateral($index)">

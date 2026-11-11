@@ -11,7 +11,7 @@
         <br>
         <div class="row">
             <div class="col-md-2 col-sm-3 paddedbottom20">
-                <a href="#/createclientcollateral/{{clientId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT_COLLATERAL'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createclientcollateral' | translate}}</a>
+                <a href="#/createclientcollateral/{{clientId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT_COLLATERAL_PRODUCT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createclientcollateral' | translate}}</a>
             </div>
         </div>
         <table class="table">
@@ -19,16 +19,12 @@
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
                 <th>{{'label.heading.quantity' | translate}}</th>
-                <th>{{'label.heading.totalValue' | translate}}</th>
-                <th>{{'label.heading.totalCollateralValue' | translate}}</th>
             </tr>
             </thead>
             <tbody>
             <tr class="pointer-main" dir-paginate="collateral in collaterals | orderBy:'name':reverse |  itemsPerPage: CollateralsPerPage">
                 <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.name | translate}}</td>
                 <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.quantity}}</td>
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.totalValue}}</td>
-                <td class="pointer" data-ng-click="routeTo(collateral.id)">{{collateral.totalCollateralValue}}</td>
             </tr>
             </tbody>
         </table>

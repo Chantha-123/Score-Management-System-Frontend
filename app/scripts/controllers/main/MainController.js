@@ -249,6 +249,9 @@
                         }
                     }
                 }
+                else if (route == 'onboarding') {
+                    return location.path().indexOf('/onboarding') === 0;
+                }
                 else if (route == 'acc') {
                     var temp1 = ['/accounting', '/freqposting', '/accounting_coa', '/journalentry', '/accounts_closure', '/Searchtransaction', '/accounting_rules'];
                     for (var i in temp1) {

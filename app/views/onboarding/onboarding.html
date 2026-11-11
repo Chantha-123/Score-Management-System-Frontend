@@ -1,0 +1,983 @@
+<div class="content-container ob-wizard" ng-controller="OnboardingWizardController">
+
+	<!-- Hero -->
+	<div class="ca-page-hero">
+		<h2 class="ca-page-title">{{(mode == 'existing' ? 'label.heading.onboarding.existing' : 'label.heading.onboarding') | translate}}</h2>
+		<div>
+			<span class="ca-hero-chip">
+				<i class="fa fa-users"></i>
+				<a href="#/clients">{{'label.anchor.clients' | translate}}</a>
+			</span>
+		</div>
+	</div>
+
+	<!-- ═══════════════ Result (after commit) ═══════════════ -->
+	<div class="ca-card ob-result" ng-if="ui.result">
+		<div class="ob-result-icon"><i class="fa fa-check-circle"></i></div>
+		<h3>{{'label.heading.onboarding.success' | translate}}</h3>
+		<p class="text-muted">
+			<span ng-show="ui.result.disbursed">{{'label.onboarding.result.disbursed' | translate}}</span>
+			<span ng-show="ui.result.approved && !ui.result.disbursed">{{'label.onboarding.result.approved' | translate}}</span>
+			<span ng-show="!ui.result.approved">{{'label.onboarding.result.submitted' | translate}}</span>
+		</p>
+		<div class="ob-result-actions">
+			<button type="button" class="btn btn-primary btn-sm" ng-click="goToClient()">
+				<i class="fa fa-user"></i> {{'label.button.onboarding.viewclient' | translate}}
+			</button>
+			<button type="button" class="btn btn-primary btn-sm" ng-click="goToLoan()">
+				<i class="fa fa-money"></i> {{'label.button.onboarding.viewloan' | translate}}
+			</button>
+			<button type="button" class="btn btn-default btn-sm" ng-click="startOver()">
+				<i class="fa fa-plus"></i> {{'label.button.onboarding.another' | translate}}
+			</button>
+		</div>
+
+		<div ng-if="ui.uploads.length > 0" class="ob-uploads">
+			<div class="ca-section-heading"><i class="fa fa-paperclip"></i> {{'label.heading.onboarding.documents' | translate}}</div>
+			<p class="text-muted small">{{'label.onboarding.documents.aftercommit' | translate}}</p>
+			<table class="table table-condensed">
+				<tr ng-repeat="item in ui.uploads">
+					<td>{{item.label}}</td>
+					<td>{{item.file.name}}</td>
+					<td class="text-right">
+						<span ng-show="item.status == 'uploading'"><i class="fa fa-spinner fa-spin"></i> {{'label.onboarding.upload.uploading' | translate}}</span>
+						<span ng-show="item.status == 'done'" class="text-success"><i class="fa fa-check"></i> {{'label.onboarding.upload.done' | translate}}</span>
+						<span ng-show="item.status == 'failed'" class="text-danger">
+							<i class="fa fa-exclamation-triangle"></i> {{'label.onboarding.upload.failed' | translate}}
+							<button type="button" class="btn btn-default btn-xs" ng-click="upload(item)">{{'label.button.retry' | translate}}</button>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<!-- ═══════════════ Mode chooser ═══════════════ -->
+	<div class="ca-card ob-chooser" ng-if="!ui.result && !mode">
+		<div class="ca-section-heading" style="margin-top:0;"><i class="fa fa-question-circle"></i> {{'label.heading.onboarding.choose' | translate}}</div>
+		<div class="ca-field-row">
+			<div class="ca-field-half">
+				<button type="button" class="btn btn-default btn-block ob-choice" ng-click="chooseMode('new')" has-permission="CREATE_CLIENT">
+					<i class="fa fa-user-plus fa-2x"></i>
+					<strong>{{'label.button.onboarding.newcustomer' | translate}}</strong>
+					<small class="text-muted">{{'label.onboarding.choose.new' | translate}}</small>
+				</button>
+			</div>
+			<div class="ca-field-half">
+				<button type="button" class="btn btn-default btn-block ob-choice" ng-click="chooseMode('existing')">
+					<i class="fa fa-user-circle fa-2x"></i>
+					<strong>{{'label.button.onboarding.existingcustomer' | translate}}</strong>
+					<small class="text-muted">{{'label.onboarding.choose.existing' | translate}}</small>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="!ui.result && mode">
+
+		<!-- ═══════════════ Notices ═══════════════ -->
+		<div class="alert alert-warning" ng-show="mcBlocked()">
+			<i class="fa fa-lock"></i> {{'label.onboarding.makerchecker.blocked' | translate}}
+			<a href="#/createclient">{{'label.button.createclient' | translate}}</a>
+		</div>
+		<div class="alert alert-warning" ng-show="!can.create">
+			<i class="fa fa-lock"></i> {{'label.onboarding.nopermission' | translate}}
+		</div>
+		<div class="alert alert-info ob-draft" ng-show="ui.draftRestored">
+			<i class="fa fa-history"></i> {{'label.onboarding.draft.restored' | translate}}
+			<button type="button" class="btn btn-default btn-xs" ng-click="startOver()">{{'label.button.onboarding.startover' | translate}}</button>
+		</div>
+
+		<!-- ═══════════════ Step bar ═══════════════ -->
+		<ol class="ob-steps">
+			<li ng-repeat="s in steps()"
+				ng-class="{'ob-active': isStep(s.key), 'ob-done': $index < stepIndex(), 'ob-locked': !ob.visited[s.key]}"
+				ng-click="goTo(s.key)">
+				<span class="ob-step-num"><i class="fa" ng-class="$index < stepIndex() ? 'fa-check' : s.icon"></i></span>
+				<span class="ob-step-title">{{s.title | translate}}</span>
+			</li>
+		</ol>
+
+		<!-- ═══════════════ Errors ═══════════════ -->
+		<div class="alert alert-danger" ng-show="ui.errors.length > 0">
+			<div ng-repeat="code in ui.errors"><i class="fa fa-exclamation-circle"></i> {{code | translate}}</div>
+		</div>
+		<div class="alert alert-danger ob-server-error" ng-if="ui.serverError">
+			<button type="button" class="close" ng-click="dismissServerError()">&times;</button>
+			<strong><i class="fa fa-undo"></i> {{'label.onboarding.rolledback' | translate}}</strong>
+			<div ng-repeat="m in ui.serverError.messages">
+				<span ng-if="m.field" class="label label-danger">{{m.field}}</span>
+				{{m.text}}
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Existing customer ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('customer')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-user-circle"></i> {{'label.heading.onboarding.step.customer' | translate}}
+			</div>
+
+			<div ng-if="!customer.data && !customer.loading && !customer.error">
+				<label class="control-label">{{'label.onboarding.customer.search' | translate}} <span class="required">*</span></label>
+				<input type="text" ng-model="customerSearch.selected" class="form-control" autocomplete="off"
+					   typeahead-editable="false" typeahead-wait-ms="300" typeahead-min-length="2"
+					   uib-typeahead="c as (c.displayName + ' (' + (c.accountNo || c.id) + ')' + (c.mobileNo ? ' · ' + c.mobileNo : '')) for c in searchClients($viewValue)"
+					   typeahead-on-select="pickCustomer($item)"
+					   placeholder="{{'label.onboarding.customer.search' | translate}}" />
+				<small class="text-muted">{{'label.onboarding.customer.search.hint' | translate}}</small>
+			</div>
+
+			<div ng-show="customer.loading" class="text-muted"><i class="fa fa-spinner fa-spin"></i> {{'label.onboarding.loading' | translate}}</div>
+			<div class="alert alert-danger" ng-if="customer.error">
+				<div ng-repeat="m in customer.error">{{m.text}}</div>
+				<a href="#/onboarding/existing">{{'label.button.onboarding.changecustomer' | translate}}</a>
+			</div>
+
+			<div ng-if="customer.data">
+				<div class="alert alert-danger" ng-show="!customer.data.active">
+					<i class="fa fa-ban"></i> {{'validation.msg.onboarding.customer.notactive' | translate}} ({{customer.data.status}})
+				</div>
+				<div class="alert alert-warning" ng-show="customerHasArrears()">
+					<i class="fa fa-exclamation-triangle"></i> {{'label.onboarding.customer.arrears' | translate}}
+				</div>
+				<div class="ob-review">
+					<section>
+						<header>
+							{{customer.data.displayName}}
+							<span>
+								<a href="#/viewclient/{{customer.data.id}}" target="_blank"><i class="fa fa-external-link"></i> {{'label.button.onboarding.viewclient' | translate}}</a>
+								&nbsp;<a href="#/editclient/{{customer.data.id}}" has-permission="UPDATE_CLIENT"><i class="fa fa-edit"></i> {{'label.button.onboarding.editcustomer' | translate}}</a>
+								&nbsp;<a href="#/onboarding/existing"><i class="fa fa-exchange"></i> {{'label.button.onboarding.changecustomer' | translate}}</a>
+							</span>
+						</header>
+						<dl>
+							<dt>{{'label.heading.accnum' | translate}}</dt><dd>{{customer.data.accountNo}}</dd>
+							<dt>{{'label.input.office' | translate}}</dt><dd>{{customer.data.officeName}}</dd>
+							<dt>{{'label.input.staff' | translate}}</dt><dd>{{customer.data.staffName || '—'}}</dd>
+							<dt>{{'label.input.activationdate' | translate}}</dt><dd>{{customer.data.activationDate | DateFormat}}</dd>
+							<dt>{{'label.input.mobilenumber' | translate}}</dt><dd>{{customer.data.mobileNo || '—'}}</dd>
+							<dt>{{'label.heading.status' | translate}}</dt><dd>{{customer.data.status}}</dd>
+						</dl>
+					</section>
+					<section>
+						<header>{{'label.heading.onboarding.step.identifiers' | translate}}</header>
+						<div ng-show="customer.identifiers.length == 0" class="text-muted">—</div>
+						<div ng-repeat="i in customer.identifiers">{{i.documentType.name}}: <strong>{{i.documentKey}}</strong></div>
+					</section>
+					<section>
+						<header>{{'label.onboarding.customer.openloans' | translate}}</header>
+						<div ng-show="customer.loans.length == 0" class="text-muted">—</div>
+						<div ng-repeat="l in customer.loans">
+							<a href="#/viewloanaccount/{{l.id}}" target="_blank">{{l.accountNo}}</a> · {{l.productName}} ·
+							<span ng-class="{'text-danger': l.inArrears}">{{l.inArrears ? ('label.onboarding.customer.inarrears' | translate) : l.status.value}}</span>
+							<span ng-show="l.loanBalance != null"> · {{l.loanBalance | number:2}}</span>
+						</div>
+					</section>
+				</div>
+				<p class="text-muted small"><i class="fa fa-info-circle"></i> {{'label.onboarding.customer.readonly' | translate}}</p>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Client ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('client')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-building-o"></i> {{'label.heading.assignment' | translate}}
+			</div>
+			<div class="ca-field-row">
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.office' | translate}} <span class="required">*</span></label>
+						<select ng-model="ob.client.officeId" class="form-control"
+								ng-options="o.id as o.name for o in opt.offices" ng-change="changeOffice(ob.client.officeId)"></select>
+					</div>
+				</div>
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.staff' | translate}}</label>
+						<select ng-model="ob.client.staffId" class="form-control" ng-options="s.id as s.displayName for s in opt.staffs">
+							<option value="">--{{'label.menu.selectloanofficer' | translate}}--</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="ca-section-heading"><i class="fa fa-id-card-o"></i> {{'label.heading.identity' | translate}}</div>
+			<div class="ca-field-row">
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.legalForm' | translate}} <span class="required">*</span></label>
+						<select ng-model="ob.client.legalFormId" class="form-control"
+								ng-options="f.id as f.value for f in clientTemplate.clientLegalFormOptions"></select>
+					</div>
+				</div>
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.gender' | translate}}</label>
+						<select ng-model="ob.client.genderId" class="form-control" ng-options="g.id as g.name for g in clientTemplate.genderOptions">
+							<option value="">--{{'label.menu.gender' | translate}}--</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="ca-field-row" ng-if="ob.client.legalFormId == 1">
+				<div class="ca-field-third">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.firstname' | translate}} <span class="required">*</span></label>
+						<input type="text" ng-model="ob.client.firstname" class="form-control" />
+					</div>
+				</div>
+				<div class="ca-field-third">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.middlename' | translate}}</label>
+						<input type="text" ng-model="ob.client.middlename" class="form-control" />
+					</div>
+				</div>
+				<div class="ca-field-third">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.lastname' | translate}} <span class="required">*</span></label>
+						<input type="text" ng-model="ob.client.lastname" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-if="ob.client.legalFormId != 1">
+				<label class="control-label">{{'label.input.fullname' | translate}} <span class="required">*</span></label>
+				<input type="text" ng-model="ob.client.fullname" class="form-control" />
+			</div>
+			<div class="ca-field-row">
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.dateofbirth' | translate}}</label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.client.dateOfBirth" is-open="ui.dobOpen"
+							   max="today" class="form-control" />
+					</div>
+				</div>
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.mobilenumber' | translate}}</label>
+						<input type="text" ng-model="ob.client.mobileNo" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="ca-field-row">
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.clienttype' | translate}}</label>
+						<select ng-model="ob.client.clientTypeId" class="form-control" ng-options="t.id as t.name for t in clientTemplate.clientTypeOptions">
+							<option value="">--{{'label.menu.clienttype' | translate}}--</option>
+						</select>
+					</div>
+				</div>
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.externalid' | translate}}</label>
+						<input type="text" ng-model="ob.client.externalId" class="form-control" />
+					</div>
+				</div>
+			</div>
+
+			<div class="ca-section-heading"><i class="fa fa-map-marker"></i> {{'label.heading.onboarding.livingaddress' | translate}}</div>
+			<div class="ca-field-row">
+				<div class="ca-field-quarter">
+					<select ng-model="ob.living.provinceId" class="form-control" ng-change="onProvinceChange(ob.living)"
+							ng-options="p.id as p.nameEng for p in opt.provinces"><option value="">--{{'label.input.province' | translate}}--</option></select>
+				</div>
+				<div class="ca-field-quarter">
+					<select ng-model="ob.living.districtId" class="form-control" ng-change="onDistrictChange(ob.living)" ng-disabled="!ob.living.provinceId"
+							ng-options="d.id as d.nameEng for d in ob.living.districts"><option value="">--{{'label.input.district' | translate}}--</option></select>
+				</div>
+				<div class="ca-field-quarter">
+					<select ng-model="ob.living.communeId" class="form-control" ng-change="onCommuneChange(ob.living)" ng-disabled="!ob.living.districtId"
+							ng-options="c.id as c.nameEng for c in ob.living.communes"><option value="">--{{'label.input.commune' | translate}}--</option></select>
+				</div>
+				<div class="ca-field-quarter">
+					<select ng-model="ob.living.villageId" class="form-control" ng-disabled="!ob.living.communeId"
+							ng-options="v.id as v.nameEng for v in ob.living.villages"><option value="">--{{'label.input.village' | translate}}--</option></select>
+				</div>
+			</div>
+
+			<div class="ca-section-heading">
+				<i class="fa fa-home"></i> {{'label.heading.onboarding.birthaddress' | translate}}
+				<a class="small" style="margin-left:auto;" ng-click="ob.birth.provinceId = ob.living.provinceId; onProvinceChange(ob.birth); ob.birth.districtId = ob.living.districtId; onDistrictChange(ob.birth); ob.birth.communeId = ob.living.communeId; onCommuneChange(ob.birth); ob.birth.villageId = ob.living.villageId;">
+					<i class="fa fa-clone"></i> {{'label.button.onboarding.sameasliving' | translate}}
+				</a>
+			</div>
+			<div class="ca-field-row">
+				<div class="ca-field-quarter">
+					<select ng-model="ob.birth.provinceId" class="form-control" ng-change="onProvinceChange(ob.birth)"
+							ng-options="p.id as p.nameEng for p in opt.provinces"><option value="">--{{'label.input.province' | translate}}--</option></select>
+				</div>
+				<div class="ca-field-quarter">
+					<select ng-model="ob.birth.districtId" class="form-control" ng-change="onDistrictChange(ob.birth)" ng-disabled="!ob.birth.provinceId"
+							ng-options="d.id as d.nameEng for d in ob.birth.districts"><option value="">--{{'label.input.district' | translate}}--</option></select>
+				</div>
+				<div class="ca-field-quarter">
+					<select ng-model="ob.birth.communeId" class="form-control" ng-change="onCommuneChange(ob.birth)" ng-disabled="!ob.birth.districtId"
+							ng-options="c.id as c.nameEng for c in ob.birth.communes"><option value="">--{{'label.input.commune' | translate}}--</option></select>
+				</div>
+				<div class="ca-field-quarter">
+					<select ng-model="ob.birth.villageId" class="form-control" ng-disabled="!ob.birth.communeId"
+							ng-options="v.id as v.nameEng for v in ob.birth.villages"><option value="">--{{'label.input.village' | translate}}--</option></select>
+				</div>
+			</div>
+
+			<div ng-if="clientTemplate.isAddressEnabled">
+				<div class="ca-section-heading"><i class="fa fa-envelope-o"></i> {{'label.heading.address' | translate}}</div>
+				<div class="ca-field-row">
+					<div class="ca-field-half">
+						<select ng-model="ob.client.address.addressTypeId" class="form-control"
+								ng-options="t.id as t.name for t in clientTemplate.address[0].addressTypeIdOptions"><option value="">--{{'label.input.addressType' | translate}}--</option></select>
+					</div>
+					<div class="ca-field-half">
+						<input type="text" ng-model="ob.client.address.addressLine1" class="form-control" placeholder="{{'label.input.addressline1' | translate}}" />
+					</div>
+				</div>
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<input type="text" ng-model="ob.client.address.city" class="form-control" placeholder="{{'label.input.city' | translate}}" />
+					</div>
+					<div class="ca-field-third">
+						<select ng-model="ob.client.address.stateProvinceId" class="form-control"
+								ng-options="s.id as s.name for s in clientTemplate.address[0].stateProvinceIdOptions"><option value="">--{{'label.input.stateProvince' | translate}}--</option></select>
+					</div>
+					<div class="ca-field-third">
+						<select ng-model="ob.client.address.countryId" class="form-control"
+								ng-options="c.id as c.name for c in clientTemplate.address[0].countryIdOptions"><option value="">--{{'label.input.country' | translate}}--</option></select>
+					</div>
+				</div>
+			</div>
+
+			<div class="ca-section-heading"><i class="fa fa-calendar-check-o"></i> {{'label.heading.activation' | translate}}</div>
+			<div class="ca-field-row">
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.activationdate' | translate}} <span class="required">*</span></label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.client.activationDate" is-open="ui.actOpen"
+							   max="today" class="form-control" />
+						<small class="text-muted">{{'label.onboarding.activation.hint' | translate}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Identifiers & documents ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('identifiers')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-id-card-o"></i> {{'label.heading.onboarding.step.identifiers' | translate}}
+			</div>
+			<div ng-if="mode == 'existing' && customer.identifiers.length > 0" class="ob-on-file">
+				<span class="text-muted">{{'label.onboarding.identifiers.onfile' | translate}}</span>
+				<span ng-repeat="i in customer.identifiers" class="label label-default" style="margin-left:4px;">{{i.documentType.name}}: {{i.documentKey}}</span>
+			</div>
+			<p class="text-muted" ng-show="ob.identifiers.length == 0">{{'label.onboarding.identifiers.none' | translate}}</p>
+			<div class="ob-row-card" ng-repeat="row in ob.identifiers">
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.documenttype' | translate}} <span class="required">*</span></label>
+						<select ng-model="row.documentTypeId" class="form-control" ng-options="d.id as d.name for d in opt.documentTypes"></select>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.uniqueid' | translate}} <span class="required">*</span></label>
+						<input type="text" ng-model="row.documentKey" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.description' | translate}}</label>
+						<input type="text" ng-model="row.description" class="form-control" />
+					</div>
+				</div>
+				<div class="ob-row-footer">
+					<label class="btn btn-default btn-xs ob-file">
+						<i class="fa fa-paperclip"></i>
+						<span ng-show="!files[$index]">{{'label.button.onboarding.attachfile' | translate}}</span>
+						<span ng-show="files[$index]">{{files[$index].name}}</span>
+						<input type="file" ngf-select="setFile($index, $file)" style="display:none;" />
+					</label>
+					<button type="button" class="btn btn-link btn-xs text-danger" ng-click="removeIdentifier($index)">
+						<i class="fa fa-trash"></i> {{'label.button.remove' | translate}}
+					</button>
+				</div>
+			</div>
+			<div class="ca-add-row">
+				<button type="button" class="btn btn-default btn-sm" ng-click="addIdentifier()">
+					<i class="fa fa-plus"></i> {{'label.button.onboarding.addidentifier' | translate}}
+				</button>
+			</div>
+			<p class="text-muted small"><i class="fa fa-info-circle"></i> {{'label.onboarding.documents.aftercommit' | translate}}</p>
+		</div>
+
+		<!-- ═══════════════ Step: Collateral / pawn items ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('collateral')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-diamond"></i> {{'label.heading.onboarding.step.collateral' | translate}}
+			</div>
+			<div class="alert alert-warning" ng-show="opt.collateralTypes.length == 0">
+				<i class="fa fa-exclamation-triangle"></i> {{'label.onboarding.collateral.notypes' | translate}}
+			</div>
+			<p class="text-muted" ng-show="ob.collaterals.length == 0">{{'label.onboarding.collateral.none' | translate}}</p>
+			<div class="ob-row-card" ng-repeat="row in ob.collaterals">
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.collateraltype' | translate}} <span class="required">*</span></label>
+						<select ng-model="row.collateralTypeId" class="form-control" ng-options="t.id as t.name for t in opt.collateralTypes">
+							<option value="">--{{'label.input.collateraltype' | translate}}--</option>
+						</select>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.onboarding.bookingamount' | translate}} <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="number" min="0" step="any" ng-model="row.bookingAmount" class="form-control" />
+							<span class="input-group-addon" ng-show="loanTemplate.currency.code">{{loanTemplate.currency.code}}</span>
+						</div>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.onboarding.evaluationamount' | translate}} <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="number" min="0" step="any" ng-model="row.evaluationAmount" class="form-control" />
+							<span class="input-group-addon" ng-show="loanTemplate.currency.code">{{loanTemplate.currency.code}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.onboarding.issuedon' | translate}} <span class="required">*</span></label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="row.issuedOnDate" is-open="ui.open['colIssued' + $index]" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.onboarding.expiredon' | translate}}</label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="row.expiredOnDate" is-open="ui.open['colExpired' + $index]"
+							   min="row.issuedOnDate" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.description' | translate}}</label>
+						<input type="text" ng-model="row.description" maxlength="500" class="form-control" />
+					</div>
+				</div>
+				<div class="ob-row-footer">
+					<span></span>
+					<button type="button" class="btn btn-link btn-xs text-danger" ng-click="removeCollateral($index)">
+						<i class="fa fa-trash"></i> {{'label.button.remove' | translate}}
+					</button>
+				</div>
+			</div>
+			<p ng-show="ob.collaterals.length > 1" class="text-right">
+				<span class="text-muted">{{'label.input.onboarding.bookingamount' | translate}}:</span> <strong>{{collateralTotal('bookingAmount') | number:2}}</strong>
+				&nbsp;·&nbsp;
+				<span class="text-muted">{{'label.input.onboarding.evaluationamount' | translate}}:</span> <strong>{{collateralTotal('evaluationAmount') | number:2}}</strong>
+			</p>
+			<div class="ca-add-row">
+				<button type="button" class="btn btn-default btn-sm" ng-click="addCollateral()" ng-disabled="opt.collateralTypes.length == 0">
+					<i class="fa fa-plus"></i> {{'label.button.onboarding.addcollateral' | translate}}
+				</button>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Guarantors & co-borrowers ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('parties')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-shield"></i> {{'label.heading.onboarding.guarantors' | translate}}
+			</div>
+			<p class="text-muted" ng-show="ob.guarantors.length == 0">{{'label.onboarding.guarantors.none' | translate}}</p>
+			<div class="ob-row-card" ng-repeat="row in ob.guarantors">
+				<div class="ob-row-footer" style="margin-top:0;">
+					<div class="btn-group btn-group-xs">
+						<button type="button" class="btn" ng-class="row.mode == 'existing' ? 'btn-primary' : 'btn-default'" ng-click="row.mode = 'existing'">
+							<i class="fa fa-search"></i> {{'label.input.onboarding.existingcustomer' | translate}}
+						</button>
+						<button type="button" class="btn" ng-class="row.mode == 'new' ? 'btn-primary' : 'btn-default'" ng-click="row.mode = 'new'">
+							<i class="fa fa-user-plus"></i> {{'label.input.onboarding.newcustomer' | translate}}
+						</button>
+					</div>
+					<button type="button" class="btn btn-link btn-xs text-danger" ng-click="removeParty('guarantors', $index)">
+						<i class="fa fa-trash"></i> {{'label.button.remove' | translate}}
+					</button>
+				</div>
+				<div ng-if="row.mode == 'existing'" class="ca-field-row">
+					<div class="ca-field-half">
+						<label class="control-label">{{'label.input.onboarding.searchcustomer' | translate}} <span class="required">*</span></label>
+						<input type="text" ng-model="row.client" class="form-control" autocomplete="off"
+							   typeahead-editable="false" typeahead-wait-ms="300" typeahead-min-length="2"
+							   uib-typeahead="c as (c.displayName + ' (' + (c.accountNo || c.id) + ')') for c in searchClients($viewValue)"
+							   placeholder="{{'label.input.onboarding.searchcustomer' | translate}}" />
+					</div>
+					<div class="ca-field-half" ng-if="row.client">
+						<label class="control-label">&nbsp;</label>
+						<div class="form-control-static">
+							<strong>{{row.client.displayName}}</strong> · {{row.client.accountNo}}
+							<span ng-show="row.client.mobileNo"> · <i class="fa fa-phone"></i> {{row.client.mobileNo}}</span>
+							<span ng-show="row.client.officeName" class="text-muted"> · {{row.client.officeName}}</span>
+						</div>
+					</div>
+				</div>
+				<div ng-if="row.mode == 'new'">
+					<div class="ca-field-row">
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.firstname' | translate}} <span class="required">*</span></label>
+							<input type="text" ng-model="row.firstname" class="form-control" />
+						</div>
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.lastname' | translate}} <span class="required">*</span></label>
+							<input type="text" ng-model="row.lastname" class="form-control" />
+						</div>
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.gender' | translate}}</label>
+							<select ng-model="row.genderId" class="form-control" ng-options="g.id as g.name for g in clientTemplate.genderOptions">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.dateofbirth' | translate}}</label>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="row.dateOfBirth" is-open="ui.open['guarantorsdob' + $index]"
+								   max="today" class="form-control" />
+						</div>
+					</div>
+					<div class="ca-field-row">
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.mobilenumber' | translate}}</label>
+							<input type="text" ng-model="row.mobileNo" class="form-control" />
+						</div>
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.onboarding.idtype' | translate}}</label>
+							<select ng-model="row.idTypeId" class="form-control" ng-options="d.id as d.name for d in opt.documentTypes">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.onboarding.idnumber' | translate}}</label>
+							<input type="text" ng-model="row.idNumber" class="form-control" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ca-add-row">
+				<button type="button" class="btn btn-default btn-sm" ng-click="addParty('guarantors')">
+					<i class="fa fa-plus"></i> {{'label.button.onboarding.addguarantor' | translate}}
+				</button>
+			</div>
+
+			<div class="ca-section-heading">
+				<i class="fa fa-handshake-o"></i> {{'label.heading.onboarding.coborrowers' | translate}}
+			</div>
+			<p class="text-muted" ng-show="ob.coBorrowers.length == 0">{{'label.onboarding.coborrowers.none' | translate}}</p>
+			<div class="ob-row-card" ng-repeat="row in ob.coBorrowers">
+				<div class="ob-row-footer" style="margin-top:0;">
+					<div class="btn-group btn-group-xs">
+						<button type="button" class="btn" ng-class="row.mode == 'existing' ? 'btn-primary' : 'btn-default'" ng-click="row.mode = 'existing'">
+							<i class="fa fa-search"></i> {{'label.input.onboarding.existingcustomer' | translate}}
+						</button>
+						<button type="button" class="btn" ng-class="row.mode == 'new' ? 'btn-primary' : 'btn-default'" ng-click="row.mode = 'new'">
+							<i class="fa fa-user-plus"></i> {{'label.input.onboarding.newcustomer' | translate}}
+						</button>
+					</div>
+					<button type="button" class="btn btn-link btn-xs text-danger" ng-click="removeParty('coBorrowers', $index)">
+						<i class="fa fa-trash"></i> {{'label.button.remove' | translate}}
+					</button>
+				</div>
+				<div ng-if="row.mode == 'existing'" class="ca-field-row">
+					<div class="ca-field-half">
+						<label class="control-label">{{'label.input.onboarding.searchcustomer' | translate}} <span class="required">*</span></label>
+						<input type="text" ng-model="row.client" class="form-control" autocomplete="off"
+							   typeahead-editable="false" typeahead-wait-ms="300" typeahead-min-length="2"
+							   uib-typeahead="c as (c.displayName + ' (' + (c.accountNo || c.id) + ')') for c in searchClients($viewValue)"
+							   placeholder="{{'label.input.onboarding.searchcustomer' | translate}}" />
+					</div>
+					<div class="ca-field-half" ng-if="row.client">
+						<label class="control-label">&nbsp;</label>
+						<div class="form-control-static">
+							<strong>{{row.client.displayName}}</strong> · {{row.client.accountNo}}
+							<span ng-show="row.client.mobileNo"> · <i class="fa fa-phone"></i> {{row.client.mobileNo}}</span>
+							<span ng-show="row.client.officeName" class="text-muted"> · {{row.client.officeName}}</span>
+						</div>
+					</div>
+				</div>
+				<div ng-if="row.mode == 'new'">
+					<div class="ca-field-row">
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.firstname' | translate}} <span class="required">*</span></label>
+							<input type="text" ng-model="row.firstname" class="form-control" />
+						</div>
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.lastname' | translate}} <span class="required">*</span></label>
+							<input type="text" ng-model="row.lastname" class="form-control" />
+						</div>
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.gender' | translate}}</label>
+							<select ng-model="row.genderId" class="form-control" ng-options="g.id as g.name for g in clientTemplate.genderOptions">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="ca-field-quarter">
+							<label class="control-label">{{'label.input.dateofbirth' | translate}}</label>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="row.dateOfBirth" is-open="ui.open['coBorrowersdob' + $index]"
+								   max="today" class="form-control" />
+						</div>
+					</div>
+					<div class="ca-field-row">
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.mobilenumber' | translate}}</label>
+							<input type="text" ng-model="row.mobileNo" class="form-control" />
+						</div>
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.onboarding.idtype' | translate}}</label>
+							<select ng-model="row.idTypeId" class="form-control" ng-options="d.id as d.name for d in opt.documentTypes">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.onboarding.idnumber' | translate}}</label>
+							<input type="text" ng-model="row.idNumber" class="form-control" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ca-add-row">
+				<button type="button" class="btn btn-default btn-sm" ng-click="addParty('coBorrowers')">
+					<i class="fa fa-plus"></i> {{'label.button.onboarding.addcoborrower' | translate}}
+				</button>
+			</div>
+			<p class="text-muted small"><i class="fa fa-info-circle"></i> {{'label.onboarding.parties.hint' | translate}}</p>
+		</div>
+
+		<!-- ═══════════════ Step: Loan terms ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('loan')">
+			<div class="ca-section-heading" style="margin-top:0;"><i class="fa fa-cube"></i> {{'label.heading.product' | translate}}</div>
+			<div class="ca-field-row">
+				<div class="ca-field-half">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.product' | translate}} <span class="required">*</span></label>
+						<select ng-model="ob.loan.productId" class="form-control" ng-change="loanProductChange(ob.loan.productId)"
+								ng-options="p.id as p.name for p in opt.loanProducts">
+							<option value="">--{{'label.menu.selectloanproduct' | translate}}--</option>
+						</select>
+					</div>
+				</div>
+				<div class="ca-field-half" ng-if="loanTemplate">
+					<div class="form-group">
+						<label class="control-label">{{'label.input.principal' | translate}} <span class="required">*</span></label>
+						<input type="number" step="any" ng-model="ob.loan.principal" class="form-control" />
+						<small class="text-muted">
+							<span ng-show="productLimits().min != null">{{'label.onboarding.min' | translate}} {{productLimits().min | number}}</span>
+							<span ng-show="productLimits().max != null">· {{'label.onboarding.max' | translate}} {{productLimits().max | number}}</span>
+						</small>
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="loanTemplate">
+				<div class="alert alert-warning" ng-show="loanTemplate.multiDisburseLoan">
+					<i class="fa fa-exclamation-triangle"></i> {{'validation.msg.onboarding.product.multidisburse.unsupported' | translate}}
+				</div>
+
+				<div class="ca-section-heading"><i class="fa fa-calendar"></i> {{'label.heading.terms' | translate}}</div>
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.loanterm' | translate}} <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="number" ng-model="ob.loan.loanTermFrequency" class="form-control" ng-change="applyInterestTypeRules()" />
+							<span class="input-group-btn" style="width:45%;">
+								<select ng-model="ob.loan.loanTermFrequencyType" class="form-control"
+										ng-options="t.id as t.value for t in loanTemplate.termFrequencyTypeOptions"></select>
+							</span>
+						</div>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.numofrepayments' | translate}} <span class="required">*</span></label>
+						<input type="number" ng-model="ob.loan.numberOfRepayments" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.repaidevery' | translate}} <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="number" ng-model="ob.loan.repaymentEvery" class="form-control" ng-disabled="!canOverride('repaymentEvery')" />
+							<span class="input-group-btn" style="width:45%;">
+								<select ng-model="ob.loan.repaymentFrequencyType" class="form-control" ng-disabled="!canOverride('repaymentEvery')"
+										ng-options="t.id as t.value for t in loanTemplate.repaymentFrequencyTypeOptions"></select>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.submittedon' | translate}} <span class="required">*</span></label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.loan.submittedOnDate" is-open="ui.subOpen" max="today" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.disbursementon' | translate}} <span class="required">*</span></label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.loan.expectedDisbursementDate" is-open="ui.edOpen" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.firstrepaymenton' | translate}}</label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.loan.repaymentsStartingFromDate" is-open="ui.frOpen" class="form-control" />
+					</div>
+				</div>
+
+				<div class="ca-section-heading"><i class="fa fa-percent"></i> {{'label.heading.interest' | translate}}</div>
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.nominalinterestrate' | translate}} <span class="required">*</span></label>
+						<div class="input-group">
+							<input type="number" step="any" ng-model="ob.loan.interestRatePerPeriod" class="form-control" />
+							<span class="input-group-addon">{{loanTemplate.interestRateFrequencyType.value}}</span>
+						</div>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.interestmethod' | translate}}</label>
+						<select ng-model="ob.loan.interestType" class="form-control" ng-disabled="!canOverride('interestType')"
+								ng-change="applyInterestTypeRules()"
+								ng-options="t.id as t.value for t in loanTemplate.interestTypeOptions"></select>
+						<input type="number" ng-show="ob.loan.interestType == 4" ng-model="ob.loan.balloonPayment" class="form-control"
+							   placeholder="{{'label.input.onboarding.balloonpayment' | translate}}" style="margin-top:6px;" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.amortization' | translate}}</label>
+						<select ng-model="ob.loan.amortizationType" class="form-control" ng-disabled="!canOverride('amortizationType')"
+								ng-options="t.id as t.value for t in loanTemplate.amortizationTypeOptions"></select>
+					</div>
+				</div>
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.interestcalculationperiod' | translate}}</label>
+						<select ng-model="ob.loan.interestCalculationPeriodType" class="form-control" ng-disabled="!canOverride('interestCalculationPeriodType')"
+								ng-options="t.id as t.value for t in loanTemplate.interestCalculationPeriodTypeOptions"></select>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.repaymentstrategy' | translate}}</label>
+						<select ng-model="ob.loan.transactionProcessingStrategyId" class="form-control" ng-disabled="!canOverride('transactionProcessingStrategyId')"
+								ng-options="t.id as t.name for t in loanTemplate.transactionProcessingStrategyOptions"></select>
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.graceonprincipalpayment' | translate}}</label>
+						<input type="number" ng-model="ob.loan.graceOnPrincipalPayment" class="form-control" ng-disabled="!canOverride('graceOnPrincipalAndInterestPayment')" />
+					</div>
+				</div>
+
+				<div class="ca-section-heading"><i class="fa fa-tags"></i> {{'label.heading.charges' | translate}}</div>
+				<table class="table ob-table" ng-show="ob.loan.charges.length > 0">
+					<thead>
+					<tr>
+						<th>{{'label.heading.name' | translate}}</th>
+						<th>{{'label.heading.collectedon' | translate}}</th>
+						<th style="width:140px;">{{'label.heading.amount' | translate}}</th>
+						<th style="width:190px;">{{'label.heading.duedate' | translate}}</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="charge in ob.loan.charges">
+						<td>{{charge.name}}</td>
+						<td>{{charge.chargeTimeType.value}}</td>
+						<td><input type="number" step="any" ng-model="charge.amount" class="form-control input-sm" /></td>
+						<td>
+							<input ng-if="needsDueDate(charge)" type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate"
+								   is-open="charge.$open" class="form-control input-sm" />
+						</td>
+						<td><button type="button" class="btn btn-link btn-xs text-danger" ng-click="removeCharge($index)"><i class="fa fa-trash"></i></button></td>
+					</tr>
+					</tbody>
+				</table>
+				<div class="ca-field-row">
+					<div class="ca-field-half">
+						<div class="input-group">
+							<select ng-model="ui.newChargeId" class="form-control" ng-options="c.id as c.name for c in opt.chargeOptions">
+								<option value="">--{{'label.menu.selectcharge' | translate}}--</option>
+							</select>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="addCharge(ui.newChargeId)" ng-disabled="!ui.newChargeId">
+									<i class="fa fa-plus"></i> {{'label.button.add' | translate}}
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Schedule preview ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('schedule')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-table"></i> {{'label.heading.onboarding.step.schedule' | translate}}
+				<button type="button" class="btn btn-default btn-xs" style="margin-left:auto;" ng-click="schedule.payloadHash = null; previewSchedule()">
+					<i class="fa fa-refresh"></i> {{'label.button.onboarding.recalculate' | translate}}
+				</button>
+			</div>
+			<div ng-show="schedule.loading" class="text-center text-muted"><i class="fa fa-spinner fa-spin"></i></div>
+			<div class="alert alert-danger" ng-show="schedule.error">
+				<div ng-repeat="m in schedule.error"><span ng-if="m.field" class="label label-danger">{{m.field}}</span> {{m.text}}</div>
+			</div>
+			<div ng-show="schedule.data && !schedule.loading">
+				<div class="ob-kpis">
+					<div><span>{{'label.heading.principal' | translate}}</span><strong>{{schedule.data.totalPrincipalExpected | number:2}}</strong></div>
+					<div><span>{{'label.heading.interest' | translate}}</span><strong>{{schedule.data.totalInterestCharged | number:2}}</strong></div>
+					<div><span>{{'label.heading.fees' | translate}}</span><strong>{{schedule.data.totalFeeChargesCharged | number:2}}</strong></div>
+					<div><span>{{'label.heading.totalrepayment' | translate}}</span><strong>{{schedule.data.totalRepaymentExpected | number:2}}</strong></div>
+				</div>
+				<div class="ob-table-wrap">
+					<table class="table table-striped ob-table">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>{{'label.heading.date' | translate}}</th>
+							<th class="text-right">{{'label.heading.principaldue' | translate}}</th>
+							<th class="text-right">{{'label.heading.balanceofloan' | translate}}</th>
+							<th class="text-right">{{'label.heading.interest' | translate}}</th>
+							<th class="text-right">{{'label.heading.fees' | translate}}</th>
+							<th class="text-right">{{'label.heading.due' | translate}}</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="period in schedule.data.periods">
+							<td>{{period.period}}</td>
+							<td>{{period.dueDate | DateFormat}}</td>
+							<td class="text-right">{{period.principalDue | number:2}}</td>
+							<td class="text-right">{{period.principalLoanBalanceOutstanding | number:2}}</td>
+							<td class="text-right">{{period.interestDue | number:2}}</td>
+							<td class="text-right">{{period.feeChargesDue | number:2}}</td>
+							<td class="text-right"><strong>{{period.totalDueForPeriod | number:2}}</strong></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<p class="text-muted small"><i class="fa fa-info-circle"></i> {{'label.onboarding.schedule.preview.note' | translate}}</p>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Approve & disburse ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('approval')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-check-square-o"></i> {{'label.heading.onboarding.step.approval' | translate}}
+			</div>
+			<p class="text-muted">{{'label.onboarding.approval.optional' | translate}}</p>
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="ob.approval.approve" /> {{'label.input.onboarding.approvenow' | translate}}</label>
+			</div>
+			<div ng-show="ob.approval.approve" class="ob-indent">
+				<div class="ca-field-row">
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.approvedondate' | translate}} <span class="required">*</span></label>
+						<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.approval.approvedOnDate" is-open="ui.apOpen" max="today" class="form-control" />
+					</div>
+					<div class="ca-field-third">
+						<label class="control-label">{{'label.input.approvedamount' | translate}} <span class="required">*</span></label>
+						<input type="number" step="any" ng-model="ob.approval.approvedLoanAmount" class="form-control" />
+					</div>
+				</div>
+
+				<div class="checkbox" ng-show="canDisburse()">
+					<label><input type="checkbox" ng-model="ob.approval.disburse" /> {{'label.input.onboarding.disbursenow' | translate}}</label>
+				</div>
+				<div ng-show="ob.approval.disburse" class="ob-indent">
+					<div class="ca-field-row">
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.disbursedondate' | translate}} <span class="required">*</span></label>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="ob.approval.actualDisbursementDate" is-open="ui.adOpen" max="today" class="form-control" />
+						</div>
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.transactionamount' | translate}}</label>
+							<input type="number" step="any" ng-model="ob.approval.transactionAmount" class="form-control"
+								   placeholder="{{ob.approval.approvedLoanAmount | number:2}}" />
+						</div>
+						<div class="ca-field-third">
+							<label class="control-label">{{'label.input.paymenttype' | translate}}</label>
+							<select ng-model="ob.approval.paymentTypeId" class="form-control" ng-options="p.id as p.name for p in opt.paymentTypes">
+								<option value="">{{cashPaymentType() ? cashPaymentType().name + ' ' + ('label.onboarding.paymenttype.default' | translate) : '--' + ('label.menu.selectpaymenttype' | translate) + '--'}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">{{'label.input.note' | translate}}</label>
+					<textarea ng-model="ob.approval.note" rows="2" class="form-control"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Step: Review ═══════════════ -->
+		<div class="ca-card" ng-show="isStep('review')">
+			<div class="ca-section-heading" style="margin-top:0;">
+				<i class="fa fa-flag-checkered"></i> {{'label.heading.onboarding.step.review' | translate}}
+			</div>
+			<p class="text-muted">{{'label.onboarding.review.atomic' | translate}}</p>
+
+			<div class="ob-review">
+				<section ng-if="mode == 'existing'">
+					<header>{{'label.heading.onboarding.step.customer' | translate}} <a ng-click="goTo('customer')">{{'label.button.edit' | translate}}</a></header>
+					<dl>
+						<dt>{{'label.input.name' | translate}}</dt><dd>{{customer.data.displayName}}</dd>
+						<dt>{{'label.heading.accnum' | translate}}</dt><dd>{{customer.data.accountNo}}</dd>
+						<dt>{{'label.input.office' | translate}}</dt><dd>{{customer.data.officeName}}</dd>
+					</dl>
+				</section>
+				<section ng-if="mode != 'existing'">
+					<header>{{'label.heading.onboarding.step.client' | translate}} <a ng-click="goTo('client')">{{'label.button.edit' | translate}}</a></header>
+					<dl>
+						<dt>{{'label.input.name' | translate}}</dt>
+						<dd>{{ob.client.legalFormId == 1 ? (ob.client.firstname + ' ' + (ob.client.middlename || '') + ' ' + ob.client.lastname) : ob.client.fullname}}</dd>
+						<dt>{{'label.input.office' | translate}}</dt><dd>{{findById(opt.offices, ob.client.officeId).name}}</dd>
+						<dt>{{'label.input.activationdate' | translate}}</dt><dd>{{ob.client.activationDate | DateFormat}}</dd>
+						<dt>{{'label.input.village' | translate}}</dt><dd>{{findById(ob.living.villages, ob.living.villageId).nameEng || '—'}}</dd>
+					</dl>
+				</section>
+				<section>
+					<header>{{'label.heading.onboarding.step.identifiers' | translate}} <a ng-click="goTo('identifiers')">{{'label.button.edit' | translate}}</a></header>
+					<div ng-show="ob.identifiers.length == 0" class="text-muted">—</div>
+					<div ng-repeat="row in ob.identifiers">
+						{{findById(opt.documentTypes, row.documentTypeId).name}}: <strong>{{row.documentKey}}</strong>
+						<i class="fa fa-paperclip" ng-show="files[$index]"></i>
+					</div>
+				</section>
+				<section>
+					<header>{{'label.heading.onboarding.step.collateral' | translate}} <a ng-click="goTo('collateral')">{{'label.button.edit' | translate}}</a></header>
+					<div ng-show="ob.collaterals.length == 0" class="text-muted">—</div>
+					<div ng-repeat="row in ob.collaterals">
+						<strong>{{collateralType(row).name}}</strong> · {{'label.input.onboarding.bookingamount' | translate}} {{row.bookingAmount | number:2}}
+						· {{'label.input.onboarding.evaluationamount' | translate}} {{row.evaluationAmount | number:2}}
+						<span class="text-muted">· {{row.issuedOnDate | DateFormat}}<span ng-show="row.expiredOnDate"> → {{row.expiredOnDate | DateFormat}}</span></span>
+					</div>
+				</section>
+				<section>
+					<header>{{'label.heading.onboarding.step.parties' | translate}} <a ng-click="goTo('parties')">{{'label.button.edit' | translate}}</a></header>
+					<div ng-show="ob.guarantors.length == 0 && ob.coBorrowers.length == 0" class="text-muted">—</div>
+					<div ng-repeat="row in ob.guarantors">
+						<i class="fa fa-shield"></i> {{'label.heading.onboarding.guarantor' | translate}}: <strong>{{partyName(row)}}</strong>
+						<span class="label label-info" ng-show="row.mode == 'new'">{{'label.input.onboarding.newcustomer' | translate}}</span>
+					</div>
+					<div ng-repeat="row in ob.coBorrowers">
+						<i class="fa fa-handshake-o"></i> {{'label.heading.onboarding.coborrower' | translate}}: <strong>{{partyName(row)}}</strong>
+						<span class="label label-info" ng-show="row.mode == 'new'">{{'label.input.onboarding.newcustomer' | translate}}</span>
+					</div>
+				</section>
+				<section>
+					<header>{{'label.heading.onboarding.step.loan' | translate}} <a ng-click="goTo('loan')">{{'label.button.edit' | translate}}</a></header>
+					<dl>
+						<dt>{{'label.input.product' | translate}}</dt><dd>{{findById(opt.loanProducts, ob.loan.productId).name}}</dd>
+						<dt>{{'label.input.principal' | translate}}</dt><dd>{{ob.loan.principal | number:2}} {{loanTemplate.currency.code}}</dd>
+						<dt>{{'label.input.loanterm' | translate}}</dt><dd>{{ob.loan.numberOfRepayments}} × {{findById(loanTemplate.repaymentFrequencyTypeOptions, ob.loan.repaymentFrequencyType).value}}</dd>
+						<dt>{{'label.input.nominalinterestrate' | translate}}</dt><dd>{{ob.loan.interestRatePerPeriod}}% · {{findById(loanTemplate.interestTypeOptions, ob.loan.interestType).value}}</dd>
+						<dt>{{'label.heading.totalrepayment' | translate}}</dt><dd>{{schedule.data.totalRepaymentExpected | number:2}}</dd>
+					</dl>
+				</section>
+				<section ng-if="showApprovalStep()">
+					<header>{{'label.heading.onboarding.step.approval' | translate}} <a ng-click="goTo('approval')">{{'label.button.edit' | translate}}</a></header>
+					<div ng-show="!ob.approval.approve">{{'label.onboarding.review.submitonly' | translate}}</div>
+					<div ng-show="ob.approval.approve">{{'label.onboarding.review.approve' | translate}} {{ob.approval.approvedOnDate | DateFormat}} · {{ob.approval.approvedLoanAmount | number:2}}</div>
+					<div ng-show="ob.approval.disburse">{{'label.onboarding.review.disburse' | translate}} {{ob.approval.actualDisbursementDate | DateFormat}} · {{(ob.approval.transactionAmount || ob.approval.approvedLoanAmount) | number:2}}</div>
+				</section>
+			</div>
+		</div>
+
+		<!-- ═══════════════ Actions ═══════════════ -->
+		<div class="ca-form-actions-sticky ob-actions">
+			<a href="#/clients" class="btn btn-default btn-sm"><i class="fa fa-times"></i> {{'label.button.cancel' | translate}}</a>
+			<div class="ca-actions-right">
+				<button type="button" class="btn btn-default btn-sm" ng-click="back()" ng-show="stepIndex() > 0" ng-disabled="ui.submitting">
+					<i class="fa fa-arrow-left"></i> {{'label.button.back' | translate}}
+				</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-click="next()" ng-show="!isStep('review')">
+					{{'label.button.proceed' | translate}} <i class="fa fa-arrow-right"></i>
+				</button>
+				<button type="button" class="btn btn-success btn-sm" ng-click="submit()" ng-show="isStep('review')"
+						ng-disabled="ui.submitting || mcBlocked() || !can.create">
+					<span ng-show="!ui.submitting"><i class="fa fa-check"></i> {{'label.button.onboarding.submit' | translate}}</span>
+					<span ng-show="ui.submitting"><i class="fa fa-spinner fa-spin"></i> {{'label.button.processing' | translate}}</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

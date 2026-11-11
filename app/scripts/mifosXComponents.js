@@ -60,6 +60,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/EditClientController',
             'client/ViewClientController',
             'client/CreateClientController',
+            'onboarding/OnboardingWizardController',
             'client/TransactionClientController',
             'client/ClientActionsController',
             'client/ClientDocumentController',

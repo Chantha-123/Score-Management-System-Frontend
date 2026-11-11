@@ -116,13 +116,11 @@
             scope.addCollateral = function () {
                 scope.collateralAddedDataArray.push(scope.collateralsData.filter((collateral) => scope.collateralFormData.collateralId == collateral.collateralId)[0]);
                 scope.collateralsData = scope.collateralsData.filter((collateral) => scope.collateralFormData.collateralId != collateral.collateralId);
-                scope.collaterals.push({collateralId: scope.collateralFormData.collateralId, quantity: scope.collateralFormData.quantity, total: scope.collateralFormData.total, totalCollateral: scope.collateralFormData.totalCollateral});
+                scope.collaterals.push({collateralId: scope.collateralFormData.collateralId, quantity: scope.collateralFormData.quantity});
             };
 
             scope.updateValues = function() {
                 scope.collateralObject = scope.collateralsData.filter((collateral) => collateral.collateralId == scope.collateralFormData.collateralId)[0];
-                scope.collateralFormData.total = scope.collateralFormData.quantity * scope.collateralObject.basePrice;
-                scope.collateralFormData.totalCollateral = scope.collateralFormData.total * scope.collateralObject.pctToBase / 100.0;
             }
 
             scope.deleteCollateral = function (index) {

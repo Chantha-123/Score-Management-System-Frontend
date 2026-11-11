@@ -5,8 +5,12 @@
             scope.currencyOptions = [];
             scope.formData = {};
             scope.collateralId = routeParams.id;
+            // organisation currencies only (Organization > Currencies)
             resourceFactory.collateralTemplateResource.getAllCurrency(function (data) {
                 scope.currencyOptions = data;
+                if (data.length === 1) {
+                    scope.formData.currency = data[0].code;
+                }
             });
 
             scope.cancel = function () {

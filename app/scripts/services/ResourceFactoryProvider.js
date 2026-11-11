@@ -221,6 +221,15 @@
                     }),
                     loanChargesResource: defineResource(apiVer + "/loans/:loanId/charges/:chargeId", {loanId: '@loanId', chargeId: '@chargeId'}, {
                     }),
+                    loanPawnItemsResource: defineResource(apiVer + "/loans/:loanId/collaterals/:collateralId", {loanId: '@loanId', collateralId: '@collateralId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    loanCoBorrowersResource: defineResource(apiVer + "/loans/:loanId/coborrowers/:coBorrowerId", {loanId: '@loanId', coBorrowerId: '@coBorrowerId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    clientCoBorrowedLoansResource: defineResource(apiVer + "/clients/:clientId/coborrowedloans", {clientId: '@clientId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
                     loanCollateralTemplateResource: defineResource(apiVer + "/loans/:loanId/collaterals/template", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}}
                     }),

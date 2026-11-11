@@ -10,6 +10,14 @@
             scope.openLoan = true;
             scope.openSaving = true;
             scope.openShares = true ;
+
+            // loans on which this client is named as co-borrower
+            scope.coBorrowedLoans = [];
+            if ($rootScope.hasPermission('READ_LOANCOBORROWER')) {
+                resourceFactory.clientCoBorrowedLoansResource.getAll({clientId: routeParams.id}, function (data) {
+                    scope.coBorrowedLoans = data;
+                });
+            }
             scope.openFixed = true;
             scope.openRecurring = true;
             scope.showFixed = false;

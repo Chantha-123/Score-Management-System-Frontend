@@ -11,8 +11,6 @@
 
             scope.updateValues = function () {
                 scope.formData.quantity = scope.formData.quantity * 1.0;
-                scope.formData.total = scope.formData.quantity * scope.formData.basePrice;
-                scope.formData.totalCollateral = scope.formData.total * scope.formData.pctToBase/100.00;
             }
 
             scope.collateralProductChange = function (collateralId) {
@@ -21,13 +19,9 @@
                     scope.collateralId = collateralId;
                     scope.formData.name = scope.collateralData.name;
                     scope.formData.type = scope.collateralData.quality;
-                    scope.formData.basePrice = scope.collateralData.basePrice;
-                    scope.formData.pctToBase = scope.collateralData.pctToBase;
                     scope.formData.unitType = scope.collateralData.unitType;
                     scope.formData.collateralId = collateralId;
                     scope.formData.quantity = 0.0;
-                    scope.formData.total = 0.0;
-                    scope.formData.totalCollateral = 0.0
                     scope.disabled = false;
                 });
 
